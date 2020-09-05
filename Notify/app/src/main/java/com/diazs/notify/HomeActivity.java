@@ -1,20 +1,24 @@
 package com.diazs.notify;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class HomeActivity extends AppCompatActivity {
+//    private TextView mTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        CardView buttonPosting = findViewById(R.id.button_posting);
+//        mTextView = findViewById(R.id.abaikanteksini);
+
+        //kalo user mau posting
+        Button buttonPosting = findViewById(R.id.button_posting);
         buttonPosting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -23,4 +27,9 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
+
+//    @Override
+//    public void OnButtonClicked(String text) {
+//        mTextView.setText(text);
+//    }
 }
