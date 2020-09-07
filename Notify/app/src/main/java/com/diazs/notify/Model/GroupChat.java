@@ -1,15 +1,17 @@
 package com.diazs.notify.Model;
 
+import android.net.Uri;
+
 import java.io.InputStream;
 
 public class GroupChat {
     private int idGroup;
     private String namaGroup;
-    private InputStream fotoGroup;
+    private Uri fotoGroup;
 
     public GroupChat(){}
 
-    public GroupChat(int idGroup, String namaGroup, InputStream fotoGroup) {
+    public GroupChat(int idGroup, String namaGroup, Uri fotoGroup) {
         this.idGroup = idGroup;
         this.namaGroup = namaGroup;
         this.fotoGroup = fotoGroup;
@@ -31,11 +33,11 @@ public class GroupChat {
         this.namaGroup = namaGroup;
     }
 
-    public InputStream getFotoGroup() {
+    public Uri getFotoGroup() {
         return fotoGroup;
     }
 
-    public void setFotoGroup(InputStream fotoGroup) {
+    public void setFotoGroup(Uri fotoGroup) {
         this.fotoGroup = fotoGroup;
     }
 }

@@ -1,5 +1,7 @@
 package com.diazs.notify.Model;
 
+import android.net.Uri;
+
 import java.io.InputStream;
 
 public class Mading {
@@ -7,14 +9,14 @@ public class Mading {
     private User poster;
     private String kategoriMading;
     private String judulMading;
-    private InputStream gambarMading;
+    private Uri gambarMading;
     private String deskripsiMading;
     private String contactPersonMading;
     private String tanggalUpload;
 
     public Mading(){}
 
-    public Mading(int idMading, User poster, String kategoriMading, String judulMading, InputStream gambarMading, String deskripsiMading, String contactPersonMading, String tanggalUpload) {
+    public Mading(int idMading, User poster, String kategoriMading, String judulMading, Uri gambarMading, String deskripsiMading, String contactPersonMading, String tanggalUpload) {
         this.idMading = idMading;
         this.poster = poster;
         this.kategoriMading = kategoriMading;
@@ -57,11 +59,11 @@ public class Mading {
         this.judulMading = judulMading;
     }
 
-    public InputStream getGambarMading() {
+    public Uri getGambarMading() {
         return gambarMading;
     }
 
-    public void setGambarMading(InputStream gambarMading) {
+    public void setGambarMading(Uri gambarMading) {
         this.gambarMading = gambarMading;
     }
 

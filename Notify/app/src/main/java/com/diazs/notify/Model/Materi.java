@@ -1,5 +1,7 @@
 package com.diazs.notify.Model;
 
+import android.net.Uri;
+
 import java.io.InputStream;
 
 public class Materi {
@@ -7,15 +9,15 @@ public class Materi {
     private String judulMateri;
     private String deskripsiMateri;
     private String kategoriMateri;
-    private InputStream videoMateri;
-    private InputStream pdfMateri;
-    private InputStream wordMateri;
-    private InputStream fotoMateri;
+    private Uri videoMateri;
+    private Uri pdfMateri;
+    private Uri wordMateri;
+    private Uri fotoMateri;
     private String authorMateri;
 
     public Materi() {}
 
-    public Materi(int idMateri, String judulMateri, String deskripsiMateri, String kategoriMateri, InputStream videoMateri, InputStream pdfMateri, InputStream wordMateri, InputStream fotoMateri, String authorMateri) {
+    public Materi(int idMateri, String judulMateri, String deskripsiMateri, String kategoriMateri, Uri videoMateri, Uri pdfMateri, Uri wordMateri, Uri fotoMateri, String authorMateri) {
         this.idMateri = idMateri;
         this.judulMateri = judulMateri;
         this.deskripsiMateri = deskripsiMateri;
@@ -59,35 +61,35 @@ public class Materi {
         this.kategoriMateri = kategoriMateri;
     }
 
-    public InputStream getVideoMateri() {
+    public Uri getVideoMateri() {
         return videoMateri;
     }
 
-    public void setVideoMateri(InputStream videoMateri) {
+    public void setVideoMateri(Uri videoMateri) {
         this.videoMateri = videoMateri;
     }
 
-    public InputStream getPdfMateri() {
+    public Uri getPdfMateri() {
         return pdfMateri;
     }
 
-    public void setPdfMateri(InputStream pdfMateri) {
+    public void setPdfMateri(Uri pdfMateri) {
         this.pdfMateri = pdfMateri;
     }
 
-    public InputStream getWordMateri() {
+    public Uri getWordMateri() {
         return wordMateri;
     }
 
-    public void setWordMateri(InputStream wordMateri) {
+    public void setWordMateri(Uri wordMateri) {
         this.wordMateri = wordMateri;
     }
 
-    public InputStream getFotoMateri() {
+    public Uri getFotoMateri() {
         return fotoMateri;
     }
 
-    public void setFotoMateri(InputStream fotoMateri) {
+    public void setFotoMateri(Uri fotoMateri) {
         this.fotoMateri = fotoMateri;
     }
 
