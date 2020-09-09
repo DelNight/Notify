@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">Notify</string>
+    <string name="menu_forum">Forum</string>
+    <string name="menu_vote">Vote</string>
+    <string name="menu_learn">E-Learn</string>
+    <string name="menu_calendar">Calendar</string>
+
+    <string-array name="listchat">
+        <item>Fajar Sidiq</item>
+        <item>Diazs Martiansyah</item>
+        <item>Puja Rochmansyah</item>
+        <item>Adji Nurdiman</item>
+    </string-array>
+
+    <string-array name="description">
+        <item>Lorem ipsum dolor sit amet</item>
+        <item>Lorem ipsum dolor sit amet</item>
+        <item>Lorem ipsum dolor sit amet</item>
+        <item>Lorem ipsum dolor sit amet</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
