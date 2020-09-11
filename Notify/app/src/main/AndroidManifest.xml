@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".InputEvent"></activity>
+        <activity android:name=".RoomChat"></activity>
+        <activity android:name=".InputEvent" />
         <activity android:name=".FormVoting" />
         <activity android:name=".ListChat" />
         <activity android:name=".MainActivity">
