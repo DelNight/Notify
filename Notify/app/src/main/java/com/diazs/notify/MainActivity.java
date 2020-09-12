@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
 
                 //setelah loading maka akan langsung berpindah ke home activity
-                Intent home = new Intent(MainActivity.this, SideMenuHome.class);
+                Intent home = new Intent(MainActivity.this, Forum.class);
                 startActivity(home);
                 finish();
 
