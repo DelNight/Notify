@@ -6,11 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".RoomChat">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/bar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -22,8 +17,9 @@
 
             <ImageView
                 android:id="@+id/profile_image"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="40dp"
                 android:src="@drawable/ic_baseline_account_circle_white"/>
 
             <TextView
@@ -31,26 +27,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
-                android:layout_marginLeft="25dp"
+                android:layout_marginLeft="15dp"
                 android:textColor="@color/color5"
                 android:textStyle="bold"
-                android:text="Fajar Sidiq"
-                android:layout_marginStart="25dp"/>
+                android:text="Fajar Sidiq"/>
         </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/room_chat"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/color1"
-        android:layout_below="@+id/bar_layout" />
+        android:layout_below="@+id/toolbar" />
 
     <RelativeLayout
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:padding="5dp"
-        android:background="@drawable/border"
+        android:background="@drawable/radius"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp">

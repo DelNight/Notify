@@ -57,19 +57,4 @@ public class InputEvent extends AppCompatActivity {
         };
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu2, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.buat){
-            Toast.makeText(getApplicationContext(), "You click add", Toast.LENGTH_SHORT).show();
-        }
-        return true;
-    }
 }

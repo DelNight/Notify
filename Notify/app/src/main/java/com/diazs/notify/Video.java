@@ -8,20 +8,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-public class ListChat extends AppCompatActivity {
+public class Video extends AppCompatActivity {
     RecyclerView recyclerView;
     String s1[], s2[];
     int images[] = {R.drawable.ic_baseline_account_circle_24, R.drawable.ic_baseline_account_circle_24, R.drawable.ic_baseline_account_circle_24, R.drawable.ic_baseline_account_circle_24};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_chat);
+        setContentView(R.layout.activity_video);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -31,24 +27,15 @@ public class ListChat extends AppCompatActivity {
         s1 = getResources().getStringArray(R.array.username);
         s2 = getResources().getStringArray(R.array.description);
 
-        ChatAdapter chatAdapter = new ChatAdapter(this, s1, s2, images);
-        recyclerView.setAdapter(chatAdapter);
+        KomentarAdapter komentarAdapter = new KomentarAdapter(this, s1, s2, images);
+        recyclerView.setAdapter(komentarAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.menu5, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -62,6 +49,8 @@ public class ListChat extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.option) {
             Toast.makeText(getApplicationContext(), "You click option", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.bookmark) {
+            Toast.makeText(getApplicationContext(), "You click bookmark", Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);

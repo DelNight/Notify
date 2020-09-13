@@ -27,23 +27,24 @@
                 android:layout_width="220dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/search"
+                android:padding="5dp"
                 android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/search"
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:text="Cari Obrolan..."
-                    android:textSize="12dp"
-                    android:textColor="@color/color6"/>
+                    android:hint="Cari Obrolan ..."
+                    android:textColorHint="@color/color6"
+                    android:background="@android:color/transparent"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_centerVertical="true" />
 
                 <ImageButton
                     android:id="@+id/search_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="90dp"
                     android:layout_toRightOf="@+id/search"
                     android:src="@drawable/ic_baseline_search_24"
                     android:background="@color/color5"/>

@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.kalender.R;
+import com.diazs.notify.R;
 
 public class CalendarFragment extends Fragment {
 
