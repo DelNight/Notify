@@ -4,8 +4,14 @@
 
     <application
         android:allowBackup="true"
+<<<<<<< HEAD
         android:icon="@mipmap/ic_launcher_round"
         android:roundIcon="@mipmap/ic_launcher_round"
+=======
+        android:icon="@mipmap/notify_round"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/notify_round"
+>>>>>>> 8cc8e4f2749aa887c9f0e9cc723286ae812c5592
         android:supportsRtl="true"
 <<<<<<< HEAD
         android:theme="@style/AppTheme" >
@@ -13,6 +19,7 @@
         <activity android:name=".MainActivity" >
 =======
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
         <activity android:name=".Video">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,12 +57,21 @@
         </activity>
         <activity android:name=".MainActivity">
 >>>>>>> 51d7e288c861c61afe56c9211996731c55433a35
+=======
+        <activity
+            android:name=".LearnActivity"
+            android:label="@string/title_activity_learn"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".ChatActivity">
+>>>>>>> 8cc8e4f2749aa887c9f0e9cc723286ae812c5592
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".NotificationActivity" />
     </application>
 
 </manifest>
