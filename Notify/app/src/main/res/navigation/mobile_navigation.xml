@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
+<<<<<<< HEAD
     app:startDestination="@+id/nav_home">
 
     <fragment
@@ -22,4 +23,31 @@
         android:name="com.diazs.notify.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+=======
+    app:startDestination="@+id/navigation_forum">
+
+    <fragment
+        android:id="@+id/navigation_forum"
+        android:name="com.diazs.notify.ui.forum.ForumFragment"
+        android:label="@string/menu_forum"
+        tools:layout="@layout/fragment_forum" />
+
+    <fragment
+        android:id="@+id/navigation_vote"
+        android:name="com.diazs.notify.ui.vote.VoteFragment"
+        android:label="@string/menu_vote"
+        tools:layout="@layout/fragment_vote" />
+
+    <fragment
+        android:id="@+id/navigation_learn"
+        android:name="com.diazs.notify.ui.learn.LearnFragment"
+        android:label="@string/menu_learn"
+        tools:layout="@layout/fragment_learn" />
+
+    <fragment
+        android:id="@+id/navigation_calendar"
+        android:name="com.diazs.notify.ui.calendar.CalendarFragment"
+        android:label="@string/menu_calendar"
+        tools:layout="@layout/fragment_calendar" />
+>>>>>>> 51d7e288c861c61afe56c9211996731c55433a35
 </navigation>
