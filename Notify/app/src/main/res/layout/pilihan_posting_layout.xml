@@ -7,13 +7,11 @@
     android:padding="16dp"
     android:orientation="vertical"
     android:background="#fff">
-    
     <View
         android:layout_width="50dp"
         android:layout_height="4dp"
         android:background="#b5b5b5"
         android:layout_marginBottom="16dp"/>
-    
     <Button
         android:id="@+id/btn_forum"
         android:layout_width="match_parent"
