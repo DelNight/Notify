@@ -2,13 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 8cc8e4f2749aa887c9f0e9cc723286ae812c5592
-    app:startDestination="@+id/nav_home">
-
+    android:id="@+id/mobile_navigation">
     <fragment
         android:id="@+id/nav_home"
         android:name="com.diazs.notify.ui.home.HomeFragment"
@@ -26,9 +20,6 @@
         android:name="com.diazs.notify.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
-<<<<<<< HEAD
-=======
-    app:startDestination="@+id/navigation_forum">
 
     <fragment
         android:id="@+id/navigation_forum"
@@ -53,7 +44,4 @@
         android:name="com.diazs.notify.ui.calendar.CalendarFragment"
         android:label="@string/menu_calendar"
         tools:layout="@layout/fragment_calendar" />
->>>>>>> 51d7e288c861c61afe56c9211996731c55433a35
-=======
->>>>>>> 8cc8e4f2749aa887c9f0e9cc723286ae812c5592
 </navigation>

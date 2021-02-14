@@ -1,24 +1,19 @@
 <resources>
-<<<<<<< HEAD
     <string name="app_name">Notify</string>
-<<<<<<< HEAD
     <string name="title_activity_home">home</string>
-=======
     <string name="title_activity_learn">LearnActivity</string>
->>>>>>> 8cc8e4f2749aa887c9f0e9cc723286ae812c5592
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-
+    <string name="minimum_password">Password too short, enter minimum 6 characters!</string>
+    <string name="auth_failed">Authentication failed, check your email and password or sign up</string>
+    <string name="change_email">Change Email</string>
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
-<<<<<<< HEAD
-=======
-    <string name="app_name"> </string>
     <string name="menu_forum">Forum</string>
     <string name="menu_vote">Vote</string>
     <string name="menu_learn">E-Learn</string>
@@ -129,8 +124,4 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
-    <string name="action_settings">Settings</string>
->>>>>>> 51d7e288c861c61afe56c9211996731c55433a35
-=======
->>>>>>> 8cc8e4f2749aa887c9f0e9cc723286ae812c5592
 </resources>
