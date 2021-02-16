@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Notify</string>
+    <string-array name="numbers">
+        <item>Pilih Kelas</item>
+        <item>X</item>
+        <item>XI</item>
+        <item>XII</item>
+    </string-array>
+
 </resources>
