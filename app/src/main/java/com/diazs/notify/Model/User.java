@@ -8,13 +8,13 @@ public class User {
     private String jenisKelamin;
     private String username;
     private String password;
-    private String emaii;
+    private String email;
     private String noHP;
 
     public User() {
     }
 
-    public User(String id, String nama, String role, String kelas, String jenisKelamin, String username, String password, String emaii, String noHP) {
+    public User(String id, String nama, String role, String kelas, String jenisKelamin, String username, String password, String email, String noHP) {
         this.id = id;
         this.nama = nama;
         this.role = role;
@@ -22,7 +22,7 @@ public class User {
         this.jenisKelamin = jenisKelamin;
         this.username = username;
         this.password = password;
-        this.emaii = emaii;
+        this.email = email;
         this.noHP = noHP;
     }
 
@@ -82,12 +82,12 @@ public class User {
         this.password = password;
     }
 
-    public String getEmaii() {
-        return emaii;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmaii(String emaii) {
-        this.emaii = emaii;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getNoHP() {

@@ -9,7 +9,7 @@ import android.os.Handler;
 import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
-    private int waktu_loading=4000;
+    private int waktu_loading=1500;
 
     //4000=4 detik
     @Override
@@ -20,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                //setelah loading maka akan langsung berpindah ke home activity
-                Intent home = new Intent(MainActivity.this, Forum.class);
+                //setelah loading maka akan langsung berpindah ke Login activity
+                Intent home = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(home);
                 finish();
 

@@ -12,7 +12,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-public class Bookmark extends AppCompatActivity{
+public class BookmarkActivity extends AppCompatActivity{
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

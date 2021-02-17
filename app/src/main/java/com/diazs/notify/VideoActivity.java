@@ -10,7 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class Video extends AppCompatActivity {
+public class VideoActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     String s1[], s2[];
     int images[] = {R.drawable.ic_baseline_account_circle_24, R.drawable.ic_baseline_account_circle_24, R.drawable.ic_baseline_account_circle_24, R.drawable.ic_baseline_account_circle_24};

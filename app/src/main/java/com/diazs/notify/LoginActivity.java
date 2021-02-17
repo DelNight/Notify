@@ -48,9 +48,11 @@ public class LoginActivity extends AppCompatActivity {
         //move to main activity if user already sign in
         if (firebaseAuth.getCurrentUser() != null) {
             // User is logged in
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            System.out.println("Email : " +firebaseAuth.getCurrentUser().getEmail());
+            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
             finish();
         }
+
 
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);

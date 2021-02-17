@@ -12,6 +12,11 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 
+import com.diazs.notify.Model.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -23,7 +28,10 @@ import butterknife.OnClick;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
-
+    @BindView(R.id.nama)
+    EditText nama;
+    @BindView(R.id.username)
+    EditText username;
     @BindView(R.id.email)
     EditText email;
     @BindView(R.id.password)
@@ -38,11 +46,14 @@ public class SignupActivity extends AppCompatActivity {
     Button resetButton;
 
     private FirebaseAuth firebaseAuth;
+    DatabaseReference dbUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        dbUsers = FirebaseDatabase.getInstance().getReference("users");
+
         ButterKnife.bind(this);//using butterknife fot finding widgets
         //click R.layout.activity_signup press alt + enter to generate
 
@@ -73,8 +84,14 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void registerUser() {
+        String name = nama.getText().toString().trim();
+        String userName = username.getText().toString().trim();
         String userEmail = email.getText().toString().trim();
         String userPassword = password.getText().toString().trim();
+        String role = "siswa";
+        String jenkel = null;
+        String noHp = null;
+        String kelas = null;
 
         if (TextUtils.isEmpty(userEmail)) {
             showToast("Enter email address!");
@@ -103,7 +120,10 @@ public class SignupActivity extends AppCompatActivity {
                         if (!task.isSuccessful()) {
                             SignupActivity.this.showToast("Authentication failed. " + task.getException());
                         } else {
-                            SignupActivity.this.startActivity(new Intent(SignupActivity.this, MainActivity.class));
+                            String id = dbUsers.push().getKey();
+                            User user = new User(id, name, role, kelas, jenkel, userName, userPassword, userEmail, noHp);
+                            dbUsers.child(id).setValue(user);
+                            SignupActivity.this.startActivity(new Intent(SignupActivity.this, LoginActivity.class));
                             SignupActivity.this.finish();
                         }
                     }

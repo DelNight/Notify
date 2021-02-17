@@ -10,7 +10,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-public class Forum extends AppCompatActivity {
+public class ForumActivity extends AppCompatActivity {
     private DrawerLayout myDrawer;
     private ActionBarDrawerToggle myToogle;
 

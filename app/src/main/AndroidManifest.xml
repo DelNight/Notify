@@ -14,6 +14,7 @@
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".ResetActivity" />
         <activity android:name=".SignupActivity" />
+        <activity android:name=".BookmarkActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,8 +22,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Forum" />
-        <activity android:name=".Video" />
+        <activity android:name=".ForumActivity" />
+        <activity android:name=".VideoActivity" />
         <activity android:name=".RoomChat" />
         <activity android:name=".InputEvent" />
         <activity android:name=".FormVoting" />
