@@ -88,7 +88,7 @@ public class SignupActivity extends AppCompatActivity {
         String userName = username.getText().toString().trim();
         String userEmail = email.getText().toString().trim();
         String userPassword = password.getText().toString().trim();
-        String role = "siswa";
+        int role = 3;
         String jenkel = null;
         String noHp = null;
         String kelas = null;
@@ -120,8 +120,8 @@ public class SignupActivity extends AppCompatActivity {
                         if (!task.isSuccessful()) {
                             SignupActivity.this.showToast("Authentication failed. " + task.getException());
                         } else {
-                            String id = dbUsers.push().getKey();
-                            User user = new User(id, name, role, kelas, jenkel, userName, userPassword, userEmail, noHp);
+                            String id = firebaseAuth.getUid();
+                            User user = new User(id, name, role, kelas, jenkel, userName, userEmail, noHp);
                             dbUsers.child(id).setValue(user);
                             SignupActivity.this.startActivity(new Intent(SignupActivity.this, LoginActivity.class));
                             SignupActivity.this.finish();

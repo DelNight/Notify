@@ -3,25 +3,23 @@ package com.diazs.notify.Model;
 public class User {
     private String id;
     private String nama;
-    private String role;
+    private int role;
     private String kelas;
     private String jenisKelamin;
     private String username;
-    private String password;
     private String email;
     private String noHP;
 
     public User() {
     }
 
-    public User(String id, String nama, String role, String kelas, String jenisKelamin, String username, String password, String email, String noHP) {
+    public User(String id, String nama, int role, String kelas, String jenisKelamin, String username, String email, String noHP) {
         this.id = id;
         this.nama = nama;
         this.role = role;
         this.kelas = kelas;
         this.jenisKelamin = jenisKelamin;
         this.username = username;
-        this.password = password;
         this.email = email;
         this.noHP = noHP;
     }
@@ -42,11 +40,11 @@ public class User {
         this.nama = nama;
     }
 
-    public String getRole() {
+    public int getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(int role) {
         this.role = role;
     }
 
@@ -72,14 +70,6 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getEmail() {
