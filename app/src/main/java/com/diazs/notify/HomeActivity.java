@@ -58,6 +58,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         ImageView kalender = (ImageView) findViewById(R.id.kalender);
         ImageView chat = (ImageView) findViewById(R.id.chat);
         ImageView posting = (ImageView) findViewById(R.id.posting);
+        ImageView profile = findViewById(R.id.profile_image);
 
         forum.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +104,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(HomeActivity.this,PilihPostinganActivity.class);
+                startActivity(i);
+            }
+        });
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(HomeActivity.this,ProfilActivity.class);
                 startActivity(i);
             }
         });
