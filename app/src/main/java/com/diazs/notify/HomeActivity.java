@@ -103,7 +103,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         posting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(HomeActivity.this,PilihPostinganActivity.class);
+                Intent i = new Intent(HomeActivity.this,AddClassActivity.class);
                 startActivity(i);
             }
         });
@@ -149,20 +149,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 //    public void OnButtonClicked(String text) {
 //        mTextView.setText(text);
 //    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
-            case R.id.sign_out:
-                firebaseAuth.signOut();
-                System.out.println("Auth User :" + firebaseAuth.getCurrentUser().getEmail());
-                    break;
-            case R.id.bookmark:
-                Intent i = new Intent(HomeActivity.this, BookmarkActivity.class);
-                startActivity(i);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -175,6 +161,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
+            case R.id.profile:
+                Intent prof = new Intent(HomeActivity.this,ProfilActivity.class);
+                startActivity(prof);
+
             case R.id.sign_out:
                 firebaseAuth.signOut();
                 Intent i = new Intent(HomeActivity.this,LoginActivity.class);

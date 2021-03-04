@@ -19,6 +19,12 @@
     <string name="menu_learn">E-Learn</string>
     <string name="menu_calendar">Calendar</string>
 
+    <string-array name="kelas">
+        <item>XII RPL 1</item>
+        <item>XII RPL 2</item>
+        <item>XII RPL 3</item>
+    </string-array>
+
     <string-array name="username">
         <item>Fajar Sidiq</item>
         <item>Diazs Martiansyah</item>

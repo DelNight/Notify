@@ -1,133 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".SignupActivity">
+    tools:context=".MainActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:background="#7090B0"
+        android:orientation="vertical"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="@dimen/activity_horizontal_margin">
+        android:layout_marginTop="100dp">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="30dp"
-            android:src="@mipmap/ic_launcher_round" />
-
-        <com.google.android.material.textfield.TextInputLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:background="@drawable/border_radius"
+            android:elevation="2dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Buat akun"
+                android:gravity="center"
+                android:textSize="30dp"
+                android:textColor="#7090B0"
+                android:fontFamily="sans-serif-medium"
+                android:layout_marginBottom="20dp"/>
 
             <EditText
                 android:id="@+id/nama"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Full Name"
+                android:layout_height="50dp"
+                android:hint="Nama Lengkap"
+                android:paddingLeft="20dp"
+                android:layout_marginBottom="20dp"
                 android:inputType="text"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@android:color/white" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:background="@drawable/button_radius_login"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            <Spinner
+                android:id="@+id/kelas"
+                android:spinnerMode="dropdown"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="20dp"
+                android:entries="@array/kelas"
+                android:background="@drawable/button_radius_login"
+                />
+
+            <RadioGroup
+                android:id="@+id/jenkel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                >
+
+                    <RadioButton
+                        android:id="@+id/male"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Laki-Laki"
+                        android:layout_marginEnd="50dp"
+                        android:checked="true"
+                        />
+
+                    <RadioButton
+                        android:id="@+id/female"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Perempuan"/>
+
+            </RadioGroup>
 
             <EditText
                 android:id="@+id/username"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:hint="Username"
+                android:paddingLeft="20dp"
                 android:inputType="text"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@android:color/white" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                android:background="@drawable/button_radius_login"
+                android:layout_marginBottom="20dp"/>
 
             <EditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="email"
+                android:layout_height="50dp"
+                android:hint="Email"
+                android:paddingLeft="20dp"
                 android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@android:color/white" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                android:background="@drawable/button_radius_login"
+                android:layout_marginBottom="20dp"/>
 
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusableInTouchMode="true"
-                android:hint="password"
-                android:imeOptions="actionUnspecified"
+                android:layout_height="50dp"
                 android:inputType="textPassword"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@android:color/white" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:hint="Password"
+                android:paddingLeft="20dp"
+                android:background="@drawable/button_radius_login"/>
 
-        <Button
-            android:id="@+id/sign_up_button"
-            style="?android:textAppearanceSmall"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@color/colorAccent"
-            android:text="Sign up"
-            android:textColor="@android:color/black"
-            android:textStyle="bold" />
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/reset_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@null"
-            android:text="Forgot Password"
-            android:textAllCaps="false"
-            android:textColor="@color/colorAccent" />
-
-        <!--Link to sign in activity-->
-
-        <Button
-            android:id="@+id/sign_in_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@null"
-            android:text="Sign in"
-            android:textAllCaps="false"
-            android:textColor="#fff"
-            android:textSize="15sp" />
 
     </LinearLayout>
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="center|bottom"
-        android:layout_marginBottom="20dp"
-        android:visibility="gone" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center|bottom"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
 
+        <Button
+            android:id="@+id/sign_up_button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal|center"
+            android:text="Buat Akun"
+            android:layout_margin="20dp"
+            app:backgroundTint="#34495E"
+            android:elevation="20dp"
+            android:background="@drawable/button_radius"
+            android:textColor="#ffffffff"/>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_baseline_arrow_back_24"
+            android:layout_margin="20dp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

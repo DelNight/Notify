@@ -32,7 +32,7 @@ public class ProfilActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
 
-//    EditText etNis;
+    //    EditText etNis;
 //    EditText etNama;
 //    EditText etJenisKelamin;
 //    EditText etTanggalLahir;

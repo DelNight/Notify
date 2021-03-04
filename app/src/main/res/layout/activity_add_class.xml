@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".AddClassActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,8 +15,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Notify"
-            android:textSize="50dp"
+            android:text="Tambahkan Kelas"
+            android:textSize="40dp"
             android:textColor="#FFFFFFFF"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="150dp" />
@@ -32,44 +32,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp">
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/ic_baseline_account_circle_24" />
             <EditText
-                android:id="@+id/email"
+                android:id="@+id/kelas"
                 android:background="@drawable/button_radius_login"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:inputType="textEmailAddress"
-                android:layout_marginLeft="70dp"
                 android:paddingLeft="20dp"
-                android:hint="Email"/>
-        </RelativeLayout>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/ic_baseline_vpn_key_24" />
-            <EditText
-                android:inputType="textPassword"
-                android:id="@+id/password"
-                android:background="@drawable/button_radius_login"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginLeft="70dp"
-                android:paddingLeft="20dp"
-                android:hint="Password"/>
+                android:hint="Nama Kelas"/>
         </RelativeLayout>
 
     </RelativeLayout>
@@ -86,27 +55,17 @@
             android:layout_width="match_parent"
             android:layout_height="0dip"
             android:layout_weight="1"
-            android:gravity="center|bottom"
+            android:gravity="center"
             android:orientation="vertical" >
 
             <Button
-                android:id="@+id/login_button"
+                android:id="@+id/btn_tambah"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/radius_button"
                 android:layout_gravity="center_horizontal|center"
                 android:textColor="#ffffffff"
-                android:text="Masuk" />
-
-            <Button
-                android:id="@+id/btn_signup"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:background="@drawable/button_radius_login"
-                android:layout_height="wrap_content"
-                android:textColor="#7090B0"
-                android:layout_gravity="center_horizontal|center"
-                android:text="Buat akun" />
+                android:text="Tambah" />
 
         </LinearLayout>
 
