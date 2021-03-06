@@ -39,11 +39,11 @@
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
     </androidx.appcompat.widget.Toolbar>
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@id/toolbar_learn"
         android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    </ListView>
+    </androidx.recyclerview.widget.RecyclerView>
 </RelativeLayout>
