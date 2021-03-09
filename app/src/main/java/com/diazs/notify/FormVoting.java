@@ -11,9 +11,16 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.diazs.notify.Model.Voting;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 
@@ -21,6 +28,12 @@ public class FormVoting extends AppCompatActivity {
     EditText spinner;
     DatePickerDialog.OnDateSetListener setListener;
     private Toolbar toolbar;
+    EditText inpJudul, inpDeskripsi;
+    Button btnSubmit;
+    DatabaseReference dbVoting;
+    FirebaseAuth firebaseAuth;
+    String date;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,14 +59,45 @@ public class FormVoting extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
+
         setListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
                 month = month+1;
-                String date = day+"/"+month+"/"+year;
+                date = day+"/"+month+"/"+year;
                 spinner.setText(date);
             }
         };
+
+        inpJudul = findViewById(R.id.inp_judul);
+        inpDeskripsi = findViewById(R.id.inp_deskripsi);
+
+        btnSubmit = findViewById(R.id.btn_submit);
+
+        dbVoting = FirebaseDatabase.getInstance().getReference("voting");
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String judulPostingan = inpJudul.getText().toString();
+                String deskripsi =  inpDeskripsi.getText().toString();
+                Voting voting = new Voting();
+                voting.setJudulPosting(judulPostingan);
+                voting.setDeskripsiVoting(deskripsi);
+                voting.setKadaluwarsa(date);
+                String key = dbVoting.push().getKey();
+                voting.setIdVoting(key);
+                dbVoting.child(key).setValue(voting).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(FormVoting.this,"Voting Berhasil Dipost", Toast.LENGTH_LONG).show();
+                        inpJudul.setText("");
+                        inpDeskripsi.setText("");
+                        spinner.setText("");
+                    }
+                });
+            }
+        });
     }
 
 }

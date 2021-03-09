@@ -17,22 +17,25 @@
         <activity android:name=".SignupActivity" />
         <activity android:name=".BookmarkActivity" />
         <activity android:name=".MainActivity">
+        </activity>
+        <activity android:name=".ForumActivity" />
+        <activity android:name=".VideoActivity" />
+        <activity android:name=".RoomChat" />
+        <activity android:name=".InputEvent" />
+        <activity android:name=".FormVoting">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ForumActivity" />
-        <activity android:name=".VideoActivity" />
-        <activity android:name=".RoomChat" />
-        <activity android:name=".InputEvent" />
-        <activity android:name=".FormVoting" />
         <activity android:name=".ListChat" />
         <activity
             android:name=".LearnActivity"
             android:label="@string/title_activity_learn"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
         <activity android:name=".ChatActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".NotificationActivity" />

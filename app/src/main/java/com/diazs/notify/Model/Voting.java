@@ -4,7 +4,9 @@ public class Voting {
     private String idVoting;
     private User votingMaker;
     private String deskripsiVoting;
+    private String judulPosting;
     private String jenisVoting;
+    private String kadaluwarsa;
 
     public Voting() {
     }
@@ -14,6 +16,22 @@ public class Voting {
         this.votingMaker = votingMaker;
         this.deskripsiVoting = deskripsiVoting;
         this.jenisVoting = jenisVoting;
+    }
+
+    public String getJudulPosting() {
+        return judulPosting;
+    }
+
+    public String getKadaluwarsa() {
+        return kadaluwarsa;
+    }
+
+    public void setKadaluwarsa(String kadaluwarsa) {
+        this.kadaluwarsa = kadaluwarsa;
+    }
+
+    public void setJudulPosting(String judulPosting) {
+        this.judulPosting = judulPosting;
     }
 
     public String getIdVoting() {
