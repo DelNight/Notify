@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color7"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:layout_width="360dp"
+        android:layout_height="240dp"
+        android:id="@+id/logo"
+        android:src="@drawable/logo2"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28dp"
+        android:layout_marginBottom="20dp"
+        android:elegantTextHeight="true"
+        android:textColor="@android:color/white"
+        android:text="By Delnight"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/logo"
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom"
+        />
+
+
+</RelativeLayout>
