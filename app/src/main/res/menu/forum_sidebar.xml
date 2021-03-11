@@ -4,20 +4,26 @@
 
     <item
         android:icon="@drawable/ic_baseline_home_24"
-        android:title="Beranda" />
+        android:title="Beranda"
+        android:id="@+id/beranda"/>
     <item
         android:icon="@drawable/profile"
-        android:title="Profile" />
+        android:title="Profile"
+        android:id="@+id/profile"/>
     <item
         android:icon="@drawable/ic_baseline_chat_24"
-        android:title="Obrolan" />
+        android:title="Obrolan"
+        android:id="@+id/chat"/>
     <item
         android:icon="@drawable/ic_baseline_bookmark_24"
-        android:title="Bookmark" />
+        android:title="Bookmark"
+        android:id="@+id/bookmark"/>
     <item
         android:icon="@drawable/ic_baseline_notifications_24"
-        android:title="Notifikasi" />
+        android:title="Notifikasi"
+        android:id="@+id/notifikasi"/>
     <item
         android:icon="@drawable/ic_baseline_exit_to_app_24"
-        android:title="Logout" />
+        android:title="Logout"
+        android:id="@+id/logout"/>
 </menu>
