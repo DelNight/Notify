@@ -1,11 +1,14 @@
 package com.diazs.notify.Model;
 
+import java.util.Date;
+
 public class Voting {
     private String idVoting;
-    private User votingMaker;
+        private User votingMaker;
     private String deskripsiVoting;
+    private String judulPosting;
     private String jenisVoting;
-
+    private String kadaluwarsa;
     public Voting() {
     }
 
@@ -22,6 +25,21 @@ public class Voting {
 
     public void setIdVoting(String idVoting) {
         this.idVoting = idVoting;
+    }
+    public String getJudulPosting() {
+        return judulPosting;
+    }
+
+    public String getKadaluwarsa() {
+        return kadaluwarsa;
+    }
+
+    public void setKadaluwarsa(String kadaluwarsa) {
+        this.kadaluwarsa = kadaluwarsa;
+    }
+
+    public void setJudulPosting(String judulPosting) {
+        this.judulPosting = judulPosting;
     }
 
     public User getVotingMaker() {
