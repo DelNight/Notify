@@ -6,6 +6,7 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +14,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -68,7 +71,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         ImageView kalender = (ImageView) findViewById(R.id.kalender);
         ImageView chat = (ImageView) findViewById(R.id.chat);
         ImageView posting = (ImageView) findViewById(R.id.posting);
-        ImageView profile = findViewById(R.id.profile_image);
+        RelativeLayout profile = findViewById(R.id.kotak1);
 
         forum.setOnClickListener(new View.OnClickListener() {
             @Override

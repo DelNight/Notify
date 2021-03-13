@@ -67,17 +67,15 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String useremail = email.getText().toString();
                 final String userpassword = password.getText().toString();
-
                 if (TextUtils.isEmpty(useremail)) {
                     Toast.makeText(LoginActivity.this.getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 if (TextUtils.isEmpty(userpassword)) {
                     Toast.makeText(LoginActivity.this.getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
+//                progressBar.setVisibility(View.VISIBLE);
                 //login user
                 firebaseAuth.signInWithEmailAndPassword(useremail,userpassword)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
