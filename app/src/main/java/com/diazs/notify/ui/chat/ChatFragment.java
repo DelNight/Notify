@@ -1,4 +1,4 @@
-package com.diazs.notify.ui.vote;
+package com.diazs.notify.ui.chat;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.diazs.notify.R;
 
-public class VoteFragment extends Fragment {
+public class ChatFragment extends Fragment {
 
-    private VoteViewModel voteViewModel;
+    private ChatViewModel chatViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        voteViewModel =
-                ViewModelProviders.of(this).get(VoteViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_vote, container, false);
+        chatViewModel =
+                ViewModelProviders.of(this).get(ChatViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_chat, container, false);
         final TextView textView = root.findViewById(R.id.text_vote);
-        voteViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        chatViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

@@ -1,4 +1,4 @@
-package com.diazs.notify.ui.learn;
+package com.diazs.notify.ui.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.diazs.notify.R;
 
-public class LearnFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
-    private LearnViewModel learnViewModel;
+    private HomeViewModel homeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        learnViewModel =
-                ViewModelProviders.of(this).get(LearnViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_learn, container, false);
-        final TextView textView = root.findViewById(R.id.text_learn);
-        learnViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        homeViewModel =
+                ViewModelProviders.of(this).get(HomeViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_home, container, false);
+        final TextView textView = root.findViewById(R.id.text_home);
+        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

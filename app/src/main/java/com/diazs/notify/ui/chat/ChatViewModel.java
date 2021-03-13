@@ -1,14 +1,14 @@
-package com.diazs.notify.ui.vote;
+package com.diazs.notify.ui.chat;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class VoteViewModel extends ViewModel {
+public class ChatViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public VoteViewModel() {
+    public ChatViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is dashboard fragment");
     }

@@ -3,23 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation">
+
     <fragment
-        android:id="@+id/nav_home"
+        android:id="@+id/navigation_home"
         android:name="com.diazs.notify.ui.home.HomeFragment"
-        android:label="@string/menu_home"
+        android:label="Home"
         tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.diazs.notify.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.diazs.notify.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
 
     <fragment
         android:id="@+id/navigation_forum"
@@ -28,16 +17,10 @@
         tools:layout="@layout/fragment_forum" />
 
     <fragment
-        android:id="@+id/navigation_vote"
-        android:name="com.diazs.notify.ui.vote.VoteFragment"
-        android:label="@string/menu_vote"
-        tools:layout="@layout/fragment_vote" />
-
-    <fragment
-        android:id="@+id/navigation_learn"
-        android:name="com.diazs.notify.ui.learn.LearnFragment"
-        android:label="@string/menu_learn"
-        tools:layout="@layout/fragment_learn" />
+        android:id="@+id/navigation_chat"
+        android:name="com.diazs.notify.ui.chat.ChatFragment"
+        android:label="Obrolan"
+        tools:layout="@layout/fragment_chat" />
 
     <fragment
         android:id="@+id/navigation_calendar"

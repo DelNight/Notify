@@ -8,10 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class NotifAdapter extends RecyclerView.Adapter<NotifAdapter.NotifViewHolder> {
     private ArrayList<NotifModel> list_notif;
@@ -24,7 +21,7 @@ public class NotifAdapter extends RecyclerView.Adapter<NotifAdapter.NotifViewHol
     @Override
     public NotifAdapter.NotifViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.list_notif, parent, false);
+        View view = layoutInflater.inflate(R.layout.card_notif, parent, false);
         return  new NotifViewHolder(view);
     }
 
