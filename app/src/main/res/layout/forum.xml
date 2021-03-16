@@ -43,80 +43,25 @@
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
 
-        <androidx.cardview.widget.CardView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerviewforum"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginTop="80dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:elevation="20dp"
-            app:cardCornerRadius="15dp"
-            android:padding="10dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="10dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp">
-                
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Judulnya"
-                    android:textSize="16dp"
-                    android:textStyle="bold"
-                    android:id="@+id/judul"/>
-
-                <TextView
-                    android:id="@+id/isi"
-                    android:layout_below="@id/judul"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:text="Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum "/>
-
-                <ImageView
-                    android:id="@+id/profile"
-                    android:layout_width="20dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/ic_baseline_person_24"
-                    android:layout_below="@id/isi"
-                    android:layout_marginRight="5dp"/>
-
-                <TextView
-                    android:id="@+id/nama"
-                    android:layout_width="210dp"
-                    android:layout_height="40dp"
-                    android:text="Adji nurdiman"
-                    android:layout_toRightOf="@id/profile"
-                    android:gravity="center_vertical"
-                    android:layout_below="@id/isi"/>
-
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="40dp"
-                    android:text="Selengkapnya"
-                    android:layout_toRightOf="@id/nama"
-                    android:layout_below="@id/isi"
-                    android:layout_alignParentRight="true"
-                    android:gravity="end|center_vertical"
-                    android:layout_marginRight="5dp"/>
-
-            </RelativeLayout>
-
-        </androidx.cardview.widget.CardView>
+            android:layout_marginHorizontal="20dp"
+            tools:listitem="@layout/list_forum"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:src="@drawable/ic_baseline_add_24"
-            android:contentDescription=""
+            android:src="@drawable/ic_baseline_add_white"
             android:layout_alignParentBottom="true"
-            android:background="#7090B0"
+            android:backgroundTint="#7090B0"
             android:layout_marginBottom="80dp"
-            android:layout_marginRight="20dp"/>
+            android:layout_marginRight="20dp"
+            app:maxImageSize="40dp"/>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/navigation"

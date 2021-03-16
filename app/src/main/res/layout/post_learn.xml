@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -25,16 +25,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:orientation="horizontal">
+            android:gravity="end">
 
-
-            <TextView
+            <Button
+                android:id="@+id/post"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Posting"
-                android:textSize="20dp"
-                android:layout_marginTop="5dp"
+                android:textSize="15dp"
                 android:textColor="#000000"/>
 
         </RelativeLayout>
@@ -42,10 +40,12 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/lProfil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="20dp">
+        android:padding="20dp"
+        android:layout_below="@+id/toolbar">
 
         <ImageView
             android:layout_width="60dp"
@@ -71,30 +71,30 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/lInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_below="@+id/lProfil">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:text="Judul:"
             android:textSize="20dp"
             android:textStyle="bold" />
 
         <EditText
+            android:id="@+id/judul"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"/>
+            android:layout_height="wrap_content"/>
 
         <EditText
+            android:id="@+id/deskripsi"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:inputType="textMultiLine"
-            android:lines="15"
+            android:background="@null"
             android:padding="8dp"
             android:hint="Apa yang ingin anda bagikan?"
             android:gravity="top|left"
@@ -102,71 +102,51 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:orientation="horizontal">
+        android:layout_marginHorizontal="20dp"
+        tools:listitem="@layout/row_form_learn"
+        android:layout_above="@+id/nav"
+        android:layout_below="@+id/lInput"/>
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/ic_baseline_image_24" />
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/ic_baseline_image_24" />
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/ic_baseline_image_24" />
-
-    </LinearLayout>
-
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/nav"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:background="@drawable/shadow"
-        android:orientation="horizontal"
-        android:padding="30dp">
+        android:padding="10dp"
+        android:layout_alignParentBottom="true">
 
         <Button
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/ic_baseline_image_24"/>
-
-
-        <Button
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/ic_baseline_videocam_24"
-            android:layout_marginLeft="50dp"/>
+            android:id="@+id/chsPicture"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/ic_baseline_image_24" />
 
         <Button
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/ic_baseline_description_24"
-            android:layout_marginLeft="50dp"/>
+            android:id="@+id/chsVideo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="30dp"
+            android:layout_toRightOf="@+id/chsPicture"
+            android:background="@drawable/ic_baseline_videocam_24" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="right">
+        <Button
+            android:id="@+id/chsFile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_toRightOf="@+id/chsVideo"
+            android:background="@drawable/ic_baseline_description_24" />
 
-            <Button
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/ic_baseline_more_vert_24"
-                android:layout_marginLeft="50dp"/>
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/ic_baseline_more_vert_24" />
+    </RelativeLayout>
 
-        </RelativeLayout>
-
-
-    </LinearLayout>
-
-
-
-
-
-</LinearLayout>
+</RelativeLayout>
