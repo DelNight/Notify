@@ -32,7 +32,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="18dp"
             android:layout_marginEnd="25dp"
-            android:src="@drawable/ic_undraw_creative_team_r90h" />
+            android:src="@drawable/ic_undraw_team_spirit_hrr4" />
 
     </RelativeLayout>
 
@@ -51,7 +51,7 @@
                 android:id="@+id/textregis"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Register"
+                android:text="Daftar"
                 android:gravity="center"
                 android:layout_marginTop="5dp"
                 android:textSize="30dp"
