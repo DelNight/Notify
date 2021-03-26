@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color7"
+    android:background="@color/color1"
     tools:context=".MainActivity">
 
     <ImageView
         android:layout_width="360dp"
         android:layout_height="240dp"
         android:id="@+id/logo"
-        android:src="@drawable/logo2"
+        android:src="@drawable/logo"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
 
@@ -21,7 +21,7 @@
         android:textSize="28dp"
         android:layout_marginBottom="20dp"
         android:elegantTextHeight="true"
-        android:textColor="@android:color/white"
+        android:textColor="@color/color2"
         android:text="By Delnight"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/logo"

@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:background="@drawable/ic_vectorloginregis">
+        android:background="@drawable/ic_vector_login">
 
 
         <TextView
@@ -17,8 +17,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="29dp"
             android:layout_marginTop="25dp"
-            android:text="Welcome To Notify"
-            android:textColor="#FFFFFFFF"
+            android:text="Welcome To Notify!"
+            android:textColor="@color/color3"
             android:textSize="30dp" />
 
         <ImageView
@@ -52,7 +52,7 @@
             android:layout_marginBottom="50dp"
             android:text="Login"
             android:textAlignment="center"
-            android:textColor="@color/color7"
+            android:textColor="@color/color2"
             android:textSize="36dp" />
 
         <EditText
@@ -108,6 +108,6 @@
         android:src="@drawable/ic_vector_downloginregis"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        app:tint="@color/color7" />
+        app:tint="@color/color1" />
 
 </RelativeLayout>
