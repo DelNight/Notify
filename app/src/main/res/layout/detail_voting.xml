@@ -7,12 +7,19 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:minHeight="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#D5E8F6">
+        android:background="#D5E8F6"
+        android:minHeight="?attr/actionBarSize">
 
     </androidx.appcompat.widget.Toolbar>
+
+    <Button
+        android:id="@+id/btn_addvote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+         android:text="ADD" />
 
     <TextView
         android:id="@+id/judul_voting"
@@ -74,67 +81,69 @@
         android:padding="10dp">
 
         <RelativeLayout
-            android:paddingTop="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp">
 
             <ImageView
-                android:layout_marginRight="10dp"
                 android:id="@+id/gambarcalon"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:layout_marginRight="10dp"
                 android:src="@drawable/ic_baseline_person_24" />
 
             <TextView
                 android:id="@+id/namacalon"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
                 android:layout_toRightOf="@id/gambarcalon"
                 android:text="Diazs Martianysah"
                 android:textSize="20dp"
-                android:textStyle="bold"
-                android:layout_marginBottom="10dp"/>
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/gambarvote"
-                android:src="@drawable/ic_baseline_how_to_vote_24"
-                android:layout_height="40dp"
                 android:layout_width="wrap_content"
-                android:layout_toRightOf="@id/gambarcalon"
+                android:layout_height="40dp"
                 android:layout_below="@id/namacalon"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:layout_toRightOf="@id/gambarcalon"
+                android:src="@drawable/ic_baseline_how_to_vote_24" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_toRightOf="@id/gambarvote"
                 android:layout_below="@id/namacalon"
-                android:text="67 Suara"
                 android:layout_marginLeft="10dp"
-                android:gravity="center_vertical"/>
+                android:layout_toRightOf="@id/gambarvote"
+                android:gravity="center_vertical"
+                android:text="67 Suara" />
 
             <Button
                 android:id="@+id/profile"
-                android:background="@drawable/shape_corner_white"
                 android:layout_width="140dp"
                 android:layout_height="40dp"
                 android:layout_below="@id/gambarvote"
-                android:text="Profile"
+                android:layout_alignParentLeft="true"
                 android:layout_marginRight="60dp"
-                android:layout_alignParentLeft="true"/>
+                android:background="@drawable/shape_corner_white"
+                android:text="Profile" />
 
             <Button
-                android:background="@drawable/shape_corner_tosca"
                 android:layout_width="140dp"
                 android:layout_height="40dp"
                 android:layout_below="@id/gambarvote"
+                android:layout_alignParentRight="true"
                 android:layout_toRightOf="@id/profile"
-                android:text="Pilih"
-                android:layout_alignParentRight="true"/>
+                android:background="@drawable/shape_corner_tosca"
+                android:text="Pilih" />
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
+
+
 
 </RelativeLayout>

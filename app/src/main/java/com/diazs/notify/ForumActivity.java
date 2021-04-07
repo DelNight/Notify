@@ -34,12 +34,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ForumActivity extends AppCompatActivity {
+public class ForumActivity extends AppCompatActivity implements ListVotingAdapter.OnItemClickCallback {
     private DrawerLayout myDrawer;
     private ActionBarDrawerToggle myToogle;
     private RecyclerView recyclerView;
-    private ListVotingAdapter listVotingAdapter;
-    private ArrayList<Voting> list = new ArrayList<>();
+    private ArrayList<Voting> list;
     MaterialCardView cardView;
     ProgressDialog progressDialog;
 
@@ -51,9 +50,10 @@ public class ForumActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.list_post);
         recyclerView.setHasFixedSize(true);
         cardView = findViewById(R.id.card_forum);
-        showRecyclerList();
         list = new ArrayList<>();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         getData();
+
     }
 
 
@@ -70,6 +70,7 @@ public class ForumActivity extends AppCompatActivity {
                     }
                     ListVotingAdapter listVotingAdapter = new ListVotingAdapter(list);
                     recyclerView.setAdapter(listVotingAdapter);
+                    listVotingAdapter.setOnItemClickCallback(data -> showSelectedItem(data));
                 }
                 progressDialog.dismiss();
             }
@@ -99,17 +100,9 @@ public class ForumActivity extends AppCompatActivity {
         }).start();
     }
 
-    private void showRecyclerList(){
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        ListVotingAdapter listVotingAdapter = new ListVotingAdapter(list);
-        recyclerView.setAdapter(listVotingAdapter);
-
-        listVotingAdapter.setOnItemClickCallback(data -> {
-            showSelectedItem(data);
-        });
-    }
     private void showSelectedItem(Voting voting){
         Intent intent = new Intent(ForumActivity.this,DetailVoting.class);
+        intent.putExtra(DetailVoting.EXTRA_ID,voting.getIdVoting());
         intent.putExtra(DetailVoting.EXTRA_JUDUL,voting.getJudulPosting());
         intent.putExtra(DetailVoting.EXTRA_DESC,voting.getDeskripsiVoting());
         intent.putExtra(DetailVoting.EXTRA_EXP,voting.getKadaluwarsa());
@@ -129,5 +122,14 @@ public class ForumActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    public void onItemClicked(Voting data) {
+        Intent intent = new Intent(ForumActivity.this,DetailVoting.class);
+        intent.putExtra(DetailVoting.EXTRA_JUDUL,data.getJudulPosting());
+        intent.putExtra(DetailVoting.EXTRA_DESC,data.getDeskripsiVoting());
+        intent.putExtra(DetailVoting.EXTRA_EXP,data.getKadaluwarsa());
+        startActivity(intent);
     }
 }
