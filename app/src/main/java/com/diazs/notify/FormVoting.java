@@ -31,15 +31,14 @@ public class FormVoting extends AppCompatActivity {
     EditText inpJudul, inpDeskripsi;
     Button btnSubmit;
     DatabaseReference dbVoting;
-    FirebaseAuth firebaseAuth;
     String date;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_voting);
 
         spinner = findViewById(R.id.spinner);
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -59,7 +58,6 @@ public class FormVoting extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
-
         setListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
@@ -68,7 +66,6 @@ public class FormVoting extends AppCompatActivity {
                 spinner.setText(date);
             }
         };
-
         inpJudul = findViewById(R.id.inp_judul);
         inpDeskripsi = findViewById(R.id.inp_deskripsi);
 
@@ -99,5 +96,4 @@ public class FormVoting extends AppCompatActivity {
             }
         });
     }
-
 }

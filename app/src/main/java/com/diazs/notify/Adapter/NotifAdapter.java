@@ -1,4 +1,4 @@
-package com.diazs.notify;
+package com.diazs.notify.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +8,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.w3c.dom.Text;
+import com.diazs.notify.NotifModel;
+import com.diazs.notify.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class NotifAdapter extends RecyclerView.Adapter<NotifAdapter.NotifViewHolder> {
     private ArrayList<NotifModel> list_notif;

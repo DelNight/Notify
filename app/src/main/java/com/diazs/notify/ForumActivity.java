@@ -1,34 +1,119 @@
 package com.diazs.notify;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.diazs.notify.Adapter.ListVotingAdapter;
+import com.diazs.notify.Model.Forum;
+import com.diazs.notify.Model.User;
+import com.diazs.notify.Model.Voting;
+import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class ForumActivity extends AppCompatActivity {
     private DrawerLayout myDrawer;
     private ActionBarDrawerToggle myToogle;
+    private RecyclerView recyclerView;
+    private ListVotingAdapter listVotingAdapter;
+    private ArrayList<Voting> list = new ArrayList<>();
+    MaterialCardView cardView;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.forum);
+        setContentView(R.layout.fragment_forum);
+        showProgressDialog();
+        recyclerView = findViewById(R.id.list_post);
+        recyclerView.setHasFixedSize(true);
+        cardView = findViewById(R.id.card_forum);
+        showRecyclerList();
+        list = new ArrayList<>();
+        getData();
+    }
 
-        myDrawer = (DrawerLayout) findViewById(R.id.myDrawer);
-        myToogle = new ActionBarDrawerToggle(this, myDrawer, R.string.nav_app_bar_open_drawer_description, R.string.navigation_drawer_close);
 
-        myDrawer.addDrawerListener(myToogle);
-        myToogle.syncState();
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        setTitle("");
-        toolbar.setLogo(R.drawable.ic_baseline_menu_24);
+    void getData(){
+        final DatabaseReference nm = FirebaseDatabase.getInstance().getReference("voting");
+        nm.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot npsnapshot : dataSnapshot.getChildren()){
+                        Voting voting = npsnapshot.getValue(Voting.class);
+                        list.add(voting);
+                    }
+                    ListVotingAdapter listVotingAdapter = new ListVotingAdapter(list);
+                    recyclerView.setAdapter(listVotingAdapter);
+                }
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                progressDialog.dismiss();
+            }
+        });
+    }
+
+    private void showProgressDialog(){
+        progressDialog = new ProgressDialog(ForumActivity.this);
+        progressDialog.setMessage("Loading..."); // Setting Message
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);// Progress Dialog Style Spinner
+        progressDialog.show(); // Display Progress Dialog
+        progressDialog.setCancelable(false);
+
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    Thread.sleep(1500);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    private void showRecyclerList(){
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        ListVotingAdapter listVotingAdapter = new ListVotingAdapter(list);
+        recyclerView.setAdapter(listVotingAdapter);
+
+        listVotingAdapter.setOnItemClickCallback(data -> {
+            showSelectedItem(data);
+        });
+    }
+    private void showSelectedItem(Voting voting){
+        Intent intent = new Intent(ForumActivity.this,DetailVoting.class);
+        intent.putExtra(DetailVoting.EXTRA_JUDUL,voting.getJudulPosting());
+        intent.putExtra(DetailVoting.EXTRA_DESC,voting.getDeskripsiVoting());
+        intent.putExtra(DetailVoting.EXTRA_EXP,voting.getKadaluwarsa());
+        startActivity(intent);
     }
 
     @Override

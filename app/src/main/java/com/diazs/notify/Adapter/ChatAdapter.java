@@ -1,4 +1,4 @@
-package com.diazs.notify;
+package com.diazs.notify.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.diazs.notify.R;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> {
 
@@ -50,9 +52,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.textView);
-            textView2 = itemView.findViewById(R.id.textView2);
-            imageView = itemView.findViewById(R.id.imageView);
+//            textView = itemView.findViewById(R.id.textView);
+//            textView2 = itemView.findViewById(R.id.textView2);
+//            imageView = itemView.findViewById(R.id.imageView);
         }
     }
 }

@@ -14,10 +14,19 @@ public class Materi {
     private Uri wordMateri;
     private Uri fotoMateri;
     private String authorMateri;
+    private boolean global;
+
+    public boolean getGlobal() {
+        return global;
+    }
+
+    public void setGlobal(boolean global) {
+        this.global = global;
+    }
 
     public Materi() {}
 
-    public Materi(int idMateri, String judulMateri, String deskripsiMateri, String kategoriMateri, Uri videoMateri, Uri pdfMateri, Uri wordMateri, Uri fotoMateri, String authorMateri) {
+    public Materi(int idMateri, String judulMateri, String deskripsiMateri, String kategoriMateri, Uri videoMateri, Uri pdfMateri, Uri wordMateri, Uri fotoMateri, String authorMateri, boolean global) {
         this.idMateri = idMateri;
         this.judulMateri = judulMateri;
         this.deskripsiMateri = deskripsiMateri;
@@ -27,6 +36,7 @@ public class Materi {
         this.wordMateri = wordMateri;
         this.fotoMateri = fotoMateri;
         this.authorMateri = authorMateri;
+        this.global = global;
     }
 
     public int getIdMateri() {
@@ -101,4 +111,3 @@ public class Materi {
         this.authorMateri = authorMateri;
     }
 }
-

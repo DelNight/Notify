@@ -13,7 +13,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.diazs.notify.Adapter.ListForumAdapter;
+import com.diazs.notify.Adapter.ListVotingAdapter;
+import com.diazs.notify.Model.Forum;
 import com.diazs.notify.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,6 +29,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class ProfilActivity extends AppCompatActivity {
     ImageButton btnEdit;
     ImageButton btnLogout;
@@ -31,19 +38,10 @@ public class ProfilActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
+    private RecyclerView recyclerView;
+    private ArrayList<Forum> list = new ArrayList<>();
 
-    //    EditText etNis;
-//    EditText etNama;
-//    EditText etJenisKelamin;
-//    EditText etTanggalLahir;
-//    EditText etAlamat;
-//    EditText etEmail;
-    TextView tvNama;
-    TextView tvKelas;
-    TextView tvUser;
-    TextView tvPw;
-    TextView tvJenkel;
-    TextView tvTname;
+    TextView tvNama, tvKelas,tvUser,tvPw,tvJenkel,tvTname;
 
     ImageButton btnBack;
 
@@ -61,6 +59,9 @@ public class ProfilActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+        recyclerView = findViewById(R.id.recycleview);
+        recyclerView.setHasFixedSize(true);
+        showRecyclerList();
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,16 +86,8 @@ public class ProfilActivity extends AppCompatActivity {
     }
 
     void findView(){
-//        tvKelas = findViewById(R.id.txt_kelas);
         btnEdit = findViewById(R.id.btn_edit);
         btnBack = findViewById(R.id.btn_back);
-//        etNis = findViewById(R.id.txt_nis);
-//        etNama = findViewById(R.id.txt_nama);
-//        etJenisKelamin = findViewById(R.id.txt_jenis_kelamin);
-//        etTanggalLahir = findViewById(R.id.txt_tanggal_lahir);
-//        etAlamat = findViewById(R.id.txt_alamat);
-//        etEmail = findViewById(R.id.txt_email);
-//        tvNama = findViewById(R.id.tv_nama);
         tvKelas = findViewById(R.id.class_user);
         tvTname = findViewById(R.id.namae);
         tvNama = findViewById(R.id.name);
@@ -138,17 +131,10 @@ public class ProfilActivity extends AppCompatActivity {
     }
 
     void setData(User user){
-//        etNis.setText(String.valueOf(user.getNis()));
-//        etNama.setText(user.getNama());
-//        etJenisKelamin.setText(user.getJenisKelamin());
-//        etTanggalLahir.setText(user.getTanggalLahir());
-//        etAlamat.setText(user.getAlamat());
-//        etEmail.setText(currentUser.getEmail());
         tvNama.setText(user.getNama().toUpperCase());
         tvTname.setText(user.getNama());
         tvUser.setText(user.getUsername());
-//        tvKelas.setText(user.getKelas());
-//        tvJenkel.setText(user.getJenisKelamin());
+
     }
 
     private void showProgressDialog(){
@@ -167,6 +153,11 @@ public class ProfilActivity extends AppCompatActivity {
                 }
             }
         }).start();
+    }
+    private void showRecyclerList(){
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        ListForumAdapter ListForumAdapter = new ListForumAdapter(list);
+        recyclerView.setAdapter(ListForumAdapter);
     }
 
     @Override

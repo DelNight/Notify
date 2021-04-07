@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +12,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -58,7 +61,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         ImageView kalender = (ImageView) findViewById(R.id.kalender);
         ImageView chat = (ImageView) findViewById(R.id.chat);
         ImageView posting = (ImageView) findViewById(R.id.posting);
-        ImageView profile = findViewById(R.id.profile_image);
+        RelativeLayout profile = findViewById(R.id.kotak1);
 
         forum.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,7 +106,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         posting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(HomeActivity.this,AddClassActivity.class);
+                Intent i = new Intent(HomeActivity.this,PilihPostinganActivity.class);
                 startActivity(i);
             }
         });
@@ -127,7 +130,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 //        mTextView = findViewById(R.id.abaikanteksini);
 
-            //kalo user mau posting
+        //kalo user mau posting
 //        Button buttonPosting = findViewById(R.id.button_posting);
 //        buttonPosting.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -145,10 +148,24 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 //        });
     }
 
-//    @Override
+    //    @Override
 //    public void OnButtonClicked(String text) {
 //        mTextView.setText(text);
 //    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.sign_out:
+                firebaseAuth.signOut();
+                System.out.println("Auth User :" + firebaseAuth.getCurrentUser().getEmail());
+                break;
+            case R.id.bookmark:
+                Intent i = new Intent(HomeActivity.this, BookmarkActivity.class);
+                startActivity(i);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -161,10 +178,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
-            case R.id.profile:
-                Intent prof = new Intent(HomeActivity.this,ProfilActivity.class);
-                startActivity(prof);
-
             case R.id.sign_out:
                 firebaseAuth.signOut();
                 Intent i = new Intent(HomeActivity.this,LoginActivity.class);

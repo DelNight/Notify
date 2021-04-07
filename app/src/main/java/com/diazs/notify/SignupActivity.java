@@ -136,6 +136,10 @@ public class SignupActivity extends AppCompatActivity {
 
         String noHp = "08**********";
         String idkelas = kelasSpinner.getSelectedItem().toString();
+        String status = "offline";
+        String bio = "Avaiable";
+        String image = "default";
+        String search = userName.toLowerCase();
 
         if(TextUtils.isEmpty(name)){
             showToast("Enter Your Name!");
@@ -189,7 +193,7 @@ public class SignupActivity extends AppCompatActivity {
                                         SignupActivity.this.showToast("Authentication failed. " + task.getException());
                                     } else {
                                         String id = firebaseAuth.getUid();
-                                        User user = new User(id, name, role, idkelas, jeniskel, userName, userEmail, noHp);
+                                        User user = new User(id, name, role, idkelas, jeniskel, userName, userEmail, noHp, image, bio, status, search);
                                         dbUsers.child(id).setValue(user);
                                         SignupActivity.this.startActivity(new Intent(SignupActivity.this, LoginActivity.class));
                                         SignupActivity.this.finish();

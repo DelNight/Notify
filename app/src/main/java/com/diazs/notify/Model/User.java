@@ -9,11 +9,12 @@ public class User {
     private String username;
     private String email;
     private String noHP;
+    private String imageURL;
+    private String bio;
+    private String status;
+    private String search;
 
-    public User() {
-    }
-
-    public User(String id, String nama, int role, String kelas, String jenisKelamin, String username, String email, String noHP) {
+    public User(String id, String nama, int role, String kelas, String jenisKelamin, String username, String email, String noHP, String imageURL, String bio, String status, String search) {
         this.id = id;
         this.nama = nama;
         this.role = role;
@@ -22,6 +23,13 @@ public class User {
         this.username = username;
         this.email = email;
         this.noHP = noHP;
+        this.imageURL = imageURL;
+        this.bio = bio;
+        this.status = status;
+        this.search = search;
+    }
+
+    public User() {
     }
 
     public String getId() {
@@ -86,5 +94,37 @@ public class User {
 
     public void setNoHP(String noHP) {
         this.noHP = noHP;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getSearch() {
+        return search;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
     }
 }

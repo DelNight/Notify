@@ -3,81 +3,60 @@ package com.diazs.notify.Model;
 import java.util.Date;
 
 public class ChatMessage {
-    private int idChat;
-    private String messageText;
-    private User messageUser;
-    private  RoomChat room;
-    private long messageTime;
-    private String chatImage;
-    private int Readstatus;
+    private String sender;
+    private String receiver;
+    private String message;
+    private boolean isSeen;
+    private String time;
 
-
-    public ChatMessage(){}
-
-    public ChatMessage(int idChat, String messageText, User messageUser, RoomChat room, long messageTime, String chatImage, int readstatus) {
-        this.idChat = idChat;
-        this.messageText = messageText;
-        this.messageUser = messageUser;
-        this.room = room;
-        this.chatImage = chatImage;
-        this.Readstatus = readstatus;
-
-        this.messageTime = new Date().getTime();
+    public ChatMessage(String sender, String receiver, String message, boolean isSeen, String time) {
+        this.sender = sender;
+        this.receiver = receiver;
+        this.message = message;
+        this.isSeen = isSeen;
+        this.time = time;
     }
 
-    public int getIdChat() {
-        return idChat;
+    public ChatMessage() {
     }
 
-    public void setIdChat(int idChat) {
-        this.idChat = idChat;
+    public String getSender() {
+        return sender;
     }
 
-    public String getMessageText() {
-        return messageText;
+    public void setSender(String sender) {
+        this.sender = sender;
     }
 
-    public void setMessageText(String messageText) {
-        this.messageText = messageText;
+    public String getReceiver() {
+        return receiver;
     }
 
-    public User getMessageUser() {
-        return messageUser;
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
     }
 
-    public void setMessageUser(User messageUser) {
-        this.messageUser = messageUser;
+    public String getMessage() {
+        return message;
     }
 
-    public RoomChat getRoom() {
-        return room;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public void setRoom(RoomChat room) {
-        this.room = room;
+    public boolean isSeen() {
+        return isSeen;
     }
 
-    public long getMessageTime() {
-        return messageTime;
+    public void setSeen(boolean seen) {
+        isSeen = seen;
     }
 
-    public void setMessageTime(long messageTime) {
-        this.messageTime = messageTime;
+    public String getTime() {
+        return time;
     }
 
-    public String getChatImage() {
-        return chatImage;
-    }
-
-    public void setChatImage(String chatImage) {
-        this.chatImage = chatImage;
-    }
-
-    public int getReadstatus() {
-        return Readstatus;
-    }
-
-    public void setReadstatus(int readstatus) {
-        Readstatus = readstatus;
+    public void setTime(String time) {
+        this.time = time;
     }
 }
