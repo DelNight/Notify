@@ -16,9 +16,10 @@ public class Learn {
 
     public Learn() {}
 
-    public Learn(String gambar, String namaFile){
+    public Learn(String gambar, String namaFile, int type){
         this.gambar = gambar;
         this.namaFile = namaFile;
+        this.type = type;
     }
 
     public String getGambar() {

@@ -64,15 +64,15 @@ public class ChatsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_chats, container, false);
-
-        MRR = Typeface.createFromAsset(getContext().getAssets(), "fonts/myriadregular.ttf");
-        MR = Typeface.createFromAsset(getContext().getAssets(), "fonts/myriad.ttf");
-
-        recyclerView = view.findViewById(R.id.recycler_view);
-        frameLayout = view.findViewById(R.id.es_layout);
-        es_descp = view.findViewById(R.id.es_descp);
-        es_title = view.findViewById(R.id.es_title);
+        View view = inflater.inflate(R.layout.fragment_chat, container, false);
+//
+//        MRR = Typeface.createFromAsset(getContext().getAssets(), "fonts/myriadregular.ttf");
+//        MR = Typeface.createFromAsset(getContext().getAssets(), "fonts/myriad.ttf");
+//
+//        recyclerView = view.findViewById(R.id.recycler_view);
+//        frameLayout = view.findViewById(R.id.es_layout);
+//        es_descp = view.findViewById(R.id.es_descp);
+//        es_title = view.findViewById(R.id.es_title);
 
         es_descp.setTypeface(MR);
         es_title.setTypeface(MRR);

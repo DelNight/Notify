@@ -21,7 +21,7 @@ public class Utils {
         dialog.setCancelable(false);
         dialog.getWindow()
                 .setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.setContentView(R.layout.progress_dialog);
+//        dialog.setContentView(R.layout.progress_dialog);
         return dialog;
         // dialog.setMessage(Message);
     }

@@ -61,16 +61,16 @@ public class UsersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_users, container, false);
+        View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
 
         MRR = Typeface.createFromAsset(getContext().getAssets(), "fonts/myriadregular.ttf");
         MR = Typeface.createFromAsset(getContext().getAssets(), "fonts/myriad.ttf");
 
-        recyclerView = view.findViewById(R.id.recycler_view);
-        frameLayout = view.findViewById(R.id.es_layout);
-        es_descp = view.findViewById(R.id.es_descp);
-        es_title = view.findViewById(R.id.es_title);
+//        recyclerView = view.findViewById(R.id.recycler_view);
+//        frameLayout = view.findViewById(R.id.es_layout);
+//        es_descp = view.findViewById(R.id.es_descp);
+//        es_title = view.findViewById(R.id.es_title);
 
         es_descp.setTypeface(MR);
         es_title.setTypeface(MRR);
@@ -84,7 +84,7 @@ public class UsersFragment extends Fragment {
 
         readUsers();
 
-        search_users = view.findViewById(R.id.search_users);
+//        search_users = view.findViewById(R.id.search_users);
         search_users.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

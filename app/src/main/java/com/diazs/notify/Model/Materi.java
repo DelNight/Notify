@@ -5,7 +5,7 @@ import android.net.Uri;
 import java.io.InputStream;
 
 public class Materi {
-    private int idMateri;
+    private String idMateri;
     private String judulMateri;
     private String deskripsiMateri;
     private String kategoriMateri;
@@ -15,6 +15,9 @@ public class Materi {
     private Uri fotoMateri;
     private String authorMateri;
     private boolean global;
+    private String fileUrl;
+    private String videoUrl;
+    private String imageUrl;
 
     public boolean getGlobal() {
         return global;
@@ -26,24 +29,11 @@ public class Materi {
 
     public Materi() {}
 
-    public Materi(int idMateri, String judulMateri, String deskripsiMateri, String kategoriMateri, Uri videoMateri, Uri pdfMateri, Uri wordMateri, Uri fotoMateri, String authorMateri, boolean global) {
-        this.idMateri = idMateri;
-        this.judulMateri = judulMateri;
-        this.deskripsiMateri = deskripsiMateri;
-        this.kategoriMateri = kategoriMateri;
-        this.videoMateri = videoMateri;
-        this.pdfMateri = pdfMateri;
-        this.wordMateri = wordMateri;
-        this.fotoMateri = fotoMateri;
-        this.authorMateri = authorMateri;
-        this.global = global;
-    }
-
-    public int getIdMateri() {
+    public String getIdMateri() {
         return idMateri;
     }
 
-    public void setIdMateri(int idMateri) {
+    public void setIdMateri(String idMateri) {
         this.idMateri = idMateri;
     }
 
@@ -109,5 +99,29 @@ public class Materi {
 
     public void setAuthorMateri(String authorMateri) {
         this.authorMateri = authorMateri;
+    }
+
+    public String getFileUrl() {
+        return fileUrl;
+    }
+
+    public void setFileUrl(String fileUrl) {
+        this.fileUrl = fileUrl;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
