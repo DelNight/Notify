@@ -18,10 +18,10 @@ public class Utils {
         } catch (WindowManager.BadTokenException e) {
 
         }
-        dialog.setCancelable(false);
-        dialog.getWindow()
-                .setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.setContentView(R.layout.progress_dialog);
+//        dialog.setCancelable(false);
+//        dialog.getWindow()
+//                .setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+//        dialog.setContentView(R.layout.progress_dialog);
         return dialog;
         // dialog.setMessage(Message);
     }

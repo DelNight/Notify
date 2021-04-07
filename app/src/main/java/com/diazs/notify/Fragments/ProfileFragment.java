@@ -67,17 +67,17 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_forum, container, false);
         MRR = Typeface.createFromAsset(getContext().getAssets(), "fonts/myriadregular.ttf");
         MR = Typeface.createFromAsset(getContext().getAssets(), "fonts/myriad.ttf");
 
 
-        image_profile = view.findViewById(R.id.profile_image);
-        username = view.findViewById(R.id.username);
-        profile_tv = view.findViewById(R.id.profile_tv);
-        bio_et = view.findViewById(R.id.bio_et);
-        edit_img = view.findViewById(R.id.edit_image);
-        save = view.findViewById(R.id.save_btn);
+//        image_profile = view.findViewById(R.id.profile_image);
+//        username = view.findViewById(R.id.username);
+//        profile_tv = view.findViewById(R.id.profile_tv);
+//        bio_et = view.findViewById(R.id.bio_et);
+//        edit_img = view.findViewById(R.id.edit_image);
+//        save = view.findViewById(R.id.save_btn);
 
 
         username.setTypeface(MR);
@@ -150,7 +150,7 @@ public class ProfileFragment extends Fragment {
                 username.setText(user.getUsername());
                 bio_et.setText(user.getBio());
                 if (user.getImageURL().equals("default")){
-                    image_profile.setImageResource(R.drawable.profile_img);
+                    image_profile.setImageResource(R.drawable.ic_baseline_person_24);
                 } else {
                     Glide.with(getContext()).load(user.getImageURL()).into(image_profile);
                 }
@@ -188,7 +188,7 @@ public class ProfileFragment extends Fragment {
 
     private void uploadImage(){
         final ProgressDialog pd = new ProgressDialog(getContext());
-        pd.setIndeterminateDrawable(getResources().getDrawable(R.drawable.ic_picture));
+//        pd.setIndeterminateDrawable(getResources().getDrawable(R.drawable.ic_picture));
 
         pd.setMessage("Uploading...");
         pd.show();
