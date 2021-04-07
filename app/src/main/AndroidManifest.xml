@@ -17,7 +17,7 @@
         <activity android:name=".ResetActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".BookmarkActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".FormLearn">
         </activity>
         <activity android:name=".ForumActivity" />
         <activity android:name=".VideoActivity" />
@@ -38,7 +38,8 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".NotificationActivity" />
         <activity android:name=".ProfilActivity" />
-        <activity android:name=".FormLearn">
+        <activity android:name=".DetailVoting"/>
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

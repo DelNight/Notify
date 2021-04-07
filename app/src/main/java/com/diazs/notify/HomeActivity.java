@@ -95,13 +95,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        chat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(HomeActivity.this,ChatActivity.class);
-                startActivity(i);
-            }
-        });
+//        chat.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(HomeActivity.this,ChatActivity.class);
+//                startActivity(i);
+//            }
+//        });
 
         posting.setOnClickListener(new View.OnClickListener() {
             @Override

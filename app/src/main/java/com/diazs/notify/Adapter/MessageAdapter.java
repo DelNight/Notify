@@ -69,7 +69,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         }
 
         if (imageurl.equals("default")){
-            holder.profile_image.setImageResource(R.drawable.profile_img);
+            holder.profile_image.setImageResource(R.drawable.ic_baseline_person_24);
         } else {
             Glide.with(mContext).load(imageurl).into(holder.profile_image);
         }

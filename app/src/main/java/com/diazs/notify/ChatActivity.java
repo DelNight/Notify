@@ -24,9 +24,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.diazs.notify.Adapter.OnItemClick;
-import com.diazs.notify.Fragments.ChatsFragment;
-import com.diazs.notify.Fragments.ProfileFragment;
-import com.diazs.notify.Fragments.UsersFragment;
+//import com.diazs.notify.Fragments.ChatsFragment;
+//import com.diazs.notify.Fragments.ProfileFragment;
+//import com.diazs.notify.Fragments.UsersFragment;
 import com.diazs.notify.Model.ChatMessage;
 import com.diazs.notify.Model.User;
 import com.google.android.material.tabs.TabLayout;
@@ -99,7 +99,7 @@ public class ChatActivity extends AppCompatActivity implements OnItemClick {
                 User user = dataSnapshot.getValue(User.class);
                 username.setText(user.getUsername());
                 if (user.getImageURL().equals("default")) {
-                    profile_image.setImageResource(R.drawable.profile_img);
+                    profile_image.setImageResource(R.drawable.ic_baseline_person_24);
                 } else {
                     //change this
                     Glide.with(getApplicationContext()).load(user.getImageURL()).into(profile_image);
@@ -127,14 +127,14 @@ public class ChatActivity extends AppCompatActivity implements OnItemClick {
                     }
                 }
 
-                if (unread == 0) {
-                    viewPagerAdapter.addFragment(ChatsFragment.newInstance(onItemClick), "Chats");
-                } else {
-                    viewPagerAdapter.addFragment(ChatsFragment.newInstance(onItemClick), "(" + unread + ") Chats");
-                }
+//                if (unread == 0) {
+//                    viewPagerAdapter.addFragment(ChatsFragment.newInstance(onItemClick), "Chats");
+//                } else {
+//                    viewPagerAdapter.addFragment(ChatsFragment.newInstance(onItemClick), "(" + unread + ") Chats");
+//                }
 
-                viewPagerAdapter.addFragment(UsersFragment.newInstance(onItemClick), "Users");
-                viewPagerAdapter.addFragment(new ProfileFragment(), "Profile");
+//                viewPagerAdapter.addFragment(UsersFragment.newInstance(onItemClick), "Users");
+//                viewPagerAdapter.addFragment(new ProfileFragment(), "Profile");
 
 //                viewPager.setAdapter(viewPagerAdapter);
 //

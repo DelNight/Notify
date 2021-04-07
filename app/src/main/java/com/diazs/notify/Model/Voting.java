@@ -1,37 +1,29 @@
 package com.diazs.notify.Model;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 public class Voting {
     private String idVoting;
-    private User votingMaker;
+    private String votingMaker;
     private String deskripsiVoting;
     private String judulPosting;
     private String jenisVoting;
     private String kadaluwarsa;
+    private ArrayList<Agregate> listAgregates;
 
     public Voting() {
+        listAgregates = new ArrayList<>();
     }
 
-    public Voting(String idVoting, User votingMaker, String deskripsiVoting, String jenisVoting) {
+    public Voting(String idVoting, String votingMaker, String deskripsiVoting, String judulPosting, String jenisVoting, String kadaluwarsa, ArrayList<Agregate> listAgregates) {
         this.idVoting = idVoting;
         this.votingMaker = votingMaker;
         this.deskripsiVoting = deskripsiVoting;
-        this.jenisVoting = jenisVoting;
-    }
-
-    public String getJudulPosting() {
-        return judulPosting;
-    }
-
-    public String getKadaluwarsa() {
-        return kadaluwarsa;
-    }
-
-    public void setKadaluwarsa(String kadaluwarsa) {
-        this.kadaluwarsa = kadaluwarsa;
-    }
-
-    public void setJudulPosting(String judulPosting) {
         this.judulPosting = judulPosting;
+        this.jenisVoting = jenisVoting;
+        this.kadaluwarsa = kadaluwarsa;
+        this.listAgregates = listAgregates;
     }
 
     public String getIdVoting() {
@@ -42,11 +34,11 @@ public class Voting {
         this.idVoting = idVoting;
     }
 
-    public User getVotingMaker() {
+    public String getVotingMaker() {
         return votingMaker;
     }
 
-    public void setVotingMaker(User votingMaker) {
+    public void setVotingMaker(String votingMaker) {
         this.votingMaker = votingMaker;
     }
 
@@ -58,11 +50,35 @@ public class Voting {
         this.deskripsiVoting = deskripsiVoting;
     }
 
+    public String getJudulPosting() {
+        return judulPosting;
+    }
+
+    public void setJudulPosting(String judulPosting) {
+        this.judulPosting = judulPosting;
+    }
+
     public String getJenisVoting() {
         return jenisVoting;
     }
 
     public void setJenisVoting(String jenisVoting) {
         this.jenisVoting = jenisVoting;
+    }
+
+    public String getKadaluwarsa() {
+        return kadaluwarsa;
+    }
+
+    public void setKadaluwarsa(String kadaluwarsa) {
+        this.kadaluwarsa = kadaluwarsa;
+    }
+
+    public ArrayList<Agregate> getListAgregates() {
+        return listAgregates;
+    }
+
+    public void setListAgregates(ArrayList<Agregate> listAgregates) {
+        this.listAgregates = listAgregates;
     }
 }
