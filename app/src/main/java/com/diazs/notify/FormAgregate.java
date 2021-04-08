@@ -37,6 +37,7 @@ public class FormAgregate extends AppCompatActivity {
                 agregate.setNama(nama.getText().toString());
                 agregate.setMisi(misi.getText().toString());
                 agregate.setVisi(visi.getText().toString());
+                agregate.setIdVoting(getIntent().getStringExtra(EXTRA_ID));
                 dbF.child(getIntent().getStringExtra(EXTRA_ID)).child("agregate").child(id).setValue(agregate).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

@@ -16,14 +16,27 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.diazs.notify.Adapter.DetailVotingAdapter;
+import com.diazs.notify.Model.Agregate;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class DetailVoting extends AppCompatActivity{
     public static final String EXTRA_ID = "id voting";
     public static final String EXTRA_JUDUL = "Judul voting";
     public static final String EXTRA_DESC = "Detail voting";
     public static final String EXTRA_EXP = "expired";
-    TextView judul,desc,exp;
+    TextView judul, desc, exp;
     Button btn_add;
+    RecyclerView rvAgregates;
+    ArrayList<Agregate> listAgregates;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,11 +45,34 @@ public class DetailVoting extends AppCompatActivity{
         Toolbar toolbar = findViewById(R.id .toolbar);
         setSupportActionBar(toolbar);
         toolbar.setLogo(R.drawable.ic_baseline_arrow_back_24);
+        listAgregates = new ArrayList<>();
+        rvAgregates = (RecyclerView) findViewById(R.id.recycler_calon);
+        rvAgregates.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
         getView();
+
+        FirebaseDatabase.getInstance().getReference("voting").child(getIntent().getStringExtra(EXTRA_ID)).child("agregate").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listAgregates.clear();
+                for (DataSnapshot snapshot1 : snapshot.getChildren()){
+                    Agregate agregate = snapshot1.getValue(Agregate.class);
+                    listAgregates.add(agregate);
+                    DetailVotingAdapter adapter = new DetailVotingAdapter(listAgregates, DetailVoting.this);
+                    rvAgregates.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(DetailVoting.this,FormAgregate.class);
+                Intent i = new Intent(DetailVoting.this, FormAgregate.class);
                 String id = getIntent().getStringExtra(EXTRA_ID);
                 i.putExtra(FormAgregate.EXTRA_ID,id);
                 startActivity(i);

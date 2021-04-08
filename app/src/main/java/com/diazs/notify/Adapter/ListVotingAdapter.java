@@ -3,7 +3,6 @@ package com.diazs.notify.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,10 +25,11 @@ public class ListVotingAdapter extends RecyclerView.Adapter<ListVotingAdapter.Li
     public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback){
         this.onItemClickCallback = onItemClickCallback;
     }
+
     @NonNull
     @Override
     public ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_forum,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_voting,parent,false);
         return new ListViewHolder(view);
     }
 

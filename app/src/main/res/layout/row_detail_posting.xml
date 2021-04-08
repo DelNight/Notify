@@ -1,0 +1,76 @@
+ <androidx.cardview.widget.CardView
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_height="170dp"
+        app:cardCornerRadius="15dp"
+        android:elevation="20dp"
+        android:padding="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp">
+
+            <ImageView
+                android:id="@+id/gambarcalon"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_baseline_person_24" />
+
+            <TextView
+                android:id="@+id/namacalon"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:layout_toRightOf="@id/gambarcalon"
+                android:text="Diazs Martianysah"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/gambarvote"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_below="@id/namacalon"
+                android:layout_marginBottom="10dp"
+                android:layout_toRightOf="@id/gambarcalon"
+                android:src="@drawable/ic_baseline_how_to_vote_24" />
+
+            <TextView
+                android:id="@+id/jmlvote"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/namacalon"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/gambarvote"
+                android:gravity="center_vertical"
+                android:text="67 Suara" />
+
+            <Button
+                android:id="@+id/profile"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/gambarvote"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="60dp"
+                android:background="@drawable/shape_corner_white"
+                android:text="Profile" />
+
+            <Button
+                android:id="@+id/btnpilih"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/gambarvote"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@id/profile"
+                android:background="@drawable/shape_corner_tosca"
+                android:text="Pilih" />
+        </RelativeLayout>
+ </androidx.cardview.widget.CardView>

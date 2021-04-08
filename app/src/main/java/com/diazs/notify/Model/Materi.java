@@ -1,10 +1,13 @@
 package com.diazs.notify.Model;
 
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.io.InputStream;
+import java.util.Map;
 
-public class Materi {
+public class Materi implements Parcelable {
     private String idMateri;
     private String judulMateri;
     private String deskripsiMateri;
@@ -18,6 +21,34 @@ public class Materi {
     private String fileUrl;
     private String videoUrl;
     private String imageUrl;
+
+    protected Materi(Parcel in) {
+        idMateri = in.readString();
+        judulMateri = in.readString();
+        deskripsiMateri = in.readString();
+        kategoriMateri = in.readString();
+        videoMateri = in.readParcelable(Uri.class.getClassLoader());
+        pdfMateri = in.readParcelable(Uri.class.getClassLoader());
+        wordMateri = in.readParcelable(Uri.class.getClassLoader());
+        fotoMateri = in.readParcelable(Uri.class.getClassLoader());
+        authorMateri = in.readString();
+        global = in.readByte() != 0;
+        fileUrl = in.readString();
+        videoUrl = in.readString();
+        imageUrl = in.readString();
+    }
+
+    public static final Creator<Materi> CREATOR = new Creator<Materi>() {
+        @Override
+        public Materi createFromParcel(Parcel in) {
+            return new Materi(in);
+        }
+
+        @Override
+        public Materi[] newArray(int size) {
+            return new Materi[size];
+        }
+    };
 
     public boolean getGlobal() {
         return global;
@@ -123,5 +154,27 @@ public class Materi {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(idMateri);
+        parcel.writeString(judulMateri);
+        parcel.writeString(deskripsiMateri);
+        parcel.writeString(kategoriMateri);
+        parcel.writeParcelable(videoMateri, i);
+        parcel.writeParcelable(pdfMateri, i);
+        parcel.writeParcelable(wordMateri, i);
+        parcel.writeParcelable(fotoMateri, i);
+        parcel.writeString(authorMateri);
+        parcel.writeByte((byte) (global ? 1 : 0));
+        parcel.writeString(fileUrl);
+        parcel.writeString(videoUrl);
+        parcel.writeString(imageUrl);
     }
 }
