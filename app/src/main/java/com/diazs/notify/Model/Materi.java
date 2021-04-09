@@ -21,6 +21,7 @@ public class Materi implements Parcelable {
     private String fileUrl;
     private String videoUrl;
     private String imageUrl;
+    private long createdAt;
 
     protected Materi(Parcel in) {
         idMateri = in.readString();
@@ -154,6 +155,14 @@ public class Materi implements Parcelable {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public long getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(long createdAt) {
+        this.createdAt = createdAt;
     }
 
     @Override

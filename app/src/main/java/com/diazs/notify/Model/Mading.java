@@ -5,18 +5,18 @@ import android.net.Uri;
 import java.io.InputStream;
 
 public class Mading {
-    private int idMading;
-    private User poster;
+    private String idMading;
+    private String poster;
     private String kategoriMading;
     private String judulMading;
-    private Uri gambarMading;
+    private String gambarMading;
     private String deskripsiMading;
     private String contactPersonMading;
     private String tanggalUpload;
 
     public Mading(){}
 
-    public Mading(int idMading, User poster, String kategoriMading, String judulMading, Uri gambarMading, String deskripsiMading, String contactPersonMading, String tanggalUpload) {
+    public Mading(String idMading, String poster, String kategoriMading, String judulMading, String gambarMading, String deskripsiMading, String contactPersonMading, String tanggalUpload) {
         this.idMading = idMading;
         this.poster = poster;
         this.kategoriMading = kategoriMading;
@@ -27,19 +27,19 @@ public class Mading {
         this.tanggalUpload = tanggalUpload;
     }
 
-    public int getIdMading() {
+    public String getIdMading() {
         return idMading;
     }
 
-    public void setIdMading(int idMading) {
+    public void setIdMading(String idMading) {
         this.idMading = idMading;
     }
 
-    public User getPoster() {
+    public String getPoster() {
         return poster;
     }
 
-    public void setPoster(User poster) {
+    public void setPoster(String poster) {
         this.poster = poster;
     }
 
@@ -55,16 +55,16 @@ public class Mading {
         return judulMading;
     }
 
-    public void setJudulMading(String judulMading) {
-        this.judulMading = judulMading;
-    }
-
-    public Uri getGambarMading() {
+    public String getGambarMading() {
         return gambarMading;
     }
 
-    public void setGambarMading(Uri gambarMading) {
+    public void setGambarMading(String gambarMading) {
         this.gambarMading = gambarMading;
+    }
+
+    public void setJudulMading(String judulMading) {
+        this.judulMading = judulMading;
     }
 
     public String getDeskripsiMading() {

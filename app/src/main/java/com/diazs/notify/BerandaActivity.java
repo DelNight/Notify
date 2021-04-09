@@ -1,55 +1,37 @@
 package com.diazs.notify;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.SystemClock;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.widget.Toolbar;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.RecyclerView.Adapter;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.diazs.notify.Adapter.ListELearnAdapter;
 import com.diazs.notify.Adapter.ListVotingAdapter;
-import com.diazs.notify.Model.Forum;
 import com.diazs.notify.Model.Materi;
-import com.diazs.notify.Model.User;
 import com.diazs.notify.Model.Voting;
 import com.google.android.material.card.MaterialCardView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
-public class ForumActivity extends AppCompatActivity implements ListVotingAdapter.OnItemClickCallback, AdapterView.OnItemSelectedListener {
+public class BerandaActivity extends AppCompatActivity implements ListVotingAdapter.OnItemClickCallback, AdapterView.OnItemSelectedListener {
     private DrawerLayout myDrawer;
     private ActionBarDrawerToggle myToogle;
     private RecyclerView recyclerView;
@@ -65,7 +47,7 @@ public class ForumActivity extends AppCompatActivity implements ListVotingAdapte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_forum);
+        setContentView(R.layout.fragment_beranda);
         setRecyclerView();
         cardView = findViewById(R.id.card_forum);
         list = new ArrayList<>();
@@ -152,7 +134,7 @@ public class ForumActivity extends AppCompatActivity implements ListVotingAdapte
                     Materi materi = npsnapshot.getValue(Materi.class);
                     listMateri.add(materi);
                 }
-                ListELearnAdapter listELearnAdapter = new ListELearnAdapter(listMateri, ForumActivity.this);
+                ListELearnAdapter listELearnAdapter = new ListELearnAdapter(listMateri, BerandaActivity.this);
                 setRecyclerView();
                 recyclerView.setAdapter(listELearnAdapter);
                 recyclerView.getAdapter().notifyDataSetChanged();
@@ -168,7 +150,7 @@ public class ForumActivity extends AppCompatActivity implements ListVotingAdapte
         });
     }
     private void showProgressDialog(String message){
-        progressDialog = new ProgressDialog(ForumActivity.this);
+        progressDialog = new ProgressDialog(BerandaActivity.this);
         progressDialog.setMessage(message); // Setting Message
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);// Progress Dialog Style Spinner
         progressDialog.show(); // Display Progress Dialog
@@ -183,7 +165,7 @@ public class ForumActivity extends AppCompatActivity implements ListVotingAdapte
     }
 
     private void showSelectedItem(Voting voting){
-        Intent intent = new Intent(ForumActivity.this, DetailVoting.class);
+        Intent intent = new Intent(BerandaActivity.this, DetailVoting.class);
         intent.putExtra(DetailVoting.EXTRA_ID, voting.getIdVoting());
         intent.putExtra(DetailVoting.EXTRA_JUDUL, voting.getJudulPosting());
         intent.putExtra(DetailVoting.EXTRA_DESC, voting.getDeskripsiVoting());
@@ -192,7 +174,7 @@ public class ForumActivity extends AppCompatActivity implements ListVotingAdapte
     }
 
     private void showSelectedItem(Materi materi){
-        Intent intent = new Intent(ForumActivity.this, DetailELearn.class);
+        Intent intent = new Intent(BerandaActivity.this, DetailELearn.class);
         intent.putExtra("MATERI", materi);
         startActivity(intent);
     }
@@ -209,13 +191,13 @@ public class ForumActivity extends AppCompatActivity implements ListVotingAdapte
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_forum, menu);
+        getMenuInflater().inflate(R.menu.menu_beranda, menu);
         return true;
     }
 
     @Override
     public void onItemClicked(Voting data) {
-        Intent intent = new Intent(ForumActivity.this, DetailVoting.class);
+        Intent intent = new Intent(BerandaActivity.this, DetailVoting.class);
         intent.putExtra(DetailVoting.EXTRA_JUDUL,data.getJudulPosting());
         intent.putExtra(DetailVoting.EXTRA_DESC,data.getDeskripsiVoting());
         intent.putExtra(DetailVoting.EXTRA_EXP,data.getKadaluwarsa());

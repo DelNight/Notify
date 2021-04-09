@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ForumActivity">
+    tools:context=".BerandaActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
@@ -19,8 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:navigationIcon="@drawable/ic_baseline_menu_24"
-            app:title="Forum"
-            app:menu="@menu/menu_forum"
+            app:title="Beranda"
+            app:menu="@menu/menu_beranda"
             android:onClick="onClickMenuForum"
             android:backgroundTint="#808080"
             />

@@ -22,7 +22,7 @@ public class ForumFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         forumViewModel =
                 ViewModelProviders.of(this).get(ForumViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_forum, container, false);
+        View root = inflater.inflate(R.layout.fragment_beranda, container, false);
         final TextView textView = root.findViewById(R.id.text_forum);
         forumViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override

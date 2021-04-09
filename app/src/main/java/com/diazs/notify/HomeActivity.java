@@ -1,29 +1,25 @@
 package com.diazs.notify;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import android.content.Context;
 import android.content.Intent;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.RecyclerView.Adapter;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.diazs.notify.Adapter.HomeAdapter;
 import com.diazs.notify.Model.Materi;
 import com.diazs.notify.Model.User;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,7 +30,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import butterknife.ButterKnife;
 
@@ -47,6 +42,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private ArrayList<Materi> listMateri;
     private TextView tvName, tvRole;
 
+    LottieAnimationView loading;
+
     MenuItem signOut;
 
     @Override
@@ -56,6 +53,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         setNavigationListener();
         firebaseAuth = FirebaseAuth.getInstance();
         listMateri = new ArrayList<>();
+        loading = findViewById(R.id.loading_bell);
+        loading.playAnimation();
+        loading.setVisibility(View.VISIBLE);
 
         rvHome = findViewById(R.id.recycler_buat_kamu);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -77,6 +77,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 }else if(user.getRole() == 3){
                     tvRole.setText("Siswa");
                 }
+                loading.setVisibility(View.GONE);
             }
 
             @Override
@@ -118,18 +119,18 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         };
 
-        ImageView forum = (ImageView) findViewById(R.id.forum);
-        ImageView voting = (ImageView) findViewById(R.id.voting);
-        ImageView learning = (ImageView) findViewById(R.id.learning);
-        ImageView kalender = (ImageView) findViewById(R.id.kalender);
-        ImageView chat = (ImageView) findViewById(R.id.chat);
-        ImageView posting = (ImageView) findViewById(R.id.posting);
+        CardView beranda = findViewById(R.id.beranda);
+        CardView voting = findViewById(R.id.voting);
+        CardView learning = findViewById(R.id.learning);
+        CardView kalender = findViewById(R.id.kalender);
+        CardView chat = findViewById(R.id.chat);
+        CardView posting = findViewById(R.id.posting);
         RelativeLayout profile = findViewById(R.id.kotak1);
 
-        forum.setOnClickListener(new View.OnClickListener() {
+        beranda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(HomeActivity.this,ForumActivity.class);
+                Intent i = new Intent(HomeActivity.this, BerandaActivity.class);
                 startActivity(i);
             }
         });

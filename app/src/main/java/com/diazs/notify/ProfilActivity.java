@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.diazs.notify.Adapter.ListForumAdapter;
 import com.diazs.notify.Adapter.ListVotingAdapter;
 import com.diazs.notify.Model.Forum;
@@ -41,11 +42,13 @@ public class ProfilActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ArrayList<Forum> list = new ArrayList<>();
 
-    TextView tvNama, tvKelas,tvUser,tvPw,tvJenkel,tvTname;
+    TextView tvNama, tvKelas,tvUser, tvEmail, tvJenkel, tvTname;
 
     ImageButton btnBack;
 
     ProgressDialog progressDialog;
+
+    LottieAnimationView loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +56,6 @@ public class ProfilActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profil);
 
         noFade();
-        showProgressDialog();
         findView();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -62,6 +64,9 @@ public class ProfilActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycleview);
         recyclerView.setHasFixedSize(true);
         showRecyclerList();
+
+        loading = findViewById(R.id.loading_bell);
+        loading.setVisibility(View.VISIBLE);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +98,7 @@ public class ProfilActivity extends AppCompatActivity {
         tvNama = findViewById(R.id.name);
         tvJenkel = findViewById(R.id.gender_user);
         tvUser = findViewById(R.id.username);
-        tvPw = findViewById(R.id.pw);
+        tvEmail = findViewById(R.id.email);
         btnLogout = findViewById(R.id.btn_logout);
 
     }
@@ -106,6 +111,7 @@ public class ProfilActivity extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     User user = dataSnapshot.getValue(User.class);
                     setData(user);
+                    loading.setVisibility(View.GONE);
 //                    Query q = mDatabase.child("Kelas").child(siswa.getKelas());
 //                    q.addListenerForSingleValueEvent(new ValueEventListener() {
 //                        @Override
@@ -120,12 +126,11 @@ public class ProfilActivity extends AppCompatActivity {
 //                        }
 //                    });
                 }
-                progressDialog.dismiss();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                progressDialog.dismiss();
+
             }
         });
     }
@@ -133,8 +138,10 @@ public class ProfilActivity extends AppCompatActivity {
     void setData(User user){
         tvNama.setText(user.getNama().toUpperCase());
         tvTname.setText(user.getNama());
+        tvJenkel.setText(user.getJenisKelamin());
+        tvKelas.setText(user.getKelas());
+        tvEmail.setText(user.getEmail());
         tvUser.setText(user.getUsername());
-
     }
 
     private void showProgressDialog(){

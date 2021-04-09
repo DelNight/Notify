@@ -20,7 +20,7 @@
         <activity android:name=".FormAgregate" />
         <activity android:name=".FormLearn">
         </activity>
-        <activity android:name=".ForumActivity">
+        <activity android:name=".BerandaActivity">
         </activity>
         <activity android:name=".VideoActivity" />
         <activity android:name=".RoomChat" />
