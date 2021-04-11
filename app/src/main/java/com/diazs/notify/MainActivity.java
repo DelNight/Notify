@@ -9,7 +9,7 @@ import android.os.Handler;
 import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
-    private int waktu_loading=1500;
+    private int waktu_loading = 1500;
 
     //4000=4 detik
     @Override
@@ -26,6 +26,6 @@ public class MainActivity extends AppCompatActivity {
                 finish();
 
             }
-        },waktu_loading);
+        }, waktu_loading);
     }
 }

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ProfilCalon">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:logo="@drawable/ic_baseline_arrow_back_24"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="30dp">
+
+        <ImageView
+            android:id="@+id/profilImage"
+            android:layout_width="120dp"
+            android:layout_height="130dp"
+            android:background="@color/color4"/>
+
+        <TextView
+            android:id="@+id/nama_calon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Muhammad Sabil Fausta"
+            android:textSize="20dp"
+            android:textColor="@color/color3"
+            android:textStyle="bold"
+            android:layout_toRightOf="@+id/profilImage"
+            android:layout_marginLeft="25dp"/>
+
+        <ImageView
+            android:id="@+id/logo_vote"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_toRightOf="@+id/profilImage"
+            android:src="@drawable/ic_baseline_how_to_vote_24"
+            android:layout_below="@+id/nama_calon"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/jmlvote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="67 Suara"
+            android:textSize="17dp"
+            android:textColor="@color/color2"
+            android:layout_toRightOf="@+id/logo_vote"
+            android:layout_below="@+id/nama_calon"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"/>
+
+        <Button
+            android:id="@+id/btn_pilih"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:text="Pilih"
+            android:textColor="@color/color5"
+            android:background="@drawable/shape_corner_tosca"
+            android:layout_toRightOf="@+id/profilImage"
+            android:layout_below="@+id/logo_vote"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="30dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Profil"
+            android:textSize="20dp"
+            android:textColor="@color/color10"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_profil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nama : Muhammad Sabil Fausta"
+            android:textColor="@color/color10"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Visi"
+            android:textSize="20dp"
+            android:textColor="@color/color10"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/visi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit nisi sed sollicitudin pellentesque. Nunc posuere purus rhoncus pulvinar aliquam."
+            android:textColor="@color/color10"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Misi"
+            android:textSize="20dp"
+            android:textColor="@color/color10"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/misi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit nisi sed sollicitudin pellentesque. Nunc posuere purus rhoncus pulvinar aliquam." />
+
+    </LinearLayout>
+</LinearLayout>

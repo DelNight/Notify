@@ -1,119 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:background="#7090B0">
+        android:background="@drawable/ic_vector_login">
+
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:text="Notify"
-            android:textSize="50dp"
-            android:textColor="#FFFFFFFF"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="150dp" />
+            android:layout_marginStart="29dp"
+            android:layout_marginTop="25dp"
+            android:text="Welcome To Notify!"
+            android:textColor="@color/color3"
+            android:textSize="30dp" />
+
+        <ImageView
+            android:layout_width="193dp"
+            android:layout_height="162dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="21dp"
+            android:layout_marginBottom="30dp"
+            android:src="@drawable/ic_undraw_online_learning_re_qw08" />
+
 
     </RelativeLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp">
+        android:layout_marginTop="220dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:background="@drawable/shape_corner_white"
+        android:elevation="10dp"
+        android:padding="20dp">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/ic_baseline_account_circle_24" />
-            <EditText
-                android:id="@+id/email"
-                android:background="@drawable/button_radius_login"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:inputType="textEmailAddress"
-                android:layout_marginLeft="70dp"
-                android:paddingLeft="20dp"
-                android:hint="Email"/>
-        </RelativeLayout>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/ic_baseline_vpn_key_24" />
-            <EditText
-                android:inputType="textPassword"
-                android:id="@+id/password"
-                android:background="@drawable/button_radius_login"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginLeft="70dp"
-                android:paddingLeft="20dp"
-                android:hint="Password"/>
-        </RelativeLayout>
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1"
-        android:gravity="center|bottom"
-        android:orientation="vertical"
-        android:padding="30dp">
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1"
-            android:gravity="center|bottom"
-            android:orientation="vertical" >
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="50dp"
+            android:text="Login"
+            android:textAlignment="center"
+            android:textColor="@color/color2"
+            android:textSize="36dp" />
 
-            <Button
-                android:id="@+id/login_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/radius_button"
-                android:layout_gravity="center_horizontal|center"
-                android:textColor="#ffffffff"
-                android:text="Masuk" />
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/header"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/button_radius_login"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:paddingLeft="20dp" />
 
-            <Button
-                android:id="@+id/btn_signup"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:background="@drawable/button_radius_login"
-                android:layout_height="wrap_content"
-                android:textColor="#7090B0"
-                android:layout_gravity="center_horizontal|center"
-                android:text="Buat akun" />
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/email"
+            android:layout_marginBottom="60dp"
+            android:background="@drawable/button_radius_login"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:paddingLeft="20dp" />
 
-        </LinearLayout>
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/password"
+            android:layout_marginBottom="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center_horizontal|center"
+            android:background="@drawable/radius_button"
+            android:text="Masuk"
+            android:textColor="#ffffffff" />
 
+        <Button
+            android:id="@+id/btn_signup"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/password"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="center_horizontal|center"
+            android:background="@drawable/button_radius_login"
+            android:text="Buat akun"
+            android:textColor="#7090B0" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_vector_downloginregis"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        app:tint="@color/color1" />
 
-
-
-</LinearLayout>
+</RelativeLayout>

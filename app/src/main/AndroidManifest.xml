@@ -12,13 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".AddClassActivity"></activity>
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".LoginActivity" >
+        </activity>
         <activity android:name=".ResetActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".BookmarkActivity" />
+        <activity android:name=".FormAgregate" />
         <activity android:name=".FormLearn">
         </activity>
-        <activity android:name=".ForumActivity" />
+        <activity android:name=".BerandaActivity">
+        </activity>
         <activity android:name=".VideoActivity" />
         <activity android:name=".RoomChat" />
         <activity android:name=".InputEvent" />
@@ -32,6 +35,9 @@
 
         </activity>
         <activity android:name=".ChatActivity">
+
+        </activity>
+        <activity android:name=".DetailELearn">
 
         </activity>
         <activity android:name=".HomeActivity" />

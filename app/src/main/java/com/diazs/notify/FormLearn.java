@@ -1,11 +1,16 @@
 package com.diazs.notify;
 
 import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.MimeTypeMap;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,13 +27,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.diazs.notify.Adapter.LearnAdapter;
 import com.diazs.notify.Model.Learn;
 import com.diazs.notify.Model.Materi;
+import com.diazs.notify.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -36,8 +47,8 @@ import java.util.ArrayList;
 
 public class FormLearn extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
-    private static final int PICK_VIDEO_REQUEST = 1;
-    private static final int PICK_FILE_REQUEST = 1;
+    private static final int PICK_VIDEO_REQUEST = 2;
+    private static final int PICK_FILE_REQUEST = 3;
 
     private EditText lJudul;
     private EditText lDeskripsi;
@@ -45,11 +56,13 @@ public class FormLearn extends AppCompatActivity {
     private Button btnVideo;
     private Button btnFile;
     private Button btnPost;
-    private TextView namaFile;
+    private TextView tvUsername;
+    private String dbKey = null;
 
     private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
     FirebaseDatabase firebaseDatabase;
+    Materi materi;
 
     private ArrayList<Learn> learnArrayList;
     private LearnAdapter adapter;
@@ -58,16 +71,32 @@ public class FormLearn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_learn);
 
-        Materi materi = new Materi();
+        materi = new Materi();
+        learnArrayList = new ArrayList<>();
         lJudul = findViewById(R.id.judul);
         lDeskripsi = findViewById(R.id.deskripsi);
         btnImage = findViewById(R.id.chsPicture);
         btnVideo = findViewById(R.id.chsVideo);
         btnFile = findViewById(R.id.chsFile);
         btnPost = findViewById(R.id.post);
-        namaFile = findViewById(R.id.fileName);
+        tvUsername = findViewById(R.id.username);
         firebaseStorage = FirebaseStorage.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
         storageReference = firebaseStorage.getReference();
+        setupRecycleview();
+
+        firebaseDatabase.getReference("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                tvUsername.setText(user.getNama());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         if (materi.getGlobal() == true){
             setupRecycleview();
@@ -77,22 +106,36 @@ public class FormLearn extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (ContextCompat.checkSelfPermission(FormLearn.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-                    selectImage();
+                    if (materi.getFotoMateri() != null){
+                        Toast.makeText(FormLearn.this, "Hanya dapat memilih 1 foto", Toast.LENGTH_LONG).show();
+                    }else {
+                        selectImage();
+                    }
                 } else {
                     ActivityCompat.requestPermissions(FormLearn.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 3);
                 }
             }
         });
+
         btnVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectVideo();
+                if (materi.getVideoMateri() != null){
+                    Toast.makeText(FormLearn.this, "Hanya dapat memilih 1 video", Toast.LENGTH_LONG).show();
+                }else {
+                    selectVideo();
+                }
             }
         });
+
         btnFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectFile();
+                if (materi.getPdfMateri() != null){
+                    Toast.makeText(FormLearn.this, "Hanya dapat memilih 1 dokumen", Toast.LENGTH_LONG).show();
+                }else {
+                    selectFile();
+                }
             }
         });
 
@@ -101,13 +144,31 @@ public class FormLearn extends AppCompatActivity {
             public void onClick(View v) {
                 materi.setJudulMateri(lJudul.getText().toString().trim());
                 materi.setDeskripsiMateri(lDeskripsi.getText().toString().trim());
+                materi.setAuthorMateri(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                dbKey = firebaseDatabase.getReference("learn").push().getKey();
+
                 if (materi.getFotoMateri()!=null){
                     uploadImage(materi.getFotoMateri());
-                } else if (materi.getVideoMateri()!=null){
+                }
+                if (materi.getVideoMateri()!=null){
                     uploadVideo(materi.getVideoMateri());
-                } else if (materi.getPdfMateri()!=null){
+                }
+                if (materi.getPdfMateri()!=null){
                     uploadFile (materi.getPdfMateri());
                 }
+                materi.setFotoMateri(null);
+                materi.setVideoMateri(null);
+                materi.setPdfMateri(null);
+
+                materi.setIdMateri(dbKey);
+                firebaseDatabase.getReference("learn").child(dbKey).setValue(materi).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(FormLearn.this, "Materi berhasil di posting", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                kondisiAwal();
             }
         });
     }
@@ -115,7 +176,7 @@ public class FormLearn extends AppCompatActivity {
     private void setupRecycleview() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         RecyclerView myList = (RecyclerView) findViewById(R.id.recycler);
-        adapter = new LearnAdapter(learnArrayList);
+        adapter = new LearnAdapter(learnArrayList, this);
         myList.setLayoutManager(layoutManager);
         myList.setAdapter(adapter);
     }
@@ -123,19 +184,23 @@ public class FormLearn extends AppCompatActivity {
     private void uploadFile(Uri pdfMateri) {
         Learn learn = new Learn();
         learn.setNamaFile(System.currentTimeMillis()+"");
-        storageReference.child("Learn").child(learn.getNamaFile()).putFile(pdfMateri)
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Uploading...");
+        progressDialog.show();
+        storageReference.child("learn").child(learn.getNamaFile()+"."+getFileExtension(pdfMateri)).putFile(pdfMateri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         String url = taskSnapshot.getUploadSessionUri().toString();
-                        DatabaseReference databaseReference = firebaseDatabase.getReference();
-                        databaseReference.child(learn.getNamaFile()).setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        DatabaseReference databaseReference = firebaseDatabase.getReference("learn");
+                        progressDialog.dismiss();
+                        databaseReference.child(dbKey).child("fileUrl").setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()){
-                                    Toast.makeText(FormLearn.this, "Posting berhasil", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(FormLearn.this, "Posting file berhasil", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(FormLearn.this, "Posting gagal", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(FormLearn.this, "Posting file gagal", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -144,6 +209,12 @@ public class FormLearn extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(FormLearn.this, "Posting gagal", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                progressDialog.setMessage("Uploaded " + ((int) progress) + "%...");
             }
         });
     }
@@ -151,19 +222,23 @@ public class FormLearn extends AppCompatActivity {
     private void uploadVideo(Uri videoMateri) {
         Learn learn = new Learn();
         learn.setNamaFile(System.currentTimeMillis()+"");
-        storageReference.child("Learn").child(learn.getNamaFile()).putFile(videoMateri)
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Uploading...");
+        progressDialog.show();
+        storageReference.child("learn").child(learn.getNamaFile()+"."+getFileExtension(videoMateri)).putFile(videoMateri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         String url = taskSnapshot.getUploadSessionUri().toString();
-                        DatabaseReference databaseReference = firebaseDatabase.getReference();
-                        databaseReference.child(learn.getNamaFile()).setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        DatabaseReference databaseReference = firebaseDatabase.getReference("learn");
+                        progressDialog.dismiss();
+                        databaseReference.child(dbKey).child("videoUrl").setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()){
-                                    Toast.makeText(FormLearn.this, "Posting berhasil", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(FormLearn.this, "Posting video berhasil", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(FormLearn.this, "Posting gagal", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(FormLearn.this, "Posting video gagal", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -173,26 +248,36 @@ public class FormLearn extends AppCompatActivity {
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(FormLearn.this, "Posting gagal", Toast.LENGTH_SHORT).show();
             }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                progressDialog.setMessage("Uploaded " + ((int) progress) + "%...");
+            }
         });
     }
 
     private void uploadImage(Uri fotoMateri) {
         Learn learn = new Learn();
         learn.setNamaFile(System.currentTimeMillis()+"");
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Uploading...");
+        progressDialog.show();
 
-        storageReference.child("Learn").child(learn.getNamaFile()).putFile(fotoMateri)
+        storageReference.child("learn").child(learn.getNamaFile()+"."+getFileExtension(fotoMateri)).putFile(fotoMateri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         String url = taskSnapshot.getUploadSessionUri().toString();
-                        DatabaseReference databaseReference = firebaseDatabase.getReference();
-                        databaseReference.child(learn.getNamaFile()).setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        DatabaseReference databaseReference = firebaseDatabase.getReference("learn");
+                        progressDialog.dismiss();
+                        databaseReference.child(dbKey).child("imageUrl").setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()){
-                                    Toast.makeText(FormLearn.this, "Posting berhasil", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(FormLearn.this, "Posting gambar berhasil", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(FormLearn.this, "Posting gagal", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(FormLearn.this, "Posting gambar gagal", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -200,7 +285,13 @@ public class FormLearn extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(FormLearn.this, "Posting gagal", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FormLearn.this, "Posting gambar gagal", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                progressDialog.setMessage("Uploaded " + ((int) progress) + "%...");
             }
         });
 
@@ -236,48 +327,72 @@ public class FormLearn extends AppCompatActivity {
         startActivityForResult(intent, PICK_FILE_REQUEST);
     }
 
-    public void addArrayList(String fileName){
-        String[] fileNames = fileName.split(".");
-        String ext = fileNames[fileNames.length-1];
-
-        if (ext.equals(".jpg") || ext.equals(".png") || ext.equals(".jpeg")){
+    public void addArrayList(String fileName, String ext){
+        System.out.println("Debug Oi : "+ ext);
+        if (ext.equals("images/*")){
+            Toast.makeText(this, "Gambar Berhasil Dipilih!", Toast.LENGTH_SHORT).show();
             Learn learn = new Learn();
             learn.setType(1);
             learn.setNamaFile(fileName);
             learnArrayList.add(learn);
-        } else if (ext.equals(".mp4")){
+            adapter.notifyDataSetChanged();
+        } else if (ext.equals("video/mp4")){
+            Toast.makeText(this, "Video Berhasil Dipilih!", Toast.LENGTH_SHORT).show();
             Learn learn = new Learn();
             learn.setType(2);
             learn.setNamaFile(fileName);
             learnArrayList.add(learn);
-        } else if (ext.equals(".pdf") || ext.equals(".docx") || ext.equals(".xlsx")){
+            adapter.notifyDataSetChanged();
+        } else if (ext.equals("application/pdf") || ext.equals("application/*")){
+            Toast.makeText(this, "Dokumen Berhasil Dipilih!", Toast.LENGTH_SHORT).show();
             Learn learn = new Learn();
             learn.setType(3);
             learn.setNamaFile(fileName);
             learnArrayList.add(learn);
+            adapter.notifyDataSetChanged();
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Materi materi = new Materi();
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
+        if (data != null){
+            Uri uri = data.getData();
+            String result;
+            int cut;
             materi.setGlobal(true);
-            System.out.println(data.getData().getLastPathSegment());
-            materi.setFotoMateri(data.getData());
-            namaFile.setText(materi.getFotoMateri().getLastPathSegment());
-            addArrayList(materi.getFotoMateri().getLastPathSegment());
-        } else if (requestCode == PICK_VIDEO_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
-            materi.setGlobal(true);
-            materi.setVideoMateri(data.getData());
-            namaFile.setText(materi.getVideoMateri().getLastPathSegment());
-            addArrayList(materi.getVideoMateri().getLastPathSegment());
-        } else if (requestCode == PICK_FILE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
-            materi.setGlobal(true);
-            materi.setPdfMateri(data.getData());
-            namaFile.setText(materi.getPdfMateri().getLastPathSegment());
-            addArrayList(materi.getPdfMateri().getLastPathSegment());
+            result = uri.getPath();
+            cut = result.lastIndexOf('/');
+            if (cut != -1) {
+                result = result.substring(cut + 1);
+            }
+            ContentResolver cr = this.getContentResolver();
+            if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
+                materi.setGlobal(true);
+                materi.setFotoMateri(data.getData());
+                addArrayList(result, cr.getType(uri) );
+            } else if (requestCode == PICK_VIDEO_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
+                materi.setGlobal(true);
+                materi.setVideoMateri(data.getData());
+                addArrayList(result , cr.getType(uri));
+            } else if (requestCode == PICK_FILE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
+                materi.setGlobal(true);
+                materi.setPdfMateri(data.getData());
+                addArrayList(result , cr.getType(uri));
+            }
         }
+    }
+
+    public String getFileExtension(Uri uri) {
+        ContentResolver cR = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+
+    public void kondisiAwal(){
+        learnArrayList.clear();
+        adapter.notifyDataSetChanged();
+        lJudul.setText("");
+        lDeskripsi.setText("");
     }
 }

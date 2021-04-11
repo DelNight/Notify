@@ -11,6 +11,7 @@ public class Voting {
     private String jenisVoting;
     private String kadaluwarsa;
     private ArrayList<Agregate> listAgregates;
+    private long createdAt;
 
     public Voting() {
         listAgregates = new ArrayList<>();
@@ -76,6 +77,14 @@ public class Voting {
 
     public ArrayList<Agregate> getListAgregates() {
         return listAgregates;
+    }
+
+    public long getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(long createdAt) {
+        this.createdAt = createdAt;
     }
 
     public void setListAgregates(ArrayList<Agregate> listAgregates) {

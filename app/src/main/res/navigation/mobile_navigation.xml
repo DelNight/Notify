@@ -25,7 +25,7 @@
         android:id="@+id/navigation_forum"
         android:name="com.diazs.notify.ui.forum.ForumFragment"
         android:label="@string/menu_forum"
-        tools:layout="@layout/fragment_forum" />
+        tools:layout="@layout/fragment_beranda" />
 
     <fragment
         android:id="@+id/navigation_vote"

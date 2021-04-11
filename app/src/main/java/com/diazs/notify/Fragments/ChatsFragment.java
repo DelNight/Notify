@@ -39,7 +39,7 @@ public class ChatsFragment extends Fragment {
 
     private RecyclerView recyclerView;
 
-    Typeface MR, MRR;
+   Typeface MR, MRR;
     private UserAdapter userAdapter;
     private List<User> mUsers;
     FrameLayout frameLayout;
@@ -61,24 +61,23 @@ public class ChatsFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //error view
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
-
-        MRR = Typeface.createFromAsset(getContext().getAssets(), "fonts/myriadregular.ttf");
-        MR = Typeface.createFromAsset(getContext().getAssets(), "fonts/myriad.ttf");
-
+//
+//        MRR = Typeface.createFromAsset(getContext().getAssets(), "fonts/myriadregular.ttf");
+//        MR = Typeface.createFromAsset(getContext().getAssets(), "fonts/myriad.ttf");
+//
 //        recyclerView = view.findViewById(R.id.recycler_view);
-//        //error bind view
 //        frameLayout = view.findViewById(R.id.es_layout);
 //        es_descp = view.findViewById(R.id.es_descp);
 //        es_title = view.findViewById(R.id.es_title);
 
         es_descp.setTypeface(MR);
         es_title.setTypeface(MRR);
+
+
 
 
         recyclerView.setHasFixedSize(true);
@@ -96,13 +95,14 @@ public class ChatsFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 usersList.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     ChatList chatlist = snapshot.getValue(ChatList.class);
                     usersList.add(chatlist);
                 }
-                if (usersList.size() == 0) {
+                if(usersList.size()==0){
                     frameLayout.setVisibility(View.VISIBLE);
-                } else {
+                }
+                else{
                     frameLayout.setVisibility(View.GONE);
                 }
 
@@ -120,7 +120,6 @@ public class ChatsFragment extends Fragment {
 
         return view;
     }
-
 
     private void updateToken(String token){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens");

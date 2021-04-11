@@ -1,5 +1,7 @@
 package com.diazs.notify.Adapter;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +20,11 @@ import java.util.ArrayList;
 
 public class LearnAdapter extends RecyclerView.Adapter<LearnAdapter.LearnViewHolder> {
     private ArrayList<Learn> learnArrayList;
+    private Context context;
 
-    public LearnAdapter(ArrayList<Learn> learnArrayList){
+    public LearnAdapter(ArrayList<Learn> learnArrayList, Context context){
         this.learnArrayList = learnArrayList;
+        this.context = context;
     }
 
     @NonNull
@@ -28,24 +32,35 @@ public class LearnAdapter extends RecyclerView.Adapter<LearnAdapter.LearnViewHol
     public LearnViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.row_form_learn, parent, false);
-        return  new LearnAdapter.LearnViewHolder(view);
+        return new LearnAdapter.LearnViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull LearnViewHolder holder, int position) {
         Learn learn = learnArrayList.get(position);
-        int gambar = 0;
+        Drawable drawable;
+        ImageView gambar;
 
         if (learn.getType() == 1){
-            gambar = R.drawable.ic_baseline_image_24;
+            drawable = this.context.getResources().getDrawable(R.drawable.ic_baseline_image_24);
+            gambar = holder.gambar;
+            gambar.setImageDrawable(drawable);
         } else if(learn.getType() == 2){
-            gambar = R.drawable.ic_baseline_videocam_24;
+            drawable = this.context.getResources().getDrawable(R.drawable.ic_baseline_videocam_24);
+            gambar = holder.gambar;
+            gambar.setImageDrawable(drawable);
         } else if (learn.getType() == 3){
-            gambar = R.drawable.ic_baseline_description_24;
+            drawable = this.context.getResources().getDrawable(R.drawable.ic_baseline_description_24);
+            gambar = holder.gambar;
+            gambar.setImageDrawable(drawable);
+        } else{
+            drawable = this.context.getResources().getDrawable(R.drawable.ic_baseline_description_24);
+            gambar = holder.gambar;
+            gambar.setImageDrawable(drawable);
         }
 
         Glide.with(holder.itemView.getContext())
-                .load(gambar)
+                .load(drawable)
                 .apply(new RequestOptions().override(55, 55))
                 .into(holder.gambar);
         holder.fileName.setText(learnArrayList.get(position).getNamaFile());
@@ -53,7 +68,7 @@ public class LearnAdapter extends RecyclerView.Adapter<LearnAdapter.LearnViewHol
 
     @Override
     public int getItemCount() {
-        return 0;
+        return learnArrayList.size();
     }
 
     public class LearnViewHolder extends RecyclerView.ViewHolder {

@@ -61,7 +61,7 @@ public class UsersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_forum, container, false);
+        View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
 
         MRR = Typeface.createFromAsset(getContext().getAssets(), "fonts/myriadregular.ttf");

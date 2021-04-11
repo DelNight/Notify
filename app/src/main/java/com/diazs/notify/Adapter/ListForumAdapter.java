@@ -9,12 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.diazs.notify.Model.Forum;
-import com.diazs.notify.Model.Voting;
 import com.diazs.notify.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 
@@ -33,7 +28,7 @@ public class ListForumAdapter extends RecyclerView.Adapter<ListForumAdapter.List
     @NonNull
     @Override
     public ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_forum,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_voting,parent,false);
         return new ListViewHolder(view);
     }
 
