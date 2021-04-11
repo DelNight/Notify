@@ -18,8 +18,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.diazs.notify.Adapter.ListMateriAdapter;
 import com.diazs.notify.Adapter.ListVotingAdapter;
 import com.diazs.notify.Model.Forum;
+import com.diazs.notify.Model.Materi;
 import com.diazs.notify.Model.User;
 import com.diazs.notify.Model.Voting;
 import com.google.android.material.card.MaterialCardView;
@@ -39,6 +41,7 @@ public class ForumActivity extends AppCompatActivity implements ListVotingAdapte
     private ActionBarDrawerToggle myToogle;
     private RecyclerView recyclerView;
     private ArrayList<Voting> list;
+    private ArrayList<Materi> listm;
     MaterialCardView cardView;
     ProgressDialog progressDialog;
 
@@ -51,6 +54,7 @@ public class ForumActivity extends AppCompatActivity implements ListVotingAdapte
         recyclerView.setHasFixedSize(true);
         cardView = findViewById(R.id.card_forum);
         list = new ArrayList<>();
+        listm = new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         getData();
 
@@ -74,6 +78,28 @@ public class ForumActivity extends AppCompatActivity implements ListVotingAdapte
                 }
                 progressDialog.dismiss();
             }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                progressDialog.dismiss();
+            }
+        });
+        final DatabaseReference mt = FirebaseDatabase.getInstance().getReference("learn");
+        mt.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot mtsnapshot : dataSnapshot.getChildren()){
+                        Materi materi = mtsnapshot.getValue(Materi.class);
+                        listm.add(materi);
+                    }
+                    ListMateriAdapter listMateriAdapter = new ListMateriAdapter(listm);
+                    recyclerView.setAdapter(listMateriAdapter);
+//                    listMateriAdapter.setOnItemClickCallback(data -> showSelectedMateri(data));
+                }
+                progressDialog.dismiss();
+            }
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -108,6 +134,14 @@ public class ForumActivity extends AppCompatActivity implements ListVotingAdapte
         intent.putExtra(DetailVoting.EXTRA_EXP,voting.getKadaluwarsa());
         startActivity(intent);
     }
+//    private void showSelectedMateri(Materi materi){
+//        Intent intent = new Intent(ForumActivity.this,DetailVoting.class);
+//        intent.putExtra(DetailVoting.EXTRA_ID,materi.getIdMateri());
+//        intent.putExtra(DetailVoting.EXTRA_JUDUL,materi.getJudulMateri());
+//        intent.putExtra(DetailVoting.EXTRA_DESC,materi.getDeskripsiMateri());
+//        intent.putExtra(DetailVoting.EXTRA_EXP,materi.getAuthorMateri());
+//        startActivity(intent);
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -132,4 +166,12 @@ public class ForumActivity extends AppCompatActivity implements ListVotingAdapte
         intent.putExtra(DetailVoting.EXTRA_EXP,data.getKadaluwarsa());
         startActivity(intent);
     }
+//    @Override
+//    public void onItemClicked(Materi data) {
+//        Intent intent = new Intent(ForumActivity.this,DetailVoting.class);
+//        intent.putExtra(DetailVoting.EXTRA_JUDUL,data.getJudulMateri());
+//        intent.putExtra(DetailVoting.EXTRA_DESC,data.getDeskripsiMateri());
+//        intent.putExtra(DetailVoting.EXTRA_EXP,data.getAuthorMateri());
+//        startActivity(intent);
+//    }
 }
