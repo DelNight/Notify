@@ -44,8 +44,14 @@
         <activity android:name=".NotificationActivity" />
         <activity android:name=".ProfilActivity" />
         <activity android:name=".DetailVoting"/>
+<<<<<<< HEAD
         <activity android:name=".FormForum"/>
         <activity android:name=".ForumActivity"/>
+=======
+        <activity android:name=".ProfilCalon">
+
+        </activity>
+>>>>>>> c12c5c660837e0c0e7ec4dbcb3d330f9101d2395
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,6 +59,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".FormForum"/>
     </application>
 
 </manifest>

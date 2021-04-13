@@ -55,13 +55,11 @@ public class DetailVotingAdapter extends RecyclerView.Adapter<DetailVotingAdapte
             @Override
             public void onClick(View view) {
                 try {
-                    System.out.println("Maju Ke Berikut 1");
                     Intent intent = new Intent(context, ProfilCalon.class);
                     intent.putExtra("AGREGATE", agregate);
                     context.startActivity(intent);
-                    System.out.println("Maju Ke Berikut 2");
                 }catch (Exception e){
-                    System.out.println(e.getMessage());
+                    System.out.println("Debug : "+ e.getMessage());
                 }
             }
         });
@@ -96,7 +94,7 @@ public class DetailVotingAdapter extends RecyclerView.Adapter<DetailVotingAdapte
             super(itemView);
             tvNama = (TextView) itemView.findViewById(R.id.namacalon);
             tvJmlSuara = (TextView) itemView.findViewById(R.id.jmlvote);
-            btnProfile = (Button) itemView.findViewById(R.id.profile);
+            btnProfile = (Button) itemView.findViewById(R.id.btn_detail_calon);
             btnPilih = (Button) itemView.findViewById(R.id.btnpilih);
         }
     }

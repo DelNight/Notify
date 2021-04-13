@@ -31,8 +31,8 @@ public class PilihPostinganActivity extends BottomSheetDialogFragment {
             @Override
             public void onClick(View view) {
                 //direct ke halaman form forum
-//                Intent i = new Intent(HomeActivity.this,FormForum.class);
-//                startActivity(i);
+                startActivity(new Intent(getContext(), FormForum.class));
+                dismiss();
             }
         });
 
@@ -40,7 +40,7 @@ public class PilihPostinganActivity extends BottomSheetDialogFragment {
         voting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //direct ke halaman form voting
+                startActivity(new Intent(getContext(), FormVoting.class));
                 dismiss();
             }
         });
@@ -49,7 +49,7 @@ public class PilihPostinganActivity extends BottomSheetDialogFragment {
         learn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //direct ke halaman form e-learning
+                startActivity(new Intent(getContext(), FormLearn.class));
                 dismiss();
             }
         });
@@ -59,6 +59,7 @@ public class PilihPostinganActivity extends BottomSheetDialogFragment {
             @Override
             public void onClick(View view) {
                 //direct ke halaman form event
+                startActivity(new Intent(getContext(), FormEvent.class));
                 dismiss();
             }
         });
