@@ -2,6 +2,7 @@ package com.diazs.notify;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -60,6 +62,7 @@ public class FormForum extends AppCompatActivity {
     Button btnSubmit;
     DatabaseReference dbForum;
     LottieAnimationView loading;
+    private Uri imageUri;
     private StorageReference reference;
     private ProgressBar progressBar;
     private static final int REQUEST_CODE_CAMERA = 1;
@@ -130,50 +133,58 @@ public class FormForum extends AppCompatActivity {
                 String pathImage = "File/"+namaFile;
 
                 UploadTask uploadTask = reference.child(pathImage).putBytes(bytes);
+                final StorageReference fileRef = reference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
+
                 uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                        progressBar.setVisibility(View.VISIBLE);
+//                        progressBar.setVisibility(View.VISIBLE);
                     }
                 });
-                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        progressBar.setVisibility(View.GONE);
-//                        Toast.makeText(FormForum.this, "Uploading Berhasil", Toast.LENGTH_SHORT).show();
-                        String judulPostingan = inpJudul.getText().toString();
-                        String deskripsi =  inpDeskripsi.getText().toString();
-                        FirebaseUser aut = FirebaseAuth.getInstance().getCurrentUser();
-                        forum.setAuthor(aut.getUid());
-                        forum.setJudul(judulPostingan);
-                        forum.setDeskripsi(deskripsi);
-                        forum.setTanggalUpload(formatdate);
-                        String key = dbForum.push().getKey();
-                        forum.setIdForum(key);
-                        forum.setLinkImg(taskSnapshot.getUploadSessionUri().toString());
-                        dbForum.child(key).setValue(forum).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(FormForum.this,"Forum Berhasil Dipost", Toast.LENGTH_LONG).show();
-                                inpJudul.setText("");
-                                inpDeskripsi.setText("");
+                                public void onSuccess(Uri uri) {
+                                String image = uri.toString();
+//                            progressBar.setVisibility(View.GONE);
+    //                        Toast.makeText(FormForum.this, "Uploading Berhasil", Toast.LENGTH_SHORT).show();
+                            String judulPostingan = inpJudul.getText().toString();
+                            String deskripsi =  inpDeskripsi.getText().toString();
+                            FirebaseUser aut = FirebaseAuth.getInstance().getCurrentUser();
+                            forum.setAuthor(aut.getUid());
+                            forum.setJudul(judulPostingan);
+                            forum.setDeskripsi(deskripsi);
+                            forum.setTanggalUpload(formatdate);
+                            String key = dbForum.push().getKey();
+                            forum.setIdForum(key);
+                            forum.setLinkImg(image);
+                            dbForum.child(key).setValue(forum).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(FormForum.this,"Forum Berhasil Dipost", Toast.LENGTH_LONG).show();
+                                    inpJudul.setText("");
+                                    inpDeskripsi.setText("");
 
+                                }
+                            });
                             }
                         });
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                progressBar.setVisibility(View.GONE);
+//                                progressBar.setVisibility(View.GONE);
                                 Toast.makeText(FormForum.this, "Uploading Gagal", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                                progressBar.setVisibility(View.VISIBLE);
+//                                progressBar.setVisibility(View.VISIBLE);
                                 double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                                progressBar.setProgress((int) progress);
+//                                progressBar.setProgress((int) progress);
                             }
                         });
             }
@@ -219,11 +230,16 @@ public class FormForum extends AppCompatActivity {
 
             case REQUEST_CODE_GALLERY:
                 if(resultCode == RESULT_OK){
-                    Uri uri = data.getData();
-                    imgGambar.setImageURI(uri);
+                    imageUri = data.getData();
+                    imgGambar.setImageURI(imageUri);
                 }
                 break;
         }
+    }
+    private String getFileExtension(Uri uri) {
+        ContentResolver cR = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
     }
 
 }
