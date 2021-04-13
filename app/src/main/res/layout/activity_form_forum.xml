@@ -16,17 +16,14 @@
         android:elevation="3dp"
         android:background="@drawable/shadow">
 
-<<<<<<< HEAD
-
-=======
         <Button
+            android:id="@+id/btn_submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="upload"
             android:textColor="@color/color10"
             android:layout_marginLeft="250dp"
             android:background="@android:color/transparent"/>
->>>>>>> 1cf6af00a17d945827e1fe43be64fdd67ff58b0f
     </androidx.appcompat.widget.Toolbar>
 
 
@@ -58,82 +55,55 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="25dp"
-<<<<<<< HEAD
-        android:text="Judul:"
-=======
         android:text="Judul :"
->>>>>>> 1cf6af00a17d945827e1fe43be64fdd67ff58b0f
         android:textSize="18dp"
         android:textColor="@color/color10"/>
 
     <EditText
-<<<<<<< HEAD
-        android:id="@+id/in_judul"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="25dp"
-        android:hint="Masukan Judul"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Kategori:"
-        android:textColor="@android:color/black"
-        android:layout_marginTop="18dp"
-        android:layout_marginHorizontal="25dp"
-        android:textSize="18dp"/>
-
-    <EditText
-        android:id="@+id/in_kategori"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginHorizontal="25dp"
-        android:hint="Masukan Kategori"/>
-=======
         android:id="@+id/judulforum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="25dp"/>
->>>>>>> 1cf6af00a17d945827e1fe43be64fdd67ff58b0f
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:text="Gambar :"
+        android:textSize="18dp"
+        android:textColor="@color/color10"/>
+
+    <ImageView
+        android:id="@+id/img_forum"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        app:srcCompat="@drawable/ic_baseline_image_24" />
+    <Button
+        android:id="@+id/pilih_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pilih Gambar"
+        android:layout_marginHorizontal="25dp"
+        android:layout_gravity="center"
+        android:textColor="@color/color10"
+        />
+
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-        android:layout_margin="25dp"
-        android:text="Deskripsi:"
-=======
         android:layout_marginHorizontal="25dp"
         android:text="Deskripsi :"
->>>>>>> 1cf6af00a17d945827e1fe43be64fdd67ff58b0f
         android:textSize="18dp"
         android:textColor="@color/color10"/>
 
     <EditText
-<<<<<<< HEAD
-        android:id="@+id/in_desc"
+        android:id="@+id/deskripsiforum"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="25dp"
-        android:hint="Masukan Deskripsi"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="270dp"
-        android:background="@color/color6"
-        android:text="Buat"
-        android:textColor="@color/color10" />
-=======
-    android:id="@+id/deskripsiforum"
-    android:layout_width="match_parent"
-    android:layout_height="150dp"
-    android:inputType="text|textMultiLine"
-    android:gravity="top"
-    android:layout_marginHorizontal="25dp"/>
+        android:layout_height="150dp"
+        android:inputType="text|textMultiLine"
+        android:gravity="top"
+        android:layout_marginHorizontal="25dp"/>
 
 
->>>>>>> 1cf6af00a17d945827e1fe43be64fdd67ff58b0f
 
 </LinearLayout>

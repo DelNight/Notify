@@ -44,6 +44,7 @@
         <activity android:name=".NotificationActivity" />
         <activity android:name=".ProfilActivity" />
         <activity android:name=".DetailVoting"/>
+        <activity android:name=".FormForum"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

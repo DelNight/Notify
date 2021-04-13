@@ -7,6 +7,7 @@ public class Forum {
     private String judul;
     private String deskripsi;
     private String tanggalUpload;
+    private String linkImg;
 
     public String getIdForum() {
         return idForum;
@@ -54,5 +55,13 @@ public class Forum {
 
     public void setTanggalUpload(String tanggalUpload) {
         this.tanggalUpload = tanggalUpload;
+    }
+
+    public String getLinkImg() {
+        return linkImg;
+    }
+
+    public void setLinkImg(String linkImg) {
+        this.linkImg = linkImg;
     }
 }
