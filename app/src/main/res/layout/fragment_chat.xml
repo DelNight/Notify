@@ -1,45 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.chat.ChatFragment">
+    tools:context=".ChatActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:layout_constraintTop_toTopOf="parent"
-        app:elevation="0dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:background="@android:color/transparent">
-        <com.google.android.material.appbar.MaterialToolbar
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:navigationIcon="@drawable/ic_baseline_menu_24"
-            app:title="Obrolan"/>
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <TextView
-        android:id="@+id/text_chat"
+        android:id="@+id/topChat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@color/color5">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBarChat"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            app:title="@string/menu_chat"
+            app:titleTextColor="@color/color10"
+            app:menu="@menu/top_bar"
+            app:navigationIcon="@drawable/ic_baseline_menu_24"
+            app:navigationIconTint="@color/color10"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            />
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_chat"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/row_chat"
+        android:layout_marginTop="?attr/actionBarSize"/>
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appbar"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_gravity="bottom"
+        android:id="@+id/bottomAppBar"
+        android:backgroundTint="@color/color5"
+        android:background="@color/color5"
+        app:fabCradleRoundedCornerRadius="0dp"
+        app:fabCradleMargin="0dp"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:menu="@menu/navigation_forum"
+            android:layout_marginEnd="0dp"
+            android:layout_marginStart="0dp"
+            android:layoutMode="opticalBounds"
+            android:elevation="0dp"
+            android:background="@color/color5"
+            app:itemBackground="@color/color5"/>
+
+    </com.google.android.material.bottomappbar.BottomAppBar>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fab"
+        android:backgroundTint="@color/color2"
+        android:src="@drawable/ic_baseline_add_white"
+        app:layout_anchor="@id/bottomAppBar"/>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

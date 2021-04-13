@@ -37,19 +37,20 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="210dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:background="@drawable/shape_corner_white"
         android:elevation="10dp"
-        android:padding="20dp">
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
 
         <TextView
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="40dp"
             android:text="Login"
             android:textAlignment="center"
             android:textColor="@color/color2"
@@ -71,7 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_below="@id/email"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="40dp"
             android:background="@drawable/button_radius_login"
             android:hint="Password"
             android:inputType="textPassword"
