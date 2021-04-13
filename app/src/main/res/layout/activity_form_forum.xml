@@ -72,6 +72,13 @@
         android:textSize="18dp"
         android:textColor="@color/color10"/>
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_height="wrap_content"/>
+
     <ImageView
         android:id="@+id/img_forum"
         android:layout_width="match_parent"
@@ -103,7 +110,5 @@
         android:inputType="text|textMultiLine"
         android:gravity="top"
         android:layout_marginHorizontal="25dp"/>
-
-
 
 </LinearLayout>

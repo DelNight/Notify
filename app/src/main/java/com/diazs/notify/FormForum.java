@@ -74,6 +74,7 @@ public class FormForum extends AppCompatActivity {
 //        loading.playAnimation();
 //        loading.setVisibility(View.VISIBLE);
         tvNama = findViewById(R.id.name);
+        progressBar = findViewById(R.id.progressBar);
 
 
         FirebaseDatabase.getInstance().getReference("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -113,69 +114,48 @@ public class FormForum extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Forum forum = new Forum();
-                Date c = Calendar.getInstance().getTime();
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-                String formatdate = sdf.format(c);
                 imgGambar.setDrawingCacheEnabled(true);
                 imgGambar.buildDrawingCache();
-                Bitmap bitmap = ((BitmapDrawable) imgGambar.getDrawable()).getBitmap();
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                try {
+                    Bitmap bitmap = ((BitmapDrawable) imgGambar.getDrawable()).getBitmap();
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
-                //Mengkompress bitmap menjadi JPG dengan kualitas gambar 100%
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                byte[] bytes = stream.toByteArray();
+                    //Mengkompress bitmap menjadi JPG dengan kualitas gambar 100%
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                    byte[] bytes = stream.toByteArray();
 
-                //Lokasi lengkap dimana gambar akan disimpan
-                String namaFile = UUID.randomUUID()+".jpg";
-                String pathImage = "File/"+namaFile;
-
-                UploadTask uploadTask = reference.child(pathImage).putBytes(bytes);
-                uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                        progressBar.setVisibility(View.VISIBLE);
-                    }
-                });
-                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        progressBar.setVisibility(View.GONE);
+                    //Lokasi lengkap dimana gambar akan disimpan
+                    String namaFile = UUID.randomUUID()+".jpg";
+                    String pathImage = "File/"+namaFile;
+                    UploadTask uploadTask = reference.child(pathImage).putBytes(bytes);
+                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressBar.setVisibility(View.GONE);
+                            forum.setLinkImg(taskSnapshot.getUploadSessionUri().toString());
+                            uploadForumData(forum);
 //                        Toast.makeText(FormForum.this, "Uploading Berhasil", Toast.LENGTH_SHORT).show();
-                        String judulPostingan = inpJudul.getText().toString();
-                        String deskripsi =  inpDeskripsi.getText().toString();
-                        FirebaseUser aut = FirebaseAuth.getInstance().getCurrentUser();
-                        forum.setAuthor(aut.getUid());
-                        forum.setJudul(judulPostingan);
-                        forum.setDeskripsi(deskripsi);
-                        forum.setTanggalUpload(formatdate);
-                        String key = dbForum.push().getKey();
-                        forum.setIdForum(key);
-                        forum.setLinkImg(taskSnapshot.getUploadSessionUri().toString());
-                        dbForum.child(key).setValue(forum).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(FormForum.this,"Forum Berhasil Dipost", Toast.LENGTH_LONG).show();
-                                inpJudul.setText("");
-                                inpDeskripsi.setText("");
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(FormForum.this, "Uploading Gagal", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressBar.setVisibility(View.VISIBLE);
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                            progressBar.setProgress((int) progress);
+                        }
+                    });
+                }catch (Exception e){
+                    System.out.println("Error : "+ e.getMessage() + " (tidak ada foto)");
+                    uploadForumData(forum);
+                }
 
-                            }
-                        });
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                progressBar.setVisibility(View.GONE);
-                                Toast.makeText(FormForum.this, "Uploading Gagal", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                                progressBar.setVisibility(View.VISIBLE);
-                                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                                progressBar.setProgress((int) progress);
-                            }
-                        });
             }
         });
     }
@@ -205,6 +185,32 @@ public class FormForum extends AppCompatActivity {
         dialog.create();
         dialog.show();
     }
+
+    public void uploadForumData(Forum forum){
+
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        String formatdate = sdf.format(c);
+        String judulPostingan = inpJudul.getText().toString();
+        String deskripsi =  inpDeskripsi.getText().toString();
+        FirebaseUser aut = FirebaseAuth.getInstance().getCurrentUser();
+        forum.setAuthor(aut.getUid());
+        forum.setJudul(judulPostingan);
+        forum.setDeskripsi(deskripsi);
+        forum.setTanggalUpload(formatdate);
+        String key = dbForum.push().getKey();
+        forum.setIdForum(key);
+        dbForum.child(key).setValue(forum).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(FormForum.this,"Forum Berhasil Dipost", Toast.LENGTH_LONG).show();
+                inpJudul.setText("");
+                inpDeskripsi.setText("");
+
+            }
+        });
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
