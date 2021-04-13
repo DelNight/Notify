@@ -2,7 +2,7 @@ package com.diazs.notify.Model;
 
 public class Forum {
     private String idForum;
-    private User poster;
+    private String author;
     private String kategori;
     private String judul;
     private String deskripsi;
@@ -16,12 +16,12 @@ public class Forum {
         this.idForum = idForum;
     }
 
-    public User getPoster() {
-        return poster;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setPoster(User poster) {
-        this.poster = poster;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public String getKategori() {

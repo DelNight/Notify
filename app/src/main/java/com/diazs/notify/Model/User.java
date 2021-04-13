@@ -1,18 +1,21 @@
 package com.diazs.notify.Model;
 
-public class User {
-    private String id;
-    private String nama;
-    private int role;
-    private String kelas;
-    private String jenisKelamin;
-    private String username;
-    private String email;
-    private String noHP;
-    private String imageURL;
-    private String bio;
-    private String status;
-    private String search;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class User implements Parcelable {
+    protected String id;
+    protected String nama;
+    protected int role;
+    protected String kelas;
+    protected String jenisKelamin;
+    protected String username;
+    protected String email;
+    protected String noHP;
+    protected String imageURL;
+    protected String bio;
+    protected String status;
+    protected String search;
 
     public User(String id, String nama, int role, String kelas, String jenisKelamin, String username, String email, String noHP, String imageURL, String bio, String status, String search) {
         this.id = id;
@@ -31,6 +34,33 @@ public class User {
 
     public User() {
     }
+
+    protected User(Parcel in) {
+        id = in.readString();
+        nama = in.readString();
+        role = in.readInt();
+        kelas = in.readString();
+        jenisKelamin = in.readString();
+        username = in.readString();
+        email = in.readString();
+        noHP = in.readString();
+        imageURL = in.readString();
+        bio = in.readString();
+        status = in.readString();
+        search = in.readString();
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -126,5 +156,26 @@ public class User {
 
     public void setSearch(String search) {
         this.search = search;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(nama);
+        parcel.writeInt(role);
+        parcel.writeString(kelas);
+        parcel.writeString(jenisKelamin);
+        parcel.writeString(username);
+        parcel.writeString(email);
+        parcel.writeString(noHP);
+        parcel.writeString(imageURL);
+        parcel.writeString(bio);
+        parcel.writeString(status);
+        parcel.writeString(search);
     }
 }

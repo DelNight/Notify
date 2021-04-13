@@ -3,7 +3,7 @@ package com.diazs.notify.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Agregate extends User implements Parcelable {
+public class Agregate extends User{
     private String idAgregate;
     private int noUrut;
     private String visi;
@@ -17,6 +17,8 @@ public class Agregate extends User implements Parcelable {
     }
 
     protected Agregate(Parcel in) {
+        nama = in.readString();
+        profil = in.readString();
         idAgregate = in.readString();
         noUrut = in.readInt();
         visi = in.readString();
@@ -101,6 +103,8 @@ public class Agregate extends User implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(nama);
+        parcel.writeString(profil);
         parcel.writeString(idAgregate);
         parcel.writeInt(noUrut);
         parcel.writeString(visi);

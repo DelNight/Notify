@@ -1,6 +1,8 @@
 package com.diazs.notify;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -9,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.diazs.notify.Model.Agregate;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,11 +33,21 @@ public class ProfilCalon extends AppCompatActivity {
         tvMisi = findViewById(R.id.misi);
         btnPilih = findViewById(R.id.btn_pilih);
 
+        Toolbar toolbar = findViewById(R.id.back_toolbar);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                startActivity(new Intent(ProfilCalon.this, DetailVoting.class));
+                return true;
+            }
+        });
+
         Agregate agregate = getIntent().getParcelableExtra("AGREGATE");
 
+        System.out.println("Debug Nama :" + agregate.getNama());
         tvNama.setText(agregate.getNama());
         tvJmlVote.setText(agregate.getJumlahSuara() + " Suara");
-        tvProfil.setText(agregate.getNama());
+        tvProfil.setText(agregate.getProfil());
         tvVisi.setText(agregate.getVisi());
         tvMisi.setText(agregate.getMisi());
         btnPilih.setOnClickListener(new View.OnClickListener() {

@@ -174,10 +174,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 dialog.show(getSupportFragmentManager(), " string");
             }
         });
+
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(HomeActivity.this,ProfilActivity.class);
+                Intent i = new Intent(HomeActivity.this, ProfilActivity.class);
                 startActivity(i);
             }
         });
