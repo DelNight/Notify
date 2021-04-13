@@ -61,7 +61,7 @@ public class ProfilActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-        recyclerView = findViewById(R.id.recycleview);
+        recyclerView = findViewById(R.id.recycler_profil);
         recyclerView.setHasFixedSize(true);
         showRecyclerList();
 

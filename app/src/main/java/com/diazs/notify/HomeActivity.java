@@ -146,7 +146,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         learning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(HomeActivity.this,LearnActivity.class);
+                Intent i = new Intent(HomeActivity.this,FormForum.class);
                 startActivity(i);
             }
         });
