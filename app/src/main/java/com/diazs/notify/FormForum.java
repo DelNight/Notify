@@ -119,7 +119,6 @@ public class FormForum extends AppCompatActivity {
                 Forum forum = new Forum();
                 imgGambar.setDrawingCacheEnabled(true);
                 imgGambar.buildDrawingCache();
-<<<<<<< HEAD
                 Bitmap bitmap = ((BitmapDrawable) imgGambar.getDrawable()).getBitmap();
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
@@ -149,6 +148,9 @@ public class FormForum extends AppCompatActivity {
                                 String image = uri.toString();
 //                            progressBar.setVisibility(View.GONE);
     //                        Toast.makeText(FormForum.this, "Uploading Berhasil", Toast.LENGTH_SHORT).show();
+                                Date c = Calendar.getInstance().getTime();
+                                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+                                String formatdate = sdf.format(c);
                             String judulPostingan = inpJudul.getText().toString();
                             String deskripsi =  inpDeskripsi.getText().toString();
                             FirebaseUser aut = FirebaseAuth.getInstance().getCurrentUser();
@@ -186,49 +188,8 @@ public class FormForum extends AppCompatActivity {
 //                                progressBar.setProgress((int) progress);
                             }
                         });
-=======
-                try {
-                    Bitmap bitmap = ((BitmapDrawable) imgGambar.getDrawable()).getBitmap();
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
-                    //Mengkompress bitmap menjadi JPG dengan kualitas gambar 100%
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                    byte[] bytes = stream.toByteArray();
-
-                    //Lokasi lengkap dimana gambar akan disimpan
-                    String namaFile = UUID.randomUUID()+".jpg";
-                    String pathImage = "File/"+namaFile;
-                    UploadTask uploadTask = reference.child(pathImage).putBytes(bytes);
-                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressBar.setVisibility(View.GONE);
-                            forum.setLinkImg(taskSnapshot.getUploadSessionUri().toString());
-                            uploadForumData(forum);
-//                        Toast.makeText(FormForum.this, "Uploading Berhasil", Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            progressBar.setVisibility(View.GONE);
-                            Toast.makeText(FormForum.this, "Uploading Gagal", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressBar.setVisibility(View.VISIBLE);
-                            double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                            progressBar.setProgress((int) progress);
-                        }
-                    });
-                }catch (Exception e){
-                    System.out.println("Error : "+ e.getMessage() + " (tidak ada foto)");
-                    uploadForumData(forum);
                 }
-
->>>>>>> c12c5c660837e0c0e7ec4dbcb3d330f9101d2395
-            }
         });
     }
     private void getImage(){
