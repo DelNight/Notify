@@ -24,7 +24,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
     @NonNull
     @Override
     public ProfileViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_forum, parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_voting, parent,false);
         return new ProfileViewHolder(view);
     }
 
