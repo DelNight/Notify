@@ -97,10 +97,10 @@
             android:layout_below="@id/password"
             android:layout_alignParentLeft="true"
             android:layout_gravity="center_horizontal|center"
-            android:background="@drawable/button_radius_login"
+            android:background="@drawable/shape_corner_tosca"
+            android:backgroundTint="@android:color/transparent"
             android:text="Buat akun"
-            android:textColor="#7090B0" />
-
+            />
     </RelativeLayout>
 
     <ImageView

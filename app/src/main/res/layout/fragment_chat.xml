@@ -6,6 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".ChatActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/topChat"
         android:layout_width="match_parent"
@@ -33,7 +37,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/row_chat"
-        android:layout_marginTop="?attr/actionBarSize"/>
+        android:layout_below="@id/topChat"/>
+
+    </RelativeLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:layout_width="match_parent"

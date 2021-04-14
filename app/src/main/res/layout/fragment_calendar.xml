@@ -13,6 +13,10 @@
         android:layout_centerHorizontal="true"
         android:orientation="vertical">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/topForum"
             android:layout_width="match_parent"
@@ -36,18 +40,17 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <CalendarView
+            android:id="@+id/calender"
             android:layout_width="match_parent"
             android:layout_height="320dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:layout_marginTop="85dp"
+            android:layout_margin="25dp"
+            android:layout_below="@id/topForum"
             android:background="@drawable/calendar"/>
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:layout_marginTop="430dp"
+            android:layout_margin="25dp"
+            android:layout_below="@id/calender"
             android:layout_height="100dp">
 
             <TextView
@@ -59,6 +62,8 @@
                 android:background="@drawable/calendar" />
 
         </FrameLayout>
+
+        </RelativeLayout>
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:layout_width="match_parent"

@@ -6,9 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@color/colorPrimary"
+    android:background="@color/color1"
     android:fitsSystemWindows="true"
     tools:context=".ResetActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:logo="@drawable/ic_baseline_arrow_back_24" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,9 +26,9 @@
         android:padding="@dimen/activity_horizontal_margin">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher_background"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/logo_notify"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10dp"/>
 
@@ -32,17 +39,8 @@
             android:padding="10dp"
             android:text="forgot password"
             android:textSize="20sp"
-            android:textColor="@android:color/white"/>
+            android:textColor="@color/color10"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:gravity="center_horizontal"
-            android:padding="@dimen/activity_horizontal_margin"
-            android:text="forgot"
-            android:textColor="@android:color/white"
-            android:textSize="14dp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -65,18 +63,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
-            android:background="@color/colorAccent"
+            android:background="@drawable/shape_corner_tosca"
             android:text="Reset Password"
-            android:textColor="@android:color/black" />
-
-        <Button
-            android:id="@+id/btn_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@null"
-            android:text="Back"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 

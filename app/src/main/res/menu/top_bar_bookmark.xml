@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/bookmark"
+        android:icon="@drawable/ic_baseline_bookmark_border_24"
+        android:title="@string/menu_forum"
+        android:contentDescription="@string/menu_forum"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/more"
+        android:icon="@drawable/ic_baseline_more_vert_24"
+        android:title="@string/menu_forum"
+        android:iconTint="@color/color10"
+        android:contentDescription="@string/menu_forum"
+        app:showAsAction="never" />
+
+</menu>
