@@ -1,21 +1,29 @@
 package com.diazs.notify.Adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.diazs.notify.Model.Forum;
+import com.diazs.notify.Model.User;
 import com.diazs.notify.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class ListForumAdapter extends RecyclerView.Adapter<ListForumAdapter.ListViewHolder>{
     private ArrayList<Forum> listForum;
-
     private OnItemClickCallback onItemClickCallback;
 
     public ListForumAdapter(ArrayList<Forum> list) {
@@ -28,16 +36,28 @@ public class ListForumAdapter extends RecyclerView.Adapter<ListForumAdapter.List
     @NonNull
     @Override
     public ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_voting,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_forum,parent,false);
         return new ListViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ListForumAdapter.ListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
         Forum forum =listForum.get(position);
         holder.txt_judul.setText(forum.getJudul());
+        Picasso.get().load(forum.getLinkImg()).into(holder.iv_gambar);
         holder.txt_desc.setText(forum.getDeskripsi());
-        holder.txt_username.setText(forum.getTanggalUpload());
+        FirebaseDatabase.getInstance().getReference("users").child(forum.getAuthor()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                holder.txt_username.setText(user.getNama());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,12 +74,13 @@ public class ListForumAdapter extends RecyclerView.Adapter<ListForumAdapter.List
 
     public class ListViewHolder extends RecyclerView.ViewHolder{
         TextView txt_judul,txt_desc,txt_username;
-
+        ImageView iv_gambar;
         public ListViewHolder(@NonNull View itemView){
             super(itemView);
-            txt_judul = itemView.findViewById(R.id.txt_judul);
-            txt_desc = itemView.findViewById(R.id.txt_desc);
-            txt_username = itemView.findViewById(R.id.txt_username);
+            txt_judul = itemView.findViewById(R.id.judul);
+            txt_desc = itemView.findViewById(R.id.isi);
+            txt_username = itemView.findViewById(R.id.nama);
+            iv_gambar = itemView.findViewById(R.id.gbrforum);
         }
     }
     public interface OnItemClickCallback {

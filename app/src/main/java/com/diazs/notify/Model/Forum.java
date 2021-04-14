@@ -2,12 +2,13 @@ package com.diazs.notify.Model;
 
 public class Forum {
     private String idForum;
-    private User poster;
+    private String author;
     private String kategori;
     private String judul;
     private String deskripsi;
     private String tanggalUpload;
     private long createdAt;
+    private String linkImg;
 
     public String getIdForum() {
         return idForum;
@@ -17,12 +18,12 @@ public class Forum {
         this.idForum = idForum;
     }
 
-    public User getPoster() {
-        return poster;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setPoster(User poster) {
-        this.poster = poster;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public String getKategori() {
@@ -57,6 +58,11 @@ public class Forum {
         this.tanggalUpload = tanggalUpload;
     }
 
+    public String getLinkImg() {
+        return linkImg;
+    }
 
-
+    public void setLinkImg(String linkImg) {
+        this.linkImg = linkImg;
+    }
 }

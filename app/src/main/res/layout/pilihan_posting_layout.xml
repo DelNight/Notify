@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Forum"
+        android:textColor="@color/color3"
         android:textAllCaps="false"
         android:background="#fff"/>
     <View
@@ -31,6 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Voting"
+        android:textColor="@color/color3"
         android:textAllCaps="false"
         android:background="#fff"/>
     <View
@@ -43,6 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="E - Learning"
+        android:textColor="@color/color3"
         android:textAllCaps="false"
         android:background="#fff"/>
     <View
@@ -54,6 +57,7 @@
         android:id="@+id/btn_event"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/color3"
         android:text="Pengingat Event"
         android:textAllCaps="false"
         android:background="#fff"/>

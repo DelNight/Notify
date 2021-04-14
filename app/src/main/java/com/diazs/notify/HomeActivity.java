@@ -146,7 +146,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         learning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(HomeActivity.this,LearnActivity.class);
+                Intent i = new Intent(HomeActivity.this,FormForum.class);
                 startActivity(i);
             }
         });
@@ -154,8 +154,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         kalender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(HomeActivity.this, InputEvent.class);
-                startActivity(i);
+              Intent i = new Intent(HomeActivity.this, InputEvent.class);
+              startActivity(i);
             }
         });
 
@@ -174,10 +174,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 dialog.show(getSupportFragmentManager(), " string");
             }
         });
+
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(HomeActivity.this,ProfilActivity.class);
+                Intent i = new Intent(HomeActivity.this, ProfilActivity.class);
                 startActivity(i);
             }
         });
