@@ -7,6 +7,7 @@ public class Forum {
     private String judul;
     private String deskripsi;
     private String tanggalUpload;
+    private long createdAt;
 
     public String getIdForum() {
         return idForum;
@@ -55,4 +56,7 @@ public class Forum {
     public void setTanggalUpload(String tanggalUpload) {
         this.tanggalUpload = tanggalUpload;
     }
+
+
+
 }

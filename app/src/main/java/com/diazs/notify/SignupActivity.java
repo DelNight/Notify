@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -55,7 +56,7 @@ public class SignupActivity extends AppCompatActivity {
     @BindView(R.id.sign_up_button)
     Button signUpButton;
     @BindView(R.id.btn_back)
-    Button back;
+    ImageButton back;
 
     private FirebaseAuth firebaseAuth;
     private RadioButton radioButton;

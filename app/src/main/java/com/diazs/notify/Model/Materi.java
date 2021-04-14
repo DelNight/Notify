@@ -37,6 +37,7 @@ public class Materi implements Parcelable {
         fileUrl = in.readString();
         videoUrl = in.readString();
         imageUrl = in.readString();
+        createdAt = in.readLong();
     }
 
     public static final Creator<Materi> CREATOR = new Creator<Materi>() {
@@ -185,5 +186,6 @@ public class Materi implements Parcelable {
         parcel.writeString(fileUrl);
         parcel.writeString(videoUrl);
         parcel.writeString(imageUrl);
+        parcel.writeLong(createdAt);
     }
 }

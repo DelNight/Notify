@@ -154,7 +154,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         kalender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(HomeActivity.this, HomeActivity.class);
+                Intent i = new Intent(HomeActivity.this, InputEvent.class);
                 startActivity(i);
             }
         });

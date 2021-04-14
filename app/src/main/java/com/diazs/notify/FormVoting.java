@@ -29,7 +29,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class FormVoting extends AppCompatActivity {
     EditText spinner;
@@ -121,6 +124,7 @@ public class FormVoting extends AppCompatActivity {
                 voting.setJudulPosting(judulPostingan);
                 voting.setDeskripsiVoting(deskripsi);
                 voting.setKadaluwarsa(date);
+                voting.setCreatedAt(System.currentTimeMillis());
                 String key = dbVoting.push().getKey();
                 voting.setIdVoting(key);
                 dbVoting.child(key).setValue(voting).addOnSuccessListener(new OnSuccessListener<Void>() {
