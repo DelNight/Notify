@@ -1,6 +1,7 @@
 package com.diazs.notify;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,7 @@ public class PilihPostinganActivity extends BottomSheetDialogFragment {
             @Override
             public void onClick(View view) {
                 //direct ke halaman form forum
+                startActivity(new Intent(getContext(), FormForum.class));
                 dismiss();
             }
         });
@@ -38,7 +40,7 @@ public class PilihPostinganActivity extends BottomSheetDialogFragment {
         voting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //direct ke halaman form voting
+                startActivity(new Intent(getContext(), FormVoting.class));
                 dismiss();
             }
         });
@@ -47,7 +49,7 @@ public class PilihPostinganActivity extends BottomSheetDialogFragment {
         learn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //direct ke halaman form e-learning
+                startActivity(new Intent(getContext(), FormLearn.class));
                 dismiss();
             }
         });
@@ -57,6 +59,7 @@ public class PilihPostinganActivity extends BottomSheetDialogFragment {
             @Override
             public void onClick(View view) {
                 //direct ke halaman form event
+                startActivity(new Intent(getContext(), InputEvent.class));
                 dismiss();
             }
         });

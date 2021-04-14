@@ -145,6 +145,7 @@ public class FormLearn extends AppCompatActivity {
                 materi.setJudulMateri(lJudul.getText().toString().trim());
                 materi.setDeskripsiMateri(lDeskripsi.getText().toString().trim());
                 materi.setAuthorMateri(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                materi.setCreatedAt(System.currentTimeMillis());
                 dbKey = firebaseDatabase.getReference("learn").push().getKey();
 
                 if (materi.getFotoMateri()!=null){

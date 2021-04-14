@@ -17,6 +17,7 @@
         android:background="@drawable/shadow">
 
         <Button
+            android:id="@+id/btn_submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="upload"
@@ -63,6 +64,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="25dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:text="Gambar :"
+        android:textSize="18dp"
+        android:textColor="@color/color10"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/img_forum"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        app:srcCompat="@drawable/ic_baseline_image_24" />
+    <Button
+        android:id="@+id/pilih_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pilih Gambar"
+        android:layout_marginHorizontal="25dp"
+        android:layout_gravity="center"
+        android:textColor="@color/color10"
+        />
+
 
     <TextView
         android:layout_width="match_parent"
@@ -73,13 +104,11 @@
         android:textColor="@color/color10"/>
 
     <EditText
-    android:id="@+id/deskripsiforum"
-    android:layout_width="match_parent"
-    android:layout_height="150dp"
-    android:inputType="text|textMultiLine"
-    android:gravity="top"
-    android:layout_marginHorizontal="25dp"/>
-
-
+        android:id="@+id/deskripsiforum"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:inputType="text|textMultiLine"
+        android:gravity="top"
+        android:layout_marginHorizontal="25dp"/>
 
 </LinearLayout>

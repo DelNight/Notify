@@ -17,7 +17,7 @@ public class Voting {
         listAgregates = new ArrayList<>();
     }
 
-    public Voting(String idVoting, String votingMaker, String deskripsiVoting, String judulPosting, String jenisVoting, String kadaluwarsa, ArrayList<Agregate> listAgregates) {
+    public Voting(String idVoting, String votingMaker, String deskripsiVoting, String judulPosting, String jenisVoting, String kadaluwarsa, ArrayList<Agregate> listAgregates, long createdAt) {
         this.idVoting = idVoting;
         this.votingMaker = votingMaker;
         this.deskripsiVoting = deskripsiVoting;
@@ -25,6 +25,7 @@ public class Voting {
         this.jenisVoting = jenisVoting;
         this.kadaluwarsa = kadaluwarsa;
         this.listAgregates = listAgregates;
+        this.createdAt = createdAt;
     }
 
     public String getIdVoting() {
