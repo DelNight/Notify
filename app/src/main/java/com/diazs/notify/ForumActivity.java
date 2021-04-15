@@ -112,7 +112,7 @@ public class ForumActivity extends AppCompatActivity {
 //        });
 //    }
     private void showSelectedItem(Forum forum){
-        Intent intent = new Intent(ForumActivity.this,DetailVoting.class);
+        Intent intent = new Intent(ForumActivity.this, DetailVoting.class);
         intent.putExtra(DetailVoting.EXTRA_JUDUL,forum.getJudul());
         intent.putExtra(DetailVoting.EXTRA_DESC,forum.getDeskripsi());
         intent.putExtra(DetailVoting.EXTRA_EXP,forum.getAuthor());

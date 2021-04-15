@@ -66,6 +66,7 @@ public class FormLearn extends AppCompatActivity {
 
     private ArrayList<Learn> learnArrayList;
     private LearnAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,17 +99,17 @@ public class FormLearn extends AppCompatActivity {
             }
         });
 
-        if (materi.getGlobal() == true){
+        if (materi.getGlobal() == true) {
             setupRecycleview();
         }
 
         btnImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(FormLearn.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-                    if (materi.getFotoMateri() != null){
+                if (ContextCompat.checkSelfPermission(FormLearn.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    if (materi.getFotoMateri() != null) {
                         Toast.makeText(FormLearn.this, "Hanya dapat memilih 1 foto", Toast.LENGTH_LONG).show();
-                    }else {
+                    } else {
                         selectImage();
                     }
                 } else {
@@ -120,9 +121,9 @@ public class FormLearn extends AppCompatActivity {
         btnVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (materi.getVideoMateri() != null){
+                if (materi.getVideoMateri() != null) {
                     Toast.makeText(FormLearn.this, "Hanya dapat memilih 1 video", Toast.LENGTH_LONG).show();
-                }else {
+                } else {
                     selectVideo();
                 }
             }
@@ -131,9 +132,9 @@ public class FormLearn extends AppCompatActivity {
         btnFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (materi.getPdfMateri() != null){
+                if (materi.getPdfMateri() != null) {
                     Toast.makeText(FormLearn.this, "Hanya dapat memilih 1 dokumen", Toast.LENGTH_LONG).show();
-                }else {
+                } else {
                     selectFile();
                 }
             }
@@ -148,14 +149,14 @@ public class FormLearn extends AppCompatActivity {
                 materi.setCreatedAt(System.currentTimeMillis());
                 dbKey = firebaseDatabase.getReference("learn").push().getKey();
 
-                if (materi.getFotoMateri()!=null){
+                if (materi.getFotoMateri() != null) {
                     uploadImage(materi.getFotoMateri());
                 }
-                if (materi.getVideoMateri()!=null){
+                if (materi.getVideoMateri() != null) {
                     uploadVideo(materi.getVideoMateri());
                 }
-                if (materi.getPdfMateri()!=null){
-                    uploadFile (materi.getPdfMateri());
+                if (materi.getPdfMateri() != null) {
+                    uploadFile(materi.getPdfMateri());
                 }
                 materi.setFotoMateri(null);
                 materi.setVideoMateri(null);
@@ -184,21 +185,21 @@ public class FormLearn extends AppCompatActivity {
 
     private void uploadFile(Uri pdfMateri) {
         Learn learn = new Learn();
-        learn.setNamaFile(System.currentTimeMillis()+"");
+        learn.setNamaFile(System.currentTimeMillis() + "");
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Uploading...");
         progressDialog.show();
-        storageReference.child("learn").child(learn.getNamaFile()+"."+getFileExtension(pdfMateri)).putFile(pdfMateri)
+        storageReference.child("learn").child(learn.getNamaFile() + "." + getFileExtension(pdfMateri)).putFile(pdfMateri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        String url = taskSnapshot.getUploadSessionUri().toString();
+                        String url = storageReference.getDownloadUrl().toString();
                         DatabaseReference databaseReference = firebaseDatabase.getReference("learn");
                         progressDialog.dismiss();
                         databaseReference.child(dbKey).child("fileUrl").setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()){
+                                if (task.isSuccessful()) {
                                     Toast.makeText(FormLearn.this, "Posting file berhasil", Toast.LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(FormLearn.this, "Posting file gagal", Toast.LENGTH_SHORT).show();
@@ -222,21 +223,21 @@ public class FormLearn extends AppCompatActivity {
 
     private void uploadVideo(Uri videoMateri) {
         Learn learn = new Learn();
-        learn.setNamaFile(System.currentTimeMillis()+"");
+        learn.setNamaFile(System.currentTimeMillis() + "");
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Uploading...");
         progressDialog.show();
-        storageReference.child("learn").child(learn.getNamaFile()+"."+getFileExtension(videoMateri)).putFile(videoMateri)
+        storageReference.child("learn").child(learn.getNamaFile() + "." + getFileExtension(videoMateri)).putFile(videoMateri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        String url = taskSnapshot.getUploadSessionUri().toString();
+                        String url = storageReference.getDownloadUrl().toString();
                         DatabaseReference databaseReference = firebaseDatabase.getReference("learn");
                         progressDialog.dismiss();
                         databaseReference.child(dbKey).child("videoUrl").setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()){
+                                if (task.isSuccessful()) {
                                     Toast.makeText(FormLearn.this, "Posting video berhasil", Toast.LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(FormLearn.this, "Posting video gagal", Toast.LENGTH_SHORT).show();
@@ -260,28 +261,35 @@ public class FormLearn extends AppCompatActivity {
 
     private void uploadImage(Uri fotoMateri) {
         Learn learn = new Learn();
-        learn.setNamaFile(System.currentTimeMillis()+"");
+        learn.setNamaFile(System.currentTimeMillis() + "");
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Uploading...");
         progressDialog.show();
 
-        storageReference.child("learn").child(learn.getNamaFile()+"."+getFileExtension(fotoMateri)).putFile(fotoMateri)
+        storageReference.child("learn").child(learn.getNamaFile() + "." + getFileExtension(fotoMateri)).putFile(fotoMateri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        String url = taskSnapshot.getUploadSessionUri().toString();
-                        DatabaseReference databaseReference = firebaseDatabase.getReference("learn");
-                        progressDialog.dismiss();
-                        databaseReference.child(dbKey).child("imageUrl").setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()){
-                                    Toast.makeText(FormLearn.this, "Posting gambar berhasil", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(FormLearn.this, "Posting gambar gagal", Toast.LENGTH_SHORT).show();
-                                }
+                            public void onSuccess(Uri uri) {
+                                String url = uri.toString();
+
+                                DatabaseReference databaseReference = firebaseDatabase.getReference("learn");
+                                progressDialog.dismiss();
+                                databaseReference.child(dbKey).child("imageUrl").setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(FormLearn.this, "Posting gambar berhasil", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(FormLearn.this, "Posting gambar gagal", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
                             }
                         });
+
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -300,51 +308,51 @@ public class FormLearn extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode==3 && grantResults[0]==PackageManager.PERMISSION_GRANTED){
+        if (requestCode == 3 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             selectImage();
-        } else{
+        } else {
             Toast.makeText(FormLearn.this, "Please provide permission...", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void selectImage(){
+    public void selectImage() {
         Intent intent = new Intent();
         intent.setType("images/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 
-    public void selectVideo(){
+    public void selectVideo() {
         Intent intent = new Intent();
         intent.setType("video/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, PICK_VIDEO_REQUEST);
     }
 
-    public void selectFile(){
+    public void selectFile() {
         Intent intent = new Intent();
         intent.setType("application/pdf");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, PICK_FILE_REQUEST);
     }
 
-    public void addArrayList(String fileName, String ext){
-        System.out.println("Debug Oi : "+ ext);
-        if (ext.equals("images/*")){
+    public void addArrayList(String fileName, String ext) {
+        System.out.println("Debug Oi : " + ext);
+        if (ext.equals("images/*")) {
             Toast.makeText(this, "Gambar Berhasil Dipilih!", Toast.LENGTH_SHORT).show();
             Learn learn = new Learn();
             learn.setType(1);
             learn.setNamaFile(fileName);
             learnArrayList.add(learn);
             adapter.notifyDataSetChanged();
-        } else if (ext.equals("video/mp4")){
+        } else if (ext.equals("video/mp4")) {
             Toast.makeText(this, "Video Berhasil Dipilih!", Toast.LENGTH_SHORT).show();
             Learn learn = new Learn();
             learn.setType(2);
             learn.setNamaFile(fileName);
             learnArrayList.add(learn);
             adapter.notifyDataSetChanged();
-        } else if (ext.equals("application/pdf") || ext.equals("application/*")){
+        } else if (ext.equals("application/pdf") || ext.equals("application/*")) {
             Toast.makeText(this, "Dokumen Berhasil Dipilih!", Toast.LENGTH_SHORT).show();
             Learn learn = new Learn();
             learn.setType(3);
@@ -357,7 +365,7 @@ public class FormLearn extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data != null){
+        if (data != null) {
             Uri uri = data.getData();
             String result;
             int cut;
@@ -368,18 +376,18 @@ public class FormLearn extends AppCompatActivity {
                 result = result.substring(cut + 1);
             }
             ContentResolver cr = this.getContentResolver();
-            if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
+            if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
                 materi.setGlobal(true);
                 materi.setFotoMateri(data.getData());
-                addArrayList(result, cr.getType(uri) );
-            } else if (requestCode == PICK_VIDEO_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
+                addArrayList(result, cr.getType(uri));
+            } else if (requestCode == PICK_VIDEO_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
                 materi.setGlobal(true);
                 materi.setVideoMateri(data.getData());
-                addArrayList(result , cr.getType(uri));
-            } else if (requestCode == PICK_FILE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
+                addArrayList(result, cr.getType(uri));
+            } else if (requestCode == PICK_FILE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
                 materi.setGlobal(true);
                 materi.setPdfMateri(data.getData());
-                addArrayList(result , cr.getType(uri));
+                addArrayList(result, cr.getType(uri));
             }
         }
     }
@@ -390,7 +398,7 @@ public class FormLearn extends AppCompatActivity {
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
 
-    public void kondisiAwal(){
+    public void kondisiAwal() {
         learnArrayList.clear();
         adapter.notifyDataSetChanged();
         lJudul.setText("");

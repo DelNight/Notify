@@ -11,7 +11,7 @@ public class DateFormater {
     public static String FORMAT_FOUR = "dd MMMMM yyyy";
     public static String FORMAT_FIVE = "EEE MMMMM yyyy";
 
-    public static String getDateFormatOne(long millis, String pattern){
+    public static String getDateFormated(long millis, String pattern){
         DateFormat simple = new SimpleDateFormat(pattern);
         Date result = new Date(millis);
 

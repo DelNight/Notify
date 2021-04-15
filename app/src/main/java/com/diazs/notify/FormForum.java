@@ -148,9 +148,9 @@ public class FormForum extends AppCompatActivity {
                                 String image = uri.toString();
 //                            progressBar.setVisibility(View.GONE);
     //                        Toast.makeText(FormForum.this, "Uploading Berhasil", Toast.LENGTH_SHORT).show();
-                                Date c = Calendar.getInstance().getTime();
-                                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-                                String formatdate = sdf.format(c);
+                            Date c = Calendar.getInstance().getTime();
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+                            String formatdate = sdf.format(c);
                             String judulPostingan = inpJudul.getText().toString();
                             String deskripsi =  inpDeskripsi.getText().toString();
                             FirebaseUser aut = FirebaseAuth.getInstance().getCurrentUser();
@@ -161,6 +161,7 @@ public class FormForum extends AppCompatActivity {
                             String key = dbForum.push().getKey();
                             forum.setIdForum(key);
                             forum.setLinkImg(image);
+                            forum.setCreatedAt(System.currentTimeMillis());
                             dbForum.child(key).setValue(forum).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {

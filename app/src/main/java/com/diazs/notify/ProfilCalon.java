@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.diazs.notify.Model.Agregate;
+import com.diazs.notify.Model.Candidate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.FirebaseDatabase;
@@ -42,25 +42,24 @@ public class ProfilCalon extends AppCompatActivity {
             }
         });
 
-        Agregate agregate = getIntent().getParcelableExtra("AGREGATE");
+        Candidate candidate = getIntent().getParcelableExtra("CANDIDATE");
 
-        System.out.println("Debug Nama :" + agregate.getNama());
-        tvNama.setText(agregate.getNama());
-        tvJmlVote.setText(agregate.getJumlahSuara() + " Suara");
-        tvProfil.setText(agregate.getProfil());
-        tvVisi.setText(agregate.getVisi());
-        tvMisi.setText(agregate.getMisi());
+        System.out.println("Debug Nama :" + candidate.getNama());
+        tvNama.setText(candidate.getNama());
+        tvJmlVote.setText(candidate.getJumlahSuara() + " Suara");
+        tvProfil.setText(candidate.getProfil());
+        tvVisi.setText(candidate.getVisi());
+        tvMisi.setText(candidate.getMisi());
         btnPilih.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                agregate.setJumlahSuara(agregate.getJumlahSuara() + 1);
-                System.out.println("Debug oi : " + agregate.getJumlahSuara());
-                FirebaseDatabase.getInstance().getReference("voting").child(agregate.getIdVoting()).child("agregate").child(agregate.getIdAgregate()).child("jumlahSuara").setValue(agregate.getJumlahSuara()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                candidate.setJumlahSuara(candidate.getJumlahSuara() + 1);
+                FirebaseDatabase.getInstance().getReference("voting").child(candidate.getIdVoting()).child("candidate").child(candidate.getIdCandidate()).child("jumlahSuara").setValue(candidate.getJumlahSuara()).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(ProfilCalon.this, "Suara berhasil ditambahkan ", Toast.LENGTH_LONG).show();
-                            tvJmlVote.setText(agregate.getJumlahSuara() + " Suara");
+                            tvJmlVote.setText(candidate.getJumlahSuara() + " Suara");
                         }
                     }
                 });

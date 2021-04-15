@@ -1,42 +1,43 @@
 package com.diazs.notify.Model;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
-public class Agregate extends User{
-    private String idAgregate;
+public class Candidate extends User{
+    private String idCandidate;
     private int noUrut;
     private String visi;
     private String misi;
     private String profil;
+    private String urlFoto;
     private int jumlahSuara;
     private String idVoting;
 
-    public Agregate(){
+    public Candidate(){
 
     }
 
-    protected Agregate(Parcel in) {
+    protected Candidate(Parcel in) {
         nama = in.readString();
         profil = in.readString();
-        idAgregate = in.readString();
+        idCandidate = in.readString();
         noUrut = in.readInt();
         visi = in.readString();
         misi = in.readString();
         profil = in.readString();
         jumlahSuara = in.readInt();
         idVoting = in.readString();
+        urlFoto = in.readString();
     }
 
-    public static final Creator<Agregate> CREATOR = new Creator<Agregate>() {
+    public static final Creator<Candidate> CREATOR = new Creator<Candidate>() {
         @Override
-        public Agregate createFromParcel(Parcel in) {
-            return new Agregate(in);
+        public Candidate createFromParcel(Parcel in) {
+            return new Candidate(in);
         }
 
         @Override
-        public Agregate[] newArray(int size) {
-            return new Agregate[size];
+        public Candidate[] newArray(int size) {
+            return new Candidate[size];
         }
     };
 
@@ -56,12 +57,20 @@ public class Agregate extends User{
         this.jumlahSuara = jumlahSuara;
     }
 
-    public String getIdAgregate() {
-        return idAgregate;
+    public String getIdCandidate() {
+        return idCandidate;
     }
 
-    public void setIdAgregate(String idAgregate) {
-        this.idAgregate = idAgregate;
+    public void setIdCandidate(String idCandidate) {
+        this.idCandidate = idCandidate;
+    }
+
+    public String getUrlFoto() {
+        return urlFoto;
+    }
+
+    public void setUrlFoto(String urlFoto) {
+        this.urlFoto = urlFoto;
     }
 
     public int getNoUrut() {
@@ -105,12 +114,13 @@ public class Agregate extends User{
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(nama);
         parcel.writeString(profil);
-        parcel.writeString(idAgregate);
+        parcel.writeString(idCandidate);
         parcel.writeInt(noUrut);
         parcel.writeString(visi);
         parcel.writeString(misi);
         parcel.writeString(profil);
         parcel.writeInt(jumlahSuara);
         parcel.writeString(idVoting);
+        parcel.writeString(urlFoto);
     }
 }
