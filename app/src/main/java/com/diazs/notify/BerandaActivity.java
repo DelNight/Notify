@@ -19,7 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.diazs.notify.Adapter.ListELearnAdapter;
+import com.diazs.notify.Adapter.ListForumAdapter;
 import com.diazs.notify.Adapter.ListVotingAdapter;
+import com.diazs.notify.Model.Forum;
 import com.diazs.notify.Model.Materi;
 import com.diazs.notify.Model.Voting;
 import com.google.android.material.card.MaterialCardView;
@@ -37,6 +39,7 @@ public class BerandaActivity extends AppCompatActivity implements ListVotingAdap
     private RecyclerView recyclerView;
     private ArrayList<Voting> list;
     private ArrayList<Materi> listMateri;
+    private ArrayList<Forum> listForum;
     MaterialCardView cardView;
     ProgressDialog progressDialog;
     ArrayList listKategori;
@@ -52,6 +55,7 @@ public class BerandaActivity extends AppCompatActivity implements ListVotingAdap
         cardView = findViewById(R.id.card_forum);
         list = new ArrayList<>();
         listMateri = new ArrayList<>();
+        listForum = new ArrayList<>();
         spinner = (Spinner) findViewById(R.id.spinner);
 
         listKategori = new ArrayList();
@@ -98,20 +102,20 @@ public class BerandaActivity extends AppCompatActivity implements ListVotingAdap
     }
 
     public void getDataForum(){
-        final DatabaseReference nm = FirebaseDatabase.getInstance().getReference("learn");
+        final DatabaseReference nm = FirebaseDatabase.getInstance().getReference("forum");
         loading.setVisibility(LottieAnimationView.VISIBLE);
         nm.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                listMateri.clear();
+                listForum.clear();
                 for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
-                    Materi materi = npsnapshot.getValue(Materi.class);
-                    listMateri.add(materi);
+                    Forum forum = npsnapshot.getValue(Forum.class);
+                    listForum.add(forum);
                 }
-                ListVotingAdapter listVotingAdapter = new ListVotingAdapter(list);
+                ListForumAdapter listForumAdapter = new ListForumAdapter(listForum);
                 setRecyclerView();
-                recyclerView.setAdapter(listVotingAdapter);
-                listVotingAdapter.setOnItemClickCallback(data -> showSelectedItem(data));
+                recyclerView.setAdapter(listForumAdapter);
+                listForumAdapter.setOnItemClickCallback(data -> showSelectedItem(data));
 
                 loading.setVisibility(LottieAnimationView.INVISIBLE);
             }
@@ -178,6 +182,13 @@ public class BerandaActivity extends AppCompatActivity implements ListVotingAdap
         intent.putExtra("MATERI", materi);
         startActivity(intent);
     }
+
+    private void showSelectedItem(Forum forum){
+        Intent intent = new Intent(BerandaActivity.this, DetailForum.class);
+        intent.putExtra("FORUM", forum);
+        startActivity(intent);
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

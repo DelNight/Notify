@@ -9,7 +9,15 @@
     android:orientation="vertical"
     tools:context=".ProfilActivity">
 
-
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loading_bell"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:lottie_rawRes="@raw/bell"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_repeatMode="reverse"
+        android:background="@color/white"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

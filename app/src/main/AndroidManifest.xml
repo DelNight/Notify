@@ -17,7 +17,7 @@
         <activity android:name=".ResetActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".BookmarkActivity" />
-        <activity android:name=".FormAgregate" />
+        <activity android:name=".FormCandidate" />
         <activity android:name=".FormLearn">
         </activity>
         <activity android:name=".BerandaActivity">
@@ -57,6 +57,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".DetailForum"></activity>
+        <activity android:name=".KomentarActivity"></activity>
     </application>
 
 </manifest>

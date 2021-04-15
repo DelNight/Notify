@@ -7,24 +7,14 @@ import java.util.Date;
 
 public class Comment {
     private String idComment;
-    private Mading mading;
-    private User commenter;
+    private String idPost;
+    private String commenter;
     private Uri file;
     private String kategori;
     private String isiKomentar;
-    private String waktuDikirim;
+    private long createdAt;
 
     public Comment() {
-    }
-
-    public Comment(String idComment, Mading mading, User commenter, Uri file, String kategori, String isiKomentar, String waktuDikirim) {
-        this.idComment = idComment;
-        this.mading = mading;
-        this.commenter = commenter;
-        this.file = file;
-        this.kategori = kategori;
-        this.isiKomentar = isiKomentar;
-        this.waktuDikirim = waktuDikirim;
     }
 
     public String getIdComment() {
@@ -35,19 +25,19 @@ public class Comment {
         this.idComment = idComment;
     }
 
-    public Mading getMading() {
-        return mading;
+    public String getIdPost() {
+        return idPost;
     }
 
-    public void setMading(Mading mading) {
-        this.mading = mading;
+    public void setIdPost(String idPost) {
+        this.idPost = idPost;
     }
 
-    public User getCommenter() {
+    public String getCommenter() {
         return commenter;
     }
 
-    public void setCommenter(User commenter) {
+    public void setCommenter(String commenter) {
         this.commenter = commenter;
     }
 
@@ -75,11 +65,11 @@ public class Comment {
         this.isiKomentar = isiKomentar;
     }
 
-    public String getWaktuDikirim() {
-        return waktuDikirim;
+    public long getCreatedAt() {
+        return createdAt;
     }
 
-    public void setWaktuDikirim(String waktuDikirim) {
-        this.waktuDikirim = waktuDikirim;
+    public void setCreatedAt(long createdAt) {
+        this.createdAt = createdAt;
     }
 }

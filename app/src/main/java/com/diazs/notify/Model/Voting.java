@@ -1,7 +1,6 @@
 package com.diazs.notify.Model;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Voting {
     private String idVoting;
@@ -10,21 +9,21 @@ public class Voting {
     private String judulPosting;
     private String jenisVoting;
     private String kadaluwarsa;
-    private ArrayList<Agregate> listAgregates;
+    private ArrayList<Candidate> listCandidates;
     private long createdAt;
 
     public Voting() {
-        listAgregates = new ArrayList<>();
+        listCandidates = new ArrayList<>();
     }
 
-    public Voting(String idVoting, String votingMaker, String deskripsiVoting, String judulPosting, String jenisVoting, String kadaluwarsa, ArrayList<Agregate> listAgregates, long createdAt) {
+    public Voting(String idVoting, String votingMaker, String deskripsiVoting, String judulPosting, String jenisVoting, String kadaluwarsa, ArrayList<Candidate> listCandidates, long createdAt) {
         this.idVoting = idVoting;
         this.votingMaker = votingMaker;
         this.deskripsiVoting = deskripsiVoting;
         this.judulPosting = judulPosting;
         this.jenisVoting = jenisVoting;
         this.kadaluwarsa = kadaluwarsa;
-        this.listAgregates = listAgregates;
+        this.listCandidates = listCandidates;
         this.createdAt = createdAt;
     }
 
@@ -76,8 +75,8 @@ public class Voting {
         this.kadaluwarsa = kadaluwarsa;
     }
 
-    public ArrayList<Agregate> getListAgregates() {
-        return listAgregates;
+    public ArrayList<Candidate> getListCandidates() {
+        return listCandidates;
     }
 
     public long getCreatedAt() {
@@ -88,7 +87,7 @@ public class Voting {
         this.createdAt = createdAt;
     }
 
-    public void setListAgregates(ArrayList<Agregate> listAgregates) {
-        this.listAgregates = listAgregates;
+    public void setListCandidates(ArrayList<Candidate> listCandidates) {
+        this.listCandidates = listCandidates;
     }
 }

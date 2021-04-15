@@ -43,7 +43,7 @@
                 android:layout_marginRight="20dp">
 
                 <TextView
-                    android:id="@+id/tanggal"
+                    android:id="@+id/tanggal_upload"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/judul"
@@ -55,6 +55,7 @@
                     android:text="- " />
 
                 <TextView
+                    android:id="@+id/uploader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/tanggal"
@@ -63,11 +64,12 @@
             </LinearLayout>
 
 
-        <VideoView
-            android:id="@+id/video"
+        <ImageView
+            android:id="@+id/konten_foto"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:layout_margin="20dp" />
+            android:layout_margin="20dp"
+            android:src="@drawable/video"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -85,10 +87,6 @@
                 android:backgroundTint="@color/color2"
                 android:text="Lihat PDF"/>
 
-            <view
-                android:layout_width="50dp"
-                android:layout_height="0dp"/>
-
             <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
@@ -98,6 +96,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/deskripsi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
@@ -106,6 +105,7 @@
             android:textColor="@color/color10" />
 
         <LinearLayout
+            android:id="@+id/lihat_komentar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">

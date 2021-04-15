@@ -15,6 +15,7 @@
         app:menu="@menu/menu_komentar"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_komentar"
         android:layout_width="match_parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         android:layout_height="wrap_content"
@@ -34,11 +35,14 @@
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/isi_komentar"
                 android:layout_width="wrap_content"
                 android:hint="Masukan Komentar..."
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
+
             <ImageButton
+                android:id="@+id/btn_submit"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_baseline_send_24"

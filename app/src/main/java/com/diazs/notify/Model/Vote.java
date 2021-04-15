@@ -4,12 +4,12 @@ public class Vote {
     private String idVote;
     private Voting voting;
     private User voter;
-    private Agregate pilihan;
+    private Candidate pilihan;
 
     public Vote() {
     }
 
-    public Vote(String idVote, Voting voting, User voter, Agregate pilihan) {
+    public Vote(String idVote, Voting voting, User voter, Candidate pilihan) {
         this.idVote = idVote;
         this.voting = voting;
         this.voter = voter;
@@ -40,11 +40,11 @@ public class Vote {
         this.voter = voter;
     }
 
-    public Agregate getPilihan() {
+    public Candidate getPilihan() {
         return pilihan;
     }
 
-    public void setPilihan(Agregate pilihan) {
+    public void setPilihan(Candidate pilihan) {
         this.pilihan = pilihan;
     }
 }

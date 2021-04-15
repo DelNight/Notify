@@ -42,10 +42,12 @@ public class ListForumAdapter extends RecyclerView.Adapter<ListForumAdapter.List
 
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
-        Forum forum =listForum.get(position);
+        Forum forum = listForum.get(position);
         holder.txt_judul.setText(forum.getJudul());
         Picasso.get().load(forum.getLinkImg()).into(holder.iv_gambar);
         holder.txt_desc.setText(forum.getDeskripsi());
+        System.out.println("Debug oi : " + forum.getIdForum());
+        System.out.println("Debug oi : " + forum.getAuthor());
         FirebaseDatabase.getInstance().getReference("users").child(forum.getAuthor()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
