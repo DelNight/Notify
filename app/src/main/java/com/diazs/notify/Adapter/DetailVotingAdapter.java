@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +20,7 @@ import com.diazs.notify.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -42,6 +45,7 @@ public class DetailVotingAdapter extends RecyclerView.Adapter<DetailVotingAdapte
     public void onBindViewHolder(@NonNull DetailVotingAdapter.DetailVotingViewHolder holder, int position) {
         Candidate candidate = listCandidates.get(position);
         holder.tvNama.setText(candidate.getNama());
+        Picasso.get().load(candidate.getUrlFoto()).into(holder.gambarcalon);
         holder.tvJmlSuara.setText(candidate.getJumlahSuara() + " Suara");
         holder.btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +85,7 @@ public class DetailVotingAdapter extends RecyclerView.Adapter<DetailVotingAdapte
     public class DetailVotingViewHolder extends RecyclerView.ViewHolder {
         TextView tvNama, tvJmlSuara;
         Button btnProfile, btnPilih;
+        ImageView gambarcalon;
 
         public DetailVotingViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -88,6 +93,7 @@ public class DetailVotingAdapter extends RecyclerView.Adapter<DetailVotingAdapte
             tvJmlSuara = (TextView) itemView.findViewById(R.id.jmlvote);
             btnProfile = (Button) itemView.findViewById(R.id.btn_detail_calon);
             btnPilih = (Button) itemView.findViewById(R.id.btnpilih);
+            gambarcalon = itemView.findViewById(R.id.gambarcalon);
         }
     }
 }
