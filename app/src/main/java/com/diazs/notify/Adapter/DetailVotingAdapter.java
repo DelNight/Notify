@@ -45,7 +45,9 @@ public class DetailVotingAdapter extends RecyclerView.Adapter<DetailVotingAdapte
     public void onBindViewHolder(@NonNull DetailVotingAdapter.DetailVotingViewHolder holder, int position) {
         Candidate candidate = listCandidates.get(position);
         holder.tvNama.setText(candidate.getNama());
-        Picasso.get().load(candidate.getUrlFoto()).into(holder.gambarcalon);
+        if (candidate.getUrlFoto() != "" && candidate.getUrlFoto() != null){
+            Picasso.get().load(candidate.getUrlFoto()).into(holder.gambarcalon);
+        }
         holder.tvJmlSuara.setText(candidate.getJumlahSuara() + " Suara");
         holder.btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override

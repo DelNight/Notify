@@ -59,22 +59,19 @@ public class DetailForum extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 AppCompatActivity context = DetailForum.this;
+
                 switch (item.getItemId()){
                     case R.id.navigation_satu:
                         startActivity(new Intent(context, HomeActivity.class));
-                        context.finish();
                         break;
                     case R.id.navigation_dua:
                         startActivity(new Intent(context, BerandaActivity.class));
-                        context.finish();
                         break;
                     case R.id.navigation_tiga:
                         startActivity(new Intent(context, ChatActivity.class));
-                        context.finish();
                         break;
                     case R.id.navigation_empat:
                         startActivity(new Intent(context, ProfilActivity.class));
-                        context.finish();
                         break;
                 }
                 return false;
@@ -106,6 +103,7 @@ public class DetailForum extends AppCompatActivity {
         judul.setText(forum.getJudul());
         tanggalUpload.setText(DateFormater.getDateFormated(forum.getCreatedAt(), "dd-MM-yyyy"));
         deskripsi.setText(forum.getDeskripsi());
+
         FirebaseDatabase.getInstance().getReference("users").child(forum.getAuthor()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -119,5 +117,8 @@ public class DetailForum extends AppCompatActivity {
             }
         });
 
+        MenuItem menuItem = bottomNavigation.getMenu().getItem(1);
+        menuItem.setChecked(true);
     }
+
 }

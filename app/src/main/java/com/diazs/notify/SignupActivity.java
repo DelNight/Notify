@@ -139,7 +139,7 @@ public class SignupActivity extends AppCompatActivity {
         String idkelas = kelasSpinner.getSelectedItem().toString();
         String status = "offline";
         String bio = "Avaiable";
-        String image = "default";
+        String image = "";
         String search = userName.toLowerCase();
 
         if(TextUtils.isEmpty(name)){
@@ -174,7 +174,6 @@ public class SignupActivity extends AppCompatActivity {
             showToast("Password too short, enter minimum 6 characters");
             return;
         }
-
 
         dbUsers.orderByChild("email").equalTo(userEmail).addValueEventListener(new ValueEventListener() {
             @Override

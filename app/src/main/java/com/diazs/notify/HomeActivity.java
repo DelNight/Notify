@@ -13,14 +13,18 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.bumptech.glide.Glide;
 import com.diazs.notify.Adapter.HomeAdapter;
 import com.diazs.notify.Model.Materi;
 import com.diazs.notify.Model.User;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,15 +39,15 @@ import butterknife.ButterKnife;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    //    private TextView mTextView;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener fireAuthListener;
     private RecyclerView rvHome;
     private ArrayList<Materi> listMateri;
     private TextView tvName, tvRole;
-
-    LottieAnimationView loading;
-
+    private BottomNavigationView bottomNavigation;
+    private FloatingActionButton addContent;
+    private ImageView profileImage;
+    private LottieAnimationView loading;
     MenuItem signOut;
 
     @Override
@@ -63,48 +67,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         rvHome.setLayoutManager(layoutManager);
         tvName = findViewById(R.id.name);
         tvRole = findViewById(R.id.as);
-
-
-        FirebaseDatabase.getInstance().getReference("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User user = snapshot.getValue(User.class);
-                tvName.setText(user.getNama());
-                if(user.getRole() == 1){
-                    tvRole.setText("Super Admin");
-                }else if(user.getRole() == 2){
-                    tvRole.setText("Guru");
-                }else if(user.getRole() == 3){
-                    tvRole.setText("Siswa");
-                }
-                loading.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        FirebaseDatabase.getInstance().getReference("learn").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot snapshot1 : snapshot.getChildren()){
-                    Materi materi = snapshot1.getValue(Materi.class);
-                    listMateri.add(materi);
-                    HomeAdapter adapter = new HomeAdapter(listMateri, HomeActivity.this);
-                    rvHome.setAdapter(adapter);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        bottomNavigation = findViewById(R.id.bottomNavigationView);
+        addContent = findViewById(R.id.fab);
 
         //get current user
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        profileImage = findViewById(R.id.profile_image);
 
         fireAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -119,45 +88,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         };
 
-        CardView beranda = findViewById(R.id.beranda);
-        CardView voting = findViewById(R.id.voting);
-        CardView learning = findViewById(R.id.learning);
-        CardView kalender = findViewById(R.id.kalender);
-        CardView chat = findViewById(R.id.chat);
-        CardView posting = findViewById(R.id.posting);
-        RelativeLayout profile = findViewById(R.id.kotak1);
+        setListener();
+        setContentValue();
 
-        beranda.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(HomeActivity.this, BerandaActivity.class);
-                startActivity(i);
-            }
-        });
-
-        voting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(HomeActivity.this,FormVoting.class);
-                startActivity(i);
-            }
-        });
-
-        learning.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(HomeActivity.this,FormForum.class);
-                startActivity(i);
-            }
-        });
-
-        kalender.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              Intent i = new Intent(HomeActivity.this, InputEvent.class);
-              startActivity(i);
-            }
-        });
 
 //        chat.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -167,24 +100,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 //            }
 //        });
 
-        posting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BottomSheetDialogFragment dialog = new PilihPostinganActivity();
-                dialog.show(getSupportFragmentManager(), " string");
-            }
-        });
-
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(HomeActivity.this, ProfilActivity.class);
-                startActivity(i);
-            }
-        });
-
         ButterKnife.bind(this);
-
 
 //        signOut.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -270,5 +186,82 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private  void setNavigationListener(){
 //        NavigationView navigationView = (NavigationView) findViewById(R.id.home_sidebar);
 //        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void setContentValue(){
+        FirebaseDatabase.getInstance().getReference("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                tvName.setText(user.getNama());
+                if (!user.getImageURL().equals("") && user.getImageURL() != null){
+                    System.out.println("Ada Fotonya ngab :" + user.getImageURL());
+                    Glide.with(HomeActivity.this).load(user.getImageURL()).into(profileImage);
+                }
+                if(user.getRole() == 1){
+                    tvRole.setText("Super Admin");
+                }else if(user.getRole() == 2){
+                    tvRole.setText("Guru");
+                }else if(user.getRole() == 3){
+                    tvRole.setText("Siswa");
+                }
+                loading.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        FirebaseDatabase.getInstance().getReference("learn").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snapshot1 : snapshot.getChildren()){
+                    Materi materi = snapshot1.getValue(Materi.class);
+                    listMateri.add(materi);
+                    HomeAdapter adapter = new HomeAdapter(listMateri, HomeActivity.this);
+                    rvHome.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void setListener(){
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                AppCompatActivity context = HomeActivity.this;
+
+                switch (item.getItemId()){
+                    case R.id.navigation_satu:
+                        startActivity(new Intent(context, HomeActivity.class));
+                        break;
+                    case R.id.navigation_dua:
+                        startActivity(new Intent(context, BerandaActivity.class));
+                        break;
+                    case R.id.navigation_tiga:
+                        startActivity(new Intent(context, ChatActivity.class));
+                        break;
+                    case R.id.navigation_empat:
+                        startActivity(new Intent(context, ProfilActivity.class));
+                        break;
+                }
+                return false;
+            }
+        });
+
+        addContent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BottomSheetDialogFragment pilihPostingan = new PilihPostinganActivity();
+                pilihPostingan.show(getSupportFragmentManager(), " string");
+            }
+        });
     }
 }
