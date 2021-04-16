@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -45,7 +47,7 @@ public class ProfilActivity extends AppCompatActivity {
     TextView tvNama, tvKelas,tvUser, tvEmail, tvJenkel, tvTname;
 
     ImageButton btnBack;
-
+    ImageView imgProfil;
     ProgressDialog progressDialog;
 
     LottieAnimationView loading;
@@ -65,8 +67,8 @@ public class ProfilActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         showRecyclerList();
 
-        loading = findViewById(R.id.loading_bell);
-        loading.setVisibility(View.VISIBLE);
+//        loading = findViewById(R.id.loading_bell);
+//        loading.setVisibility(View.VISIBLE);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,13 +82,13 @@ public class ProfilActivity extends AppCompatActivity {
                 finishAfterTransition();
             }
         });
-//        btnEdit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(ProfilActivity.this, ChangePasswordActivity.class);
-//                startActivity(i);
-//            }
-//        });
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ProfilActivity.this, EditProfileActivity.class);
+                startActivity(i);
+            }
+        });
         getData(currentUser.getUid());
     }
 
@@ -100,6 +102,7 @@ public class ProfilActivity extends AppCompatActivity {
         tvUser = findViewById(R.id.username);
         tvEmail = findViewById(R.id.email);
         btnLogout = findViewById(R.id.btn_logout);
+        imgProfil = findViewById(R.id.img_profil);
 
     }
 
@@ -111,7 +114,7 @@ public class ProfilActivity extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     User user = dataSnapshot.getValue(User.class);
                     setData(user);
-                    loading.setVisibility(View.GONE);
+//                    loading.setVisibility(View.GONE);
 //                    Query q = mDatabase.child("Kelas").child(siswa.getKelas());
 //                    q.addListenerForSingleValueEvent(new ValueEventListener() {
 //                        @Override
@@ -142,6 +145,7 @@ public class ProfilActivity extends AppCompatActivity {
         tvKelas.setText(user.getKelas());
         tvEmail.setText(user.getEmail());
         tvUser.setText(user.getUsername());
+        Picasso.get().load(user.getImageURL()).into(imgProfil);
     }
 
     private void showProgressDialog(){

@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -54,8 +55,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         firebaseAuth = FirebaseAuth.getInstance();
         listMateri = new ArrayList<>();
         loading = findViewById(R.id.loading_bell);
-        loading.playAnimation();
-        loading.setVisibility(View.VISIBLE);
+//        loading.playAnimation();
+//        loading.setVisibility(View.VISIBLE);
 
         rvHome = findViewById(R.id.recycler_buat_kamu);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -77,7 +78,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 }else if(user.getRole() == 3){
                     tvRole.setText("Siswa");
                 }
-                loading.setVisibility(View.GONE);
+//                loading.setVisibility(View.GONE);
             }
 
             @Override
@@ -119,62 +120,62 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         };
 
-        CardView beranda = findViewById(R.id.beranda);
-        CardView voting = findViewById(R.id.voting);
-        CardView learning = findViewById(R.id.learning);
-        CardView kalender = findViewById(R.id.kalender);
-        CardView chat = findViewById(R.id.chat);
-        CardView posting = findViewById(R.id.posting);
-        RelativeLayout profile = findViewById(R.id.kotak1);
-
-        beranda.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(HomeActivity.this, BerandaActivity.class);
-                startActivity(i);
-            }
-        });
-
-        voting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(HomeActivity.this,FormVoting.class);
-                startActivity(i);
-            }
-        });
-
-        learning.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(HomeActivity.this,FormForum.class);
-                startActivity(i);
-            }
-        });
-
-        kalender.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              Intent i = new Intent(HomeActivity.this, InputEvent.class);
-              startActivity(i);
-            }
-        });
-
-//        chat.setOnClickListener(new View.OnClickListener() {
+//        CardView beranda = findViewById(R.id.beranda);
+//        CardView voting = findViewById(R.id.voting);
+//        CardView learning = findViewById(R.id.learning);
+//        CardView kalender = findViewById(R.id.kalender);
+//        CardView chat = findViewById(R.id.chat);
+//        CardView posting = findViewById(R.id.posting);
+        LinearLayout profile = findViewById(R.id.kotak1);
+//
+//        beranda.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Intent i = new Intent(HomeActivity.this,ChatActivity.class);
+//                Intent i = new Intent(HomeActivity.this, BerandaActivity.class);
 //                startActivity(i);
 //            }
 //        });
-
-        posting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BottomSheetDialogFragment dialog = new PilihPostinganActivity();
-                dialog.show(getSupportFragmentManager(), " string");
-            }
-        });
-
+//
+//        voting.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(HomeActivity.this,FormVoting.class);
+//                startActivity(i);
+//            }
+//        });
+//
+//        learning.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(HomeActivity.this,FormForum.class);
+//                startActivity(i);
+//            }
+//        });
+//
+//        kalender.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//              Intent i = new Intent(HomeActivity.this, InputEvent.class);
+//              startActivity(i);
+//            }
+//        });
+//
+////        chat.setOnClickListener(new View.OnClickListener() {
+////            @Override
+////            public void onClick(View v) {
+////                Intent i = new Intent(HomeActivity.this,ChatActivity.class);
+////                startActivity(i);
+////            }
+////        });
+//
+//        posting.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                BottomSheetDialogFragment dialog = new PilihPostinganActivity();
+//                dialog.show(getSupportFragmentManager(), " string");
+//            }
+//        });
+//
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
