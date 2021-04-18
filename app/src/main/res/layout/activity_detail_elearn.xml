@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VideoActivity"
+    tools:context=".DetailELearn"
     android:orientation="vertical">
-
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -52,7 +51,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="- " />
+                    android:text=" - " />
 
                 <TextView
                     android:id="@+id/uploader"
@@ -69,7 +68,16 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="20dp"
-            android:src="@drawable/video"/>
+            android:src="@drawable/ic_baseline_menu_book_24"/>
+
+        <TextView
+            android:id="@+id/deskripsi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor individunt ut labore et dolore magna"
+            android:textColor="@color/color10" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -83,6 +91,7 @@
             <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/color2"
                 android:text="Lihat PDF"/>
@@ -90,19 +99,11 @@
             <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
+                android:layout_marginLeft="5dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/color2"
                 android:text="Lihat Video"/>
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/deskripsi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="10dp"
-            android:text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor individunt ut labore et dolore magna"
-            android:textColor="@color/color10" />
 
         <LinearLayout
             android:id="@+id/lihat_komentar"

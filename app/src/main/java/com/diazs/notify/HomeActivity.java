@@ -2,6 +2,7 @@ package com.diazs.notify;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -38,7 +39,7 @@ import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 
-public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener fireAuthListener;
@@ -223,6 +224,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     Materi materi = snapshot1.getValue(Materi.class);
                     listMateri.add(materi);
                     ListELearnAdapter adapter = new ListELearnAdapter(listMateri, HomeActivity.this);
+                    adapter.setOnItemClickCallback(data -> showSelectedItem(data));
                     rvHome.setAdapter(adapter);
                 }
             }
@@ -265,5 +267,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 pilihPostingan.show(getSupportFragmentManager(), " string");
             }
         });
+    }
+
+    public void showSelectedItem(Materi materi){
+        Intent intent = new Intent(HomeActivity.this, DetailELearn.class);
+        intent.putExtra("MATERI", materi);
+        startActivity(intent);
     }
 }

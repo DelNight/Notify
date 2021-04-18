@@ -23,6 +23,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class KomentarActivity extends AppCompatActivity {
     public static String JENIS_HALAMAN = "jenis_halaman";
@@ -43,7 +47,7 @@ public class KomentarActivity extends AppCompatActivity {
         isiKomentar = findViewById(R.id.isi_komentar);
         btnSubmit = findViewById(R.id.btn_submit);
 
-        FirebaseDatabase.getInstance().getReference("komentar").orderByChild("commenter").equalTo(idPost).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("komentar").orderByChild("idPost").equalTo(idPost).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 listKomentar.clear();
@@ -51,6 +55,14 @@ public class KomentarActivity extends AppCompatActivity {
                     Comment komentar = dataSnapshot.getValue(Comment.class);
                     listKomentar.add(komentar);
                 }
+
+                //Sort by Created At
+                Collections.sort(listKomentar, new Comparator<Comment>() {
+                    @Override
+                    public int compare(Comment comment, Comment t1) {
+                        return Long.compare(comment.getCreatedAt(), t1.getCreatedAt());
+                    }
+                });
 
                 komentarAdapter = new KomentarAdapter(listKomentar, KomentarActivity.this);
                 setRecyclerView();
@@ -79,7 +91,7 @@ public class KomentarActivity extends AppCompatActivity {
                     komentar.setCreatedAt(System.currentTimeMillis());
                     komentar.setIsiKomentar(isiKomentar.getText().toString());
 
-                    reference.setValue(komentar).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    reference.child(idKomentar).setValue(komentar).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(KomentarActivity.this, "Komentar berhasil di posting!", Toast.LENGTH_SHORT).show();

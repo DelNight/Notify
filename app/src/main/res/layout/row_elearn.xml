@@ -72,7 +72,6 @@
 
             <TextView
                 android:id="@+id/tv_detail"
-                android:layout_toRightOf="@+id/tv_author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#057EFF"

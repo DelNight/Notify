@@ -105,7 +105,9 @@ public class DetailELearn extends AppCompatActivity {
     }
 
     public void setContentValue(){
-        Glide.with(this).load(materi.getImageUrl()).into(konten);
+        if (materi.getImageUrl() != null){
+            Glide.with(this).load(materi.getImageUrl()).into(konten);
+        }
         judul.setText(materi.getJudulMateri());
         tanggalUpload.setText(DateFormater.getDateFormated(materi.getCreatedAt(), "dd-MM-yyyy"));
         deskripsi.setText(materi.getDeskripsiMateri());
