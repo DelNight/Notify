@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -24,7 +25,11 @@ import com.diazs.notify.Adapter.ListVotingAdapter;
 import com.diazs.notify.Model.Forum;
 import com.diazs.notify.Model.Materi;
 import com.diazs.notify.Model.Voting;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,12 +45,14 @@ public class BerandaActivity extends AppCompatActivity implements ListVotingAdap
     private ArrayList<Voting> list;
     private ArrayList<Materi> listMateri;
     private ArrayList<Forum> listForum;
-    MaterialCardView cardView;
-    ProgressDialog progressDialog;
-    ArrayList listKategori;
-    Spinner spinner;
-    LottieAnimationView loading;
-
+    private MaterialCardView cardView;
+    private ProgressDialog progressDialog;
+    private ArrayList listKategori;
+    private Spinner spinner;
+    private LottieAnimationView loading;
+    private BottomNavigationView bottomNavigation;
+    private FloatingActionButton addContent;
+    private AppBarLayout appBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +60,7 @@ public class BerandaActivity extends AppCompatActivity implements ListVotingAdap
         setContentView(R.layout.fragment_beranda);
         setRecyclerView();
         cardView = findViewById(R.id.card_forum);
+        appBar = findViewById(R.id.appbar);
         list = new ArrayList<>();
         listMateri = new ArrayList<>();
         listForum = new ArrayList<>();
@@ -63,6 +71,10 @@ public class BerandaActivity extends AppCompatActivity implements ListVotingAdap
         listKategori.add("Forum");
         listKategori.add("Voting");
         loading = (LottieAnimationView) findViewById(R.id.loading_bell);
+        bottomNavigation = findViewById(R.id.bottomNavigationView);
+        addContent = findViewById(R.id.fab);
+
+        appBar.bringToFront();
 
         loading.playAnimation();
         loading.setSpeed((float) 0.75);
@@ -72,6 +84,7 @@ public class BerandaActivity extends AppCompatActivity implements ListVotingAdap
 
         spinner.setOnItemSelectedListener(this);
         getDataELearn();
+        setListener();
     }
 
     void getDataVoting(){
@@ -236,5 +249,41 @@ public class BerandaActivity extends AppCompatActivity implements ListVotingAdap
 
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    public void setListener(){
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                AppCompatActivity context = BerandaActivity.this;
+
+                switch (item.getItemId()){
+                    case R.id.navigation_satu:
+                        startActivity(new Intent(context, HomeActivity.class));
+                        break;
+                    case R.id.navigation_dua:
+                        startActivity(new Intent(context, BerandaActivity.class));
+                        break;
+                    case R.id.navigation_tiga:
+                        startActivity(new Intent(context, ChatActivity.class));
+                        break;
+                    case R.id.navigation_empat:
+                        startActivity(new Intent(context, ProfilActivity.class));
+                        break;
+                }
+                return false;
+            }
+        });
+
+        addContent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BottomSheetDialogFragment pilihPostingan = new PilihPostinganActivity();
+                pilihPostingan.show(getSupportFragmentManager(), " string");
+            }
+        });
+
+        invalidateOptionsMenu();
+        bottomNavigation.getMenu().getItem(1).setChecked(true);
     }
 }

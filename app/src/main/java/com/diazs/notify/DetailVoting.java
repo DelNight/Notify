@@ -36,7 +36,7 @@ public class DetailVoting extends AppCompatActivity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.detail_voting);
+        setContentView(R.layout.activity_detail_voting);
         Toolbar toolbar = findViewById(R.id .toolbar);
         setSupportActionBar(toolbar);
         toolbar.setLogo(R.drawable.ic_baseline_arrow_back_24);

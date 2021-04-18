@@ -18,11 +18,19 @@
         android:layout_height="wrap_content"
         android:padding="30dp">
 
-        <ImageView
-            android:id="@+id/profilImage"
-            android:layout_width="120dp"
-            android:layout_height="130dp"
-            android:src="@drawable/ic_baseline_person_24"/>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            app:cardCornerRadius="50dp">
+            <ImageView
+                android:id="@+id/profile_image"
+                android:layout_width="120dp"
+                android:layout_height="130dp"
+                android:src="@drawable/ic_baseline_person_24"/>
+        </androidx.cardview.widget.CardView>
+
 
         <TextView
             android:id="@+id/nama_calon"
@@ -32,14 +40,14 @@
             android:textSize="20dp"
             android:textColor="@color/color3"
             android:textStyle="bold"
-            android:layout_toRightOf="@+id/profilImage"
+            android:layout_toRightOf="@+id/card_profile"
             android:layout_marginLeft="25dp"/>
 
         <ImageView
             android:id="@+id/logo_vote"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_toRightOf="@+id/profilImage"
+            android:layout_toRightOf="@+id/card_profile"
             android:src="@drawable/ic_baseline_how_to_vote_24"
             android:layout_below="@+id/nama_calon"
             android:layout_marginLeft="60dp"
@@ -64,7 +72,7 @@
             android:text="Pilih"
             android:textColor="@color/color5"
             android:background="@drawable/shape_corner_tosca"
-            android:layout_toRightOf="@+id/profilImage"
+            android:layout_toRightOf="@+id/card_profile"
             android:layout_below="@+id/logo_vote"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="15dp"/>

@@ -76,12 +76,19 @@
                                 android:textSize="15sp" />
                         </LinearLayout>
 
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="50dp"
+                            android:layout_margin="10dp"
+                            android:elevation="10dp">
                         <ImageView
                             android:id="@+id/profile_image"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:layout_gravity="center"
                             android:src="@drawable/profile" />
+                        </androidx.cardview.widget.CardView>
                     </LinearLayout>
 
                     <LinearLayout
@@ -109,9 +116,9 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_buat_kamu"
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
+                        android:layout_height="200dp"
                         android:orientation="horizontal"
-                        tools:listitem="@layout/row_buat_kamu" />
+                        tools:listitem="@layout/row_elearn" />
 
                     <View
                         android:id="@+id/garis2"

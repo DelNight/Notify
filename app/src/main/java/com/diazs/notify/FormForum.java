@@ -1,10 +1,12 @@
 package com.diazs.notify;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -25,6 +27,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.diazs.notify.Model.Forum;
@@ -52,16 +55,17 @@ import java.util.Locale;
 import java.util.UUID;
 
 public class FormForum extends AppCompatActivity {
-    EditText spinner;
-    TextView tvNama;
-    DatePickerDialog.OnDateSetListener setListener;
+    private EditText spinner;
+    private TextView tvNama;
+    private DatePickerDialog.OnDateSetListener setListener;
     private Toolbar toolbar;
-    EditText inpJudul, inpDeskripsi;
-    ImageView imgGambar;
-    Button btnGambar;
-    Button btnSubmit;
-    DatabaseReference dbForum;
-    LottieAnimationView loading;
+    private EditText inpJudul, inpDeskripsi;
+    private ImageView imgGambar;
+    private Button btnGambar;
+    private Button btnSubmit;
+    private Bitmap bitmap;
+    private DatabaseReference dbForum;
+    private LottieAnimationView loading;
     private Uri imageUri;
     private StorageReference reference;
     private ProgressBar progressBar;
@@ -73,9 +77,9 @@ public class FormForum extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_forum);
-//        loading = findViewById(R.id.loading_bell);
-//        loading.playAnimation();
-//        loading.setVisibility(View.VISIBLE);
+        loading = findViewById(R.id.loading_bell);
+        loading.playAnimation();
+        loading.setVisibility(View.VISIBLE);
         tvNama = findViewById(R.id.name);
         progressBar = findViewById(R.id.progressBar);
 
@@ -85,7 +89,7 @@ public class FormForum extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
                 tvNama.setText(user.getNama());
-//                loading.setVisibility(View.GONE);
+                loading.setVisibility(View.GONE);
             }
 
             @Override
@@ -102,7 +106,7 @@ public class FormForum extends AppCompatActivity {
         imgGambar = findViewById(R.id.img_forum);
         btnGambar = findViewById(R.id.pilih_img);
         btnSubmit = findViewById(R.id.btn_submit);
-        reference = FirebaseStorage.getInstance().getReference();
+        reference = FirebaseStorage.getInstance().getReference("Forum");
 
         btnGambar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +115,7 @@ public class FormForum extends AppCompatActivity {
                 getImage();
             }
         });
+
         dbForum = FirebaseDatabase.getInstance().getReference("forum");
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -119,35 +124,18 @@ public class FormForum extends AppCompatActivity {
                 Forum forum = new Forum();
                 imgGambar.setDrawingCacheEnabled(true);
                 imgGambar.buildDrawingCache();
-                Bitmap bitmap = ((BitmapDrawable) imgGambar.getDrawable()).getBitmap();
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
-                //Mengkompress bitmap menjadi JPG dengan kualitas gambar 100%
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                byte[] bytes = stream.toByteArray();
+                final StorageReference fileRef = reference.child(System.currentTimeMillis() + UUID.randomUUID().toString() + "." + getFileExtension(imageUri == null ? getImageUri(bitmap) : imageUri));
 
-                //Lokasi lengkap dimana gambar akan disimpan
-                String namaFile = UUID.randomUUID()+".jpg";
-                String pathImage = "File/"+namaFile;
-
-                UploadTask uploadTask = reference.child(pathImage).putBytes(bytes);
-                final StorageReference fileRef = reference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
-
-                uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-//                        progressBar.setVisibility(View.VISIBLE);
-                    }
-                });
-                fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                fileRef.putFile(imageUri == null ? getImageUri(bitmap) : imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
-                                public void onSuccess(Uri uri) {
-                                String image = uri.toString();
-//                            progressBar.setVisibility(View.GONE);
-    //                        Toast.makeText(FormForum.this, "Uploading Berhasil", Toast.LENGTH_SHORT).show();
+                            public void onSuccess(Uri uri) {
+                            String image = uri.toString();
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(FormForum.this, "Uploading Berhasil", Toast.LENGTH_SHORT).show();
                             Date c = Calendar.getInstance().getTime();
                             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
                             String formatdate = sdf.format(c);
@@ -184,9 +172,9 @@ public class FormForum extends AppCompatActivity {
                         .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-//                                progressBar.setVisibility(View.VISIBLE);
+                                progressBar.setVisibility(View.VISIBLE);
                                 double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-//                                progressBar.setProgress((int) progress);
+                                progressBar.setProgress((int) progress);
                             }
                         });
 
@@ -203,15 +191,30 @@ public class FormForum extends AppCompatActivity {
                         switch (which){
                             case 0:
                                 //Mengambil gambar dari Kemara ponsel
-                                Intent imageIntentCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                startActivityForResult(imageIntentCamera, REQUEST_CODE_CAMERA);
+                                try {
+                                    if (ActivityCompat.checkSelfPermission(FormForum.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                                        ActivityCompat.requestPermissions(FormForum.this, new String[]{Manifest.permission.CAMERA}, REQUEST_CODE_CAMERA);
+                                    } else {
+                                        Intent imageIntentCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                        startActivityForResult(imageIntentCamera, REQUEST_CODE_CAMERA);
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                                 break;
 
                             case 1:
                                 //Mengambil gambar dari galeri
-                                Intent imageIntentGallery = new Intent(Intent.ACTION_PICK,
-                                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                startActivityForResult(imageIntentGallery, REQUEST_CODE_GALLERY);
+                                try {
+                                    if (ActivityCompat.checkSelfPermission(FormForum.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                                        ActivityCompat.requestPermissions(FormForum.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_GALLERY);
+                                    } else {
+                                        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                        startActivityForResult(galleryIntent, REQUEST_CODE_GALLERY);
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                                 break;
                         }
                     }
@@ -252,15 +255,41 @@ public class FormForum extends AppCompatActivity {
         switch(requestCode){
             case REQUEST_CODE_CAMERA:
                 if(resultCode == RESULT_OK){
-                    Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                    bitmap = (Bitmap) data.getExtras().get("data");
                     imgGambar.setImageBitmap(bitmap);
                 }
                 break;
 
             case REQUEST_CODE_GALLERY:
                 if(resultCode == RESULT_OK){
+                    System.out.println();
                     imageUri = data.getData();
                     imgGambar.setImageURI(imageUri);
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults)
+    {
+        switch (requestCode) {
+            case REQUEST_CODE_GALLERY:
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(galleryIntent, REQUEST_CODE_GALLERY);
+                } else {
+                    Toast.makeText(this, "App tidak diberi akses", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case REQUEST_CODE_CAMERA:
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Intent galleryIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(galleryIntent, REQUEST_CODE_CAMERA);
+                } else {
+                    Toast.makeText(this, "App tidak diberi akses", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
@@ -269,6 +298,13 @@ public class FormForum extends AppCompatActivity {
         ContentResolver cR = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+
+    public Uri getImageUri(Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
     }
 
 }

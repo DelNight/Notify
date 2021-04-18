@@ -6,18 +6,31 @@
     app:cardCornerRadius="8dp"
     android:layout_margin="20dp">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
         <RelativeLayout
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:orientation="vertical">
 
+            <ImageView
+                android:id="@+id/konten_foto"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_baseline_menu_book_24"/>
+
             <TextView
                 android:id="@+id/tv_judul"
+                android:layout_marginTop="5dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
                 android:textStyle="bold"
                 android:textSize="18sp"
-                android:layout_centerHorizontal="true"
+                android:layout_toRightOf="@+id/konten_foto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
@@ -26,7 +39,8 @@
             <TextView
                 android:id="@+id/tv_deskripsi"
                 android:maxLines="3"
-                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/konten_foto"
                 android:layout_below="@id/tv_judul"
                 android:textSize="11dp"
                 android:ellipsize="end"
@@ -34,15 +48,20 @@
                 android:layout_height="wrap_content"
                 android:text="deskripsi berita"/>
 
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="10dp">
+
             <TextView
                 android:id="@+id/tv_author"
-                android:layout_below="@id/tv_deskripsi"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:maxLength="20"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="15dp"
                 android:textColor="@color/blue_200"
                 android:textStyle="bold"
                 android:textSize="13dp"
@@ -53,12 +72,9 @@
 
             <TextView
                 android:id="@+id/tv_detail"
-                android:layout_below="@+id/tv_deskripsi"
+                android:layout_toRightOf="@+id/tv_author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="15dp"
                 android:textColor="#057EFF"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:textSize="13dp"
@@ -66,5 +82,6 @@
                 android:gravity="bottom|right"
                 android:layout_alignParentEnd="true"/>
         </RelativeLayout>
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

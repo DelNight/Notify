@@ -7,6 +7,15 @@
     tools:context=".InputEvent"
     android:orientation="vertical">
 
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loading_bell"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:lottie_rawRes="@raw/bell"
+        app:lottie_repeatMode="reverse"
+        app:lottie_autoPlay="true"/>
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -84,6 +93,7 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         app:srcCompat="@drawable/ic_baseline_image_24" />
+
     <Button
         android:id="@+id/pilih_img"
         android:layout_width="wrap_content"

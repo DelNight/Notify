@@ -122,5 +122,8 @@ public class DetailELearn extends AppCompatActivity {
 
             }
         });
+
+        invalidateOptionsMenu();
+        bottomNavigation.getMenu().getItem(1).setChecked(true);
     }
 }

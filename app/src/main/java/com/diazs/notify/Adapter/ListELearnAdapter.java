@@ -70,6 +70,12 @@ public class ListELearnAdapter extends RecyclerView.Adapter<ListELearnAdapter.EL
 
             }
         });
+
+        if (materi.getImageUrl() != null){
+            if (!materi.getImageUrl().equals("")){
+                Glide.with(context).load(materi.getImageUrl()).into(holder.kontenFoto);
+            }
+        }
     }
 
     @Override
@@ -78,9 +84,11 @@ public class ListELearnAdapter extends RecyclerView.Adapter<ListELearnAdapter.EL
     }
 
     public class ELearnViewHolder extends RecyclerView.ViewHolder {
+        ImageView kontenFoto;
         TextView tvJudul, tvDeskripsi, tvAuthor, tvDetail;
         public ELearnViewHolder(@NonNull View itemView) {
             super(itemView);
+            kontenFoto = (ImageView) itemView.findViewById(R.id.konten_foto);
             tvJudul = (TextView) itemView.findViewById(R.id.tv_judul);
             tvDeskripsi = (TextView) itemView.findViewById(R.id.tv_deskripsi);
             tvAuthor = (TextView) itemView.findViewById(R.id.tv_author);

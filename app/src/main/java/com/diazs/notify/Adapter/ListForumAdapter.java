@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.diazs.notify.Model.Forum;
 import com.diazs.notify.Model.User;
 import com.diazs.notify.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -44,10 +45,10 @@ public class ListForumAdapter extends RecyclerView.Adapter<ListForumAdapter.List
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
         Forum forum = listForum.get(position);
         holder.txt_judul.setText(forum.getJudul());
-        Picasso.get().load(forum.getLinkImg()).into(holder.iv_gambar);
+        if (forum.getLinkImg() != null){
+            Picasso.get().load(forum.getLinkImg()).into(holder.iv_gambar);
+        }
         holder.txt_desc.setText(forum.getDeskripsi());
-        System.out.println("Debug oi : " + forum.getIdForum());
-        System.out.println("Debug oi : " + forum.getAuthor());
         FirebaseDatabase.getInstance().getReference("users").child(forum.getAuthor()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -67,6 +68,21 @@ public class ListForumAdapter extends RecyclerView.Adapter<ListForumAdapter.List
                 onItemClickCallback.onItemClicked(listForum.get(holder.getAdapterPosition()));
             }
         });
+
+        FirebaseDatabase.getInstance().getReference("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                if (user.getImageURL() != null){
+                    Picasso.get().load(user.getImageURL()).into(holder.iv_user);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override
@@ -76,9 +92,10 @@ public class ListForumAdapter extends RecyclerView.Adapter<ListForumAdapter.List
 
     public class ListViewHolder extends RecyclerView.ViewHolder{
         TextView txt_judul,txt_desc,txt_username;
-        ImageView iv_gambar;
+        ImageView iv_gambar, iv_user;
         public ListViewHolder(@NonNull View itemView){
             super(itemView);
+            iv_user = itemView.findViewById(R.id.profile);
             txt_judul = itemView.findViewById(R.id.judul);
             txt_desc = itemView.findViewById(R.id.isi);
             txt_username = itemView.findViewById(R.id.nama);

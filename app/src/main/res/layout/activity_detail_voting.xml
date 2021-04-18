@@ -103,7 +103,7 @@
                 android:id="@+id/recycler_calon"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                tools:listitem="@layout/row_detail_posting"/>
+                tools:listitem="@layout/row_detail_voting"/>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 

@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +36,7 @@ public class DetailVotingAdapter extends RecyclerView.Adapter<DetailVotingAdapte
     @Override
     public DetailVotingAdapter.DetailVotingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.row_detail_posting, parent, false);
+        View view = layoutInflater.inflate(R.layout.row_detail_voting, parent, false);
         return new DetailVotingAdapter.DetailVotingViewHolder(view);
     }
 

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Adapter;
@@ -106,14 +107,14 @@ public class FormLearn extends AppCompatActivity {
         btnImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(FormLearn.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.checkSelfPermission(FormLearn.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                     if (materi.getFotoMateri() != null) {
                         Toast.makeText(FormLearn.this, "Hanya dapat memilih 1 foto", Toast.LENGTH_LONG).show();
                     } else {
                         selectImage();
                     }
                 } else {
-                    ActivityCompat.requestPermissions(FormLearn.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 3);
+                    ActivityCompat.requestPermissions(FormLearn.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 3);
                 }
             }
         });
@@ -121,10 +122,14 @@ public class FormLearn extends AppCompatActivity {
         btnVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (materi.getVideoMateri() != null) {
-                    Toast.makeText(FormLearn.this, "Hanya dapat memilih 1 video", Toast.LENGTH_LONG).show();
-                } else {
-                    selectVideo();
+                if (ActivityCompat.checkSelfPermission(FormLearn.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    if (materi.getVideoMateri() != null) {
+                        Toast.makeText(FormLearn.this, "Hanya dapat memilih 1 video", Toast.LENGTH_LONG).show();
+                    } else {
+                        selectVideo();
+                    }
+                }else {
+                    ActivityCompat.requestPermissions(FormLearn.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 3);
                 }
             }
         });
@@ -132,10 +137,14 @@ public class FormLearn extends AppCompatActivity {
         btnFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (materi.getPdfMateri() != null) {
-                    Toast.makeText(FormLearn.this, "Hanya dapat memilih 1 dokumen", Toast.LENGTH_LONG).show();
+                if (ActivityCompat.checkSelfPermission(FormLearn.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    if (materi.getPdfMateri() != null) {
+                        Toast.makeText(FormLearn.this, "Hanya dapat memilih 1 dokumen", Toast.LENGTH_LONG).show();
+                    } else {
+                        selectFile();
+                    }
                 } else {
-                    selectFile();
+                    ActivityCompat.requestPermissions(FormLearn.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 3);
                 }
             }
         });
@@ -308,17 +317,25 @@ public class FormLearn extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == 3 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == PICK_IMAGE_REQUEST && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             selectImage();
+        } else {
+            Toast.makeText(FormLearn.this, "Please provide permission...", Toast.LENGTH_SHORT).show();
+        }
+        if (requestCode == PICK_VIDEO_REQUEST && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            selectVideo();
+        } else {
+            Toast.makeText(FormLearn.this, "Please provide permission...", Toast.LENGTH_SHORT).show();
+        }
+        if (requestCode == PICK_FILE_REQUEST && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            selectFile();
         } else {
             Toast.makeText(FormLearn.this, "Please provide permission...", Toast.LENGTH_SHORT).show();
         }
     }
 
     public void selectImage() {
-        Intent intent = new Intent();
-        intent.setType("images/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 

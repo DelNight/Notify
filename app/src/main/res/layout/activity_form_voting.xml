@@ -7,15 +7,15 @@
     tools:context=".FormVoting"
     android:orientation="vertical">
 
-<!--    <com.airbnb.lottie.LottieAnimationView-->
-<!--        android:id="@+id/loading_bell"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_gravity="center_horizontal"-->
-<!--        app:lottie_rawRes="@raw/bell"-->
-<!--        app:lottie_autoPlay="true"-->
-<!--        app:lottie_loop="true"-->
-<!--        app:lottie_repeatMode="reverse"/>-->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loading_bell"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        app:lottie_rawRes="@raw/bell"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_repeatMode="reverse"/>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

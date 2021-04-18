@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.webkit.MimeTypeMap;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -21,13 +20,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.diazs.notify.Model.Forum;
 import com.diazs.notify.Model.User;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -42,7 +38,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
 import java.util.UUID;
 
 public class EditProfileActivity extends AppCompatActivity {
@@ -67,7 +62,7 @@ public class EditProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.edit_profile);
+        setContentView(R.layout.activity_edit_profile);
         firebaseAuth = FirebaseAuth.getInstance();
         mdbUsers = FirebaseDatabase.getInstance().getReference();
         mUser = firebaseAuth.getCurrentUser();

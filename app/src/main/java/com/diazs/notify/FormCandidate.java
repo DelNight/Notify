@@ -51,7 +51,7 @@ public class FormCandidate extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_agregate);
+        setContentView(R.layout.activity_add_candidate);
 
         maker = findViewById(R.id.name);
         nama = findViewById(R.id.edt_nama);

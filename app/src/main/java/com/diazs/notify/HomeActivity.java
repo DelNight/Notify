@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.diazs.notify.Adapter.HomeAdapter;
+import com.diazs.notify.Adapter.ListELearnAdapter;
 import com.diazs.notify.Model.Materi;
 import com.diazs.notify.Model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -198,6 +199,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     System.out.println("Ada Fotonya ngab :" + user.getImageURL());
                     Glide.with(HomeActivity.this).load(user.getImageURL()).into(profileImage);
                 }
+
                 if(user.getRole() == 1){
                     tvRole.setText("Super Admin");
                 }else if(user.getRole() == 2){
@@ -220,7 +222,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 for (DataSnapshot snapshot1 : snapshot.getChildren()){
                     Materi materi = snapshot1.getValue(Materi.class);
                     listMateri.add(materi);
-                    HomeAdapter adapter = new HomeAdapter(listMateri, HomeActivity.this);
+                    ListELearnAdapter adapter = new ListELearnAdapter(listMateri, HomeActivity.this);
                     rvHome.setAdapter(adapter);
                 }
             }

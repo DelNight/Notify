@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +23,9 @@ import com.diazs.notify.Adapter.ListForumAdapter;
 import com.diazs.notify.Adapter.ListVotingAdapter;
 import com.diazs.notify.Model.Forum;
 import com.diazs.notify.Model.User;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -44,13 +48,16 @@ public class ProfilActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ArrayList<Forum> list = new ArrayList<>();
 
-    TextView tvNama, tvKelas,tvUser, tvEmail, tvJenkel, tvTname;
+    private TextView tvNama, tvKelas,tvUser, tvEmail, tvJenkel, tvTname;
 
-    ImageButton btnBack;
-    ImageView imgProfil;
-    ProgressDialog progressDialog;
+    private BottomNavigationView bottomNavigation;
+    private FloatingActionButton addContent;
 
-    LottieAnimationView loading;
+    private ImageButton btnBack;
+    private ImageView imgProfil;
+    private ProgressDialog progressDialog;
+
+    private LottieAnimationView loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +72,11 @@ public class ProfilActivity extends AppCompatActivity {
         currentUser = mAuth.getCurrentUser();
         recyclerView = findViewById(R.id.recycler_profil);
         recyclerView.setHasFixedSize(true);
+
         showRecyclerList();
 
-//        loading = findViewById(R.id.loading_bell);
-//        loading.setVisibility(View.VISIBLE);
+        loading = findViewById(R.id.loading_bell);
+        loading.setVisibility(View.VISIBLE);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,12 +84,14 @@ public class ProfilActivity extends AppCompatActivity {
                 logoutDialog();
             }
         });
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finishAfterTransition();
             }
         });
+
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,14 +99,18 @@ public class ProfilActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        setListener();
         getData(currentUser.getUid());
     }
 
     void findView(){
+        bottomNavigation = findViewById(R.id.bottomNavigationView);
+        addContent = findViewById(R.id.fab);
         btnEdit = findViewById(R.id.btn_edit);
         btnBack = findViewById(R.id.btn_back);
         tvKelas = findViewById(R.id.class_user);
-        tvTname = findViewById(R.id.namae);
+        tvTname = findViewById(R.id.nama);
         tvNama = findViewById(R.id.name);
         tvJenkel = findViewById(R.id.gender_user);
         tvUser = findViewById(R.id.username);
@@ -114,7 +128,7 @@ public class ProfilActivity extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     User user = dataSnapshot.getValue(User.class);
                     setData(user);
-//                    loading.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
 //                    Query q = mDatabase.child("Kelas").child(siswa.getKelas());
 //                    q.addListenerForSingleValueEvent(new ValueEventListener() {
 //                        @Override
@@ -145,7 +159,9 @@ public class ProfilActivity extends AppCompatActivity {
         tvKelas.setText(user.getKelas());
         tvEmail.setText(user.getEmail());
         tvUser.setText(user.getUsername());
-        Picasso.get().load(user.getImageURL()).into(imgProfil);
+        if (!user.getImageURL().equals("") && user.getImageURL() != null){
+            Picasso.get().load(user.getImageURL()).into(imgProfil);
+        }
     }
 
     private void showProgressDialog(){
@@ -213,5 +229,41 @@ public class ProfilActivity extends AppCompatActivity {
 
         AlertDialog alertDialog = alert.create();
         alertDialog.show();
+    }
+
+    public void setListener(){
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                AppCompatActivity context = ProfilActivity.this;
+
+                switch (item.getItemId()){
+                    case R.id.navigation_satu:
+                        startActivity(new Intent(context, HomeActivity.class));
+                        break;
+                    case R.id.navigation_dua:
+                        startActivity(new Intent(context, BerandaActivity.class));
+                        break;
+                    case R.id.navigation_tiga:
+                        startActivity(new Intent(context, ChatActivity.class));
+                        break;
+                    case R.id.navigation_empat:
+                        startActivity(new Intent(context, ProfilActivity.class));
+                        break;
+                }
+                return false;
+            }
+        });
+
+        addContent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BottomSheetDialogFragment pilihPostingan = new PilihPostinganActivity();
+                pilihPostingan.show(getSupportFragmentManager(), " string");
+            }
+        });
+
+        invalidateOptionsMenu();
+        bottomNavigation.getMenu().getItem(3).setChecked(true);
     }
 }

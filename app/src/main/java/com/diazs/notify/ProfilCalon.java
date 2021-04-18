@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,12 +14,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.bumptech.glide.Glide;
 import com.diazs.notify.Model.Candidate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class ProfilCalon extends AppCompatActivity {
+    ImageView profileImage;
     TextView tvNama, tvJmlVote, tvProfil, tvVisi, tvMisi;
     Button btnPilih;
     @Override
@@ -26,6 +29,7 @@ public class ProfilCalon extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil_calon);
 
+        profileImage = findViewById(R.id.profile_image);
         tvNama = findViewById(R.id.nama_calon);
         tvJmlVote = findViewById(R.id.jmlvote);
         tvProfil = findViewById(R.id.tv_profil);
@@ -44,12 +48,12 @@ public class ProfilCalon extends AppCompatActivity {
 
         Candidate candidate = getIntent().getParcelableExtra("CANDIDATE");
 
-        System.out.println("Debug Nama :" + candidate.getNama());
         tvNama.setText(candidate.getNama());
         tvJmlVote.setText(candidate.getJumlahSuara() + " Suara");
         tvProfil.setText(candidate.getProfil());
         tvVisi.setText(candidate.getVisi());
         tvMisi.setText(candidate.getMisi());
+        Glide.with(this).load(candidate.getImageURL()).into(profileImage);
         btnPilih.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

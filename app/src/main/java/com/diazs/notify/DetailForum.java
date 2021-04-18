@@ -117,8 +117,8 @@ public class DetailForum extends AppCompatActivity {
             }
         });
 
-        MenuItem menuItem = bottomNavigation.getMenu().getItem(1);
-        menuItem.setChecked(true);
+        invalidateOptionsMenu();
+        bottomNavigation.getMenu().getItem(1).setChecked(true);
     }
 
 }
