@@ -196,7 +196,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
                 tvName.setText(user.getNama());
-                if (!user.getImageURL().equals("") && user.getImageURL() != null){
+                if (user.getImageURL() != null){
                     System.out.println("Ada Fotonya ngab :" + user.getImageURL());
                     Glide.with(HomeActivity.this).load(user.getImageURL()).into(profileImage);
                 }

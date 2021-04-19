@@ -68,11 +68,10 @@ public class ChatActivity extends AppCompatActivity implements OnItemClick {
         });
 
         this.onItemClick = this;
-        MRR = Typeface.createFromAsset(getAssets(), "fonts/myriadregular.ttf");
-        MR = Typeface.createFromAsset(getAssets(), "fonts/myriad.ttf");
+//        MRR = Typeface.createFromAsset(getAssets(), "fonts/myriadregular.ttf");
+//        MR = Typeface.createFromAsset(getAssets(), "fonts/myriad.ttf");
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
 
         profile_image = findViewById(R.id.profile_image);
