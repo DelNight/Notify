@@ -1,4 +1,4 @@
-package com.example.home;
+package com.diazs.notify.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.diazs.notify.R;
 
 import java.util.List;
 
@@ -27,7 +29,7 @@ public class HomeMenuAdapter extends RecyclerView.Adapter<HomeMenuAdapter.MyView
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.grid_item, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.grid_menu_home, parent, false);
         return new MyViewHolder(v);
     }
 

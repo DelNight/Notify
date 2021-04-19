@@ -1,4 +1,4 @@
-package com.example.home;
+package com.diazs.notify;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -9,6 +9,7 @@ import android.os.Bundle;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.diazs.notify.Adapter.HomeMenuAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,7 @@ public class RevHomeActivity extends AppCompatActivity {
         titles =  new ArrayList<>();
         mImages = new ArrayList<>();
 
-        adapter = new MyAdapter(this, titles, mImages);
+        adapter = new HomeMenuAdapter(this, titles, mImages);
 
         mImages.add(R.drawable.ic_forum);
         mImages.add(R.drawable.ic_voting);
