@@ -24,7 +24,6 @@ public class ListChatActivity extends AppCompatActivity{
     private ArrayList<ChatMessage> chatMessageArrayList;
     private ArrayList<String> chatList;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

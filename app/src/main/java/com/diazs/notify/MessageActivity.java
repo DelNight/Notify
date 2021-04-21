@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,22 +55,31 @@ public class MessageActivity extends AppCompatActivity {
     private ArrayList<ChatMessage> messageArrayList;
     private RecyclerView recyclerView;
     private User lawanBicara;
+    private ImageView fotoLawanBicara;
+    private TextView namaLawanBicara;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
+        inputMessage = findViewById(R.id.et_message);
+        btnSend = findViewById(R.id.btn_send);
+        fotoLawanBicara = findViewById(R.id.profile_image);
+        namaLawanBicara = findViewById(R.id.username);
+        messageArrayList = new ArrayList<>();
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         lawanBicara = getIntent().getParcelableExtra("USER");
+
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sendMessage();
             }
         });
+
         getData();
     }
 
@@ -78,6 +88,7 @@ public class MessageActivity extends AppCompatActivity {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        messageArrayList.clear();
                         for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                             ChatMessage chatMessage = snapshot1.getValue(ChatMessage.class);
                             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -98,20 +109,41 @@ public class MessageActivity extends AppCompatActivity {
 
                     }
                 });
+
+        FirebaseDatabase.getInstance().getReference("users").child(lawanBicara.getId())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                namaLawanBicara.setText(user.getNama());
+                if (user.getImageURL() != null){
+                    Glide.with(MessageActivity.this).load(user.getImageURL()).into(fotoLawanBicara);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     public void sendMessage(){
         ChatMessage message = new ChatMessage();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("chatMessage");
+        String key = reference.push().getKey();
+        message.setId(key);
         message.setCreatedAt(System.currentTimeMillis());
         message.setMessage(inputMessage.getText().toString());
         message.setSeen(false);
         message.setReceiver(lawanBicara.getId());
         message.setSender(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-        FirebaseDatabase.getInstance().getReference("chatMessage").setValue(message).addOnCompleteListener(new OnCompleteListener<Void>() {
+        FirebaseDatabase.getInstance().getReference("chatMessage").child(key).setValue(message).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(MessageActivity.this, "Pesan Terkirim!", Toast.LENGTH_LONG).show();
+                inputMessage.setText("");
             }
         });
     }

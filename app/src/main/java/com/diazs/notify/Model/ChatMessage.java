@@ -3,11 +3,20 @@ package com.diazs.notify.Model;
 import java.util.Date;
 
 public class ChatMessage {
+    private String id;
     private String sender;
     private String receiver;
     private String message;
     private boolean isSeen;
     private long createdAt;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getSender() {
         return sender;

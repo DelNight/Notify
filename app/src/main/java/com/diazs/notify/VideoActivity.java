@@ -27,8 +27,8 @@ public class VideoActivity extends AppCompatActivity {
         s1 = getResources().getStringArray(R.array.username);
         s2 = getResources().getStringArray(R.array.description);
 
-        KomentarAdapter komentarAdapter = new KomentarAdapter(this, s1, s2, images);
-        recyclerView.setAdapter(komentarAdapter);
+//        KomentarAdapter komentarAdapter = new KomentarAdapter(this, s1, s2, images);
+//        recyclerView.setAdapter(komentarAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 

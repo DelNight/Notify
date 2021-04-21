@@ -1,10 +1,14 @@
 package com.diazs.notify;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,11 +35,11 @@ import java.util.List;
 public class KomentarActivity extends AppCompatActivity {
     public static String JENIS_HALAMAN = "jenis_halaman";
     public static String POST_ID = "post_id";
-    EditText isiKomentar;
-    ImageButton btnSubmit;
-    ArrayList<Comment> listKomentar;
-    RecyclerView recyclerView;
-    KomentarAdapter komentarAdapter;
+    private EditText isiKomentar;
+    private ImageButton btnSubmit;
+    private ArrayList<Comment> listKomentar;
+    private RecyclerView recyclerView;
+    private KomentarAdapter komentarAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
