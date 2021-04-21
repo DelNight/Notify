@@ -31,14 +31,14 @@
         <activity android:name=".InputEvent" />
         <activity android:name=".FormVoting">
         </activity>
-        <activity android:name=".ListChat" />
+        <activity android:name=".ListChatActivity" />
         <activity
             android:name=".LearnActivity"
             android:label="@string/title_activity_learn"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
-        <activity android:name=".ChatActivity">
+        <activity android:name=".ListChatActivity">
 
         </activity>
         <activity android:name=".DetailELearn">
@@ -63,6 +63,7 @@
         </activity>
         <activity android:name=".DetailForum"></activity>
         <activity android:name=".KomentarActivity"></activity>
+        <activity android:name=".MessageActivity"></activity>
     </application>
 
 </manifest>

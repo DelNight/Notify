@@ -1,15 +1,12 @@
 package com.diazs.notify;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,7 +17,6 @@ import com.diazs.notify.Model.DateFormater;
 import com.diazs.notify.Model.Materi;
 import com.diazs.notify.Model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -72,7 +68,7 @@ public class DetailELearn extends AppCompatActivity {
                         context.finish();
                         break;
                     case R.id.navigation_tiga:
-                        startActivity(new Intent(context, ChatActivity.class));
+                        startActivity(new Intent(context, ListChatActivity.class));
                         context.finish();
                         break;
                     case R.id.navigation_empat:

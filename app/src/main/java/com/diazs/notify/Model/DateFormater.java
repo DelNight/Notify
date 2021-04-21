@@ -10,6 +10,7 @@ public class DateFormater {
     public static String FORMAT_THREE = "dd MMM yyyy HH:mm:ss";
     public static String FORMAT_FOUR = "dd MMMMM yyyy";
     public static String FORMAT_FIVE = "EEE MMMMM yyyy";
+    public static String FORMAT_SIX = "HH:ss";
 
     public static String getDateFormated(long millis, String pattern){
         DateFormat simple = new SimpleDateFormat(pattern);

@@ -2,10 +2,8 @@ package com.diazs.notify;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.Manifest;
 import android.content.Intent;
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,12 +13,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
-import com.diazs.notify.Adapter.HomeAdapter;
 import com.diazs.notify.Adapter.ListELearnAdapter;
 import com.diazs.notify.Model.Materi;
 import com.diazs.notify.Model.User;
@@ -197,7 +193,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 User user = snapshot.getValue(User.class);
                 tvName.setText(user.getNama());
                 if (!user.getImageURL().equals("") && user.getImageURL() != null){
-                    System.out.println("Ada Fotonya ngab :" + user.getImageURL());
                     Glide.with(HomeActivity.this).load(user.getImageURL()).into(profileImage);
                 }
 
@@ -250,7 +245,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         startActivity(new Intent(context, BerandaActivity.class));
                         break;
                     case R.id.navigation_tiga:
-                        startActivity(new Intent(context, ChatActivity.class));
+                        startActivity(new Intent(context, ListChatActivity.class));
                         break;
                     case R.id.navigation_empat:
                         startActivity(new Intent(context, ProfilActivity.class));

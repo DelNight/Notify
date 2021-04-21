@@ -19,7 +19,6 @@ import com.diazs.notify.Model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.internal.NavigationMenuView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -68,7 +67,7 @@ public class DetailForum extends AppCompatActivity {
                         startActivity(new Intent(context, BerandaActivity.class));
                         break;
                     case R.id.navigation_tiga:
-                        startActivity(new Intent(context, ChatActivity.class));
+                        startActivity(new Intent(context, ListChatActivity.class));
                         break;
                     case R.id.navigation_empat:
                         startActivity(new Intent(context, ProfilActivity.class));

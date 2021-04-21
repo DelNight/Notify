@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.diazs.notify.Adapter.ListForumAdapter;
-import com.diazs.notify.Adapter.ListVotingAdapter;
 import com.diazs.notify.Model.Forum;
 import com.diazs.notify.Model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -245,7 +242,7 @@ public class ProfilActivity extends AppCompatActivity {
                         startActivity(new Intent(context, BerandaActivity.class));
                         break;
                     case R.id.navigation_tiga:
-                        startActivity(new Intent(context, ChatActivity.class));
+                        startActivity(new Intent(context, ListChatActivity.class));
                         break;
                     case R.id.navigation_empat:
                         startActivity(new Intent(context, ProfilActivity.class));

@@ -10,7 +10,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Message;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -26,6 +28,8 @@ import com.diazs.notify.Notifications.Data;
 import com.diazs.notify.Notifications.MyResponse;
 import com.diazs.notify.Notifications.Sender;
 import com.diazs.notify.Notifications.Token;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -45,289 +49,70 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MessageActivity extends AppCompatActivity {
-
-    CircleImageView profile_image;
-    TextView username;
-
-    Typeface MR, MRR;
-
-    FirebaseUser fuser;
-    DatabaseReference reference;
-
-    ImageButton btn_send;
-    EditText text_send;
-
-    MessageAdapter messageAdapter;
-    List<ChatMessage> mchat;
-
-    RecyclerView recyclerView;
-
-    Intent intent;
-
-    ValueEventListener seenListener;
-
-    String userid;
-
-    APIService apiService;
-
-    boolean notify = false;
+    private EditText inputMessage;
+    private ImageButton btnSend;
+    private ArrayList<ChatMessage> messageArrayList;
+    private RecyclerView recyclerView;
+    private User lawanBicara;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
 
-        MRR = Typeface.createFromAsset(getAssets(), "fonts/myriadregular.ttf");
-        MR = Typeface.createFromAsset(getAssets(), "fonts/myriad.ttf");
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // and this
-                startActivity(new Intent(MessageActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-            }
-        });
-
-        apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
-
         recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-        linearLayoutManager.setStackFromEnd(true);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        profile_image = findViewById(R.id.profile_image);
-        username = findViewById(R.id.username);
-        btn_send = findViewById(R.id.btn_send);
-        text_send = findViewById(R.id.text_send);
-
-        username.setTypeface(MR);
-        text_send.setTypeface(MRR);
-
-
-        intent = getIntent();
-        userid = intent.getStringExtra("userid");
-        fuser = FirebaseAuth.getInstance().getCurrentUser();
-
-        btn_send.setOnClickListener(new View.OnClickListener() {
+        lawanBicara = getIntent().getParcelableExtra("USER");
+        btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                notify = true;
-                String msg = text_send.getText().toString();
-                String time = String.valueOf(System.currentTimeMillis());
-                if (!msg.equals("")){
-                    sendMessage(fuser.getUid(), userid, msg, time);
-                } else {
-                    Toast.makeText(MessageActivity.this, "You can't send empty message", Toast.LENGTH_SHORT).show();
-                }
-                text_send.setText("");
+                sendMessage();
             }
         });
-
-
-        reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
-
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                username.setText(user.getUsername());
-                if (user.getImageURL().equals("default")){
-                    profile_image.setImageResource(R.drawable.ic_baseline_person_24);
-                } else {
-                    //and this
-                    Glide.with(getApplicationContext()).load(user.getImageURL()).into(profile_image);
-                }
-
-                readMesagges(fuser.getUid(), userid, user.getImageURL());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        seenMessage(userid);
+        getData();
     }
 
-    private void seenMessage(final String userid){
-        reference = FirebaseDatabase.getInstance().getReference("Chats");
-        seenListener = reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    ChatMessage chat = snapshot.getValue(ChatMessage.class);
-                    if (chat.getReceiver().equals(fuser.getUid()) && chat.getSender().equals(userid)){
-                        HashMap<String, Object> hashMap = new HashMap<>();
-                        hashMap.put("isseen", true);
-                        snapshot.getRef().updateChildren(hashMap);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void sendMessage(String sender, final String receiver, String message, String time){
-
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("sender", sender);
-        hashMap.put("receiver", receiver);
-        hashMap.put("message", message);
-        hashMap.put("isseen", false);
-        hashMap.put("time", time);
-
-        reference.child("Chats").push().setValue(hashMap);
-
-
-        // add user to chat fragment
-        final DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference("Chatlist")
-                .child(fuser.getUid())
-                .child(userid);
-
-        chatRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (!dataSnapshot.exists()){
-                    chatRef.child("id").setValue(userid);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        final DatabaseReference chatRefReceiver = FirebaseDatabase.getInstance().getReference("Chatlist")
-                .child(userid)
-                .child(fuser.getUid());
-        chatRefReceiver.child("id").setValue(fuser.getUid());
-
-        final String msg = message;
-
-        reference = FirebaseDatabase.getInstance().getReference("Users").child(fuser.getUid());
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                if (notify) {
-                    sendNotifiaction(receiver, user.getUsername(), msg);
-                }
-                notify = false;
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void sendNotifiaction(String receiver, final String username, final String message){
-        DatabaseReference tokens = FirebaseDatabase.getInstance().getReference("Tokens");
-        Query query = tokens.orderByKey().equalTo(receiver);
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    Token token = snapshot.getValue(Token.class);
-                    Data data = new Data(fuser.getUid(), R.drawable.ic_baseline_person_24, username+": "+message, "New Message",
-                            userid);
-
-                    Sender sender = new Sender(data, token.getToken());
-
-                    apiService.sendNotification(sender)
-                            .enqueue(new Callback<MyResponse>() {
-                                @Override
-                                public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
-                                    if (response.code() == 200){
-                                        if (response.body().success != 1){
-                                            //Toast.makeText(MessageActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
+    public void getData(){
+        FirebaseDatabase.getInstance().getReference("chatMessage")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                            ChatMessage chatMessage = snapshot1.getValue(ChatMessage.class);
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            if (chatMessage.getSender().equals(user.getUid()) && chatMessage.getReceiver().equals(lawanBicara.getId()) ||
+                                chatMessage.getSender().equals(lawanBicara.getId()) && chatMessage.getReceiver().equals(user.getUid())){
+                                if (chatMessage.getReceiver().equals(lawanBicara.getId())){
+                                    chatMessage.setSeen(true);
                                 }
-
-                                @Override
-                                public void onFailure(Call<MyResponse> call, Throwable t) {
-
-                                }
-                            });
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void readMesagges(final String myid, final String userid, final String imageurl){
-        mchat = new ArrayList<>();
-
-        reference = FirebaseDatabase.getInstance().getReference("Chats");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mchat.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    ChatMessage chat = snapshot.getValue(ChatMessage.class);
-                    if (chat.getReceiver().equals(myid) && chat.getSender().equals(userid) ||
-                            chat.getReceiver().equals(userid) && chat.getSender().equals(myid)){
-                        mchat.add(chat);
+                                messageArrayList.add(chatMessage);
+                                MessageAdapter adapter = new MessageAdapter(MessageActivity.this, messageArrayList);
+                                recyclerView.setAdapter(adapter);
+                            }
+                        }
                     }
 
-                    messageAdapter = new MessageAdapter(MessageActivity.this, mchat, imageurl);
-                    recyclerView.setAdapter(messageAdapter);
-                }
-            }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
+                    }
+                });
+    }
+
+    public void sendMessage(){
+        ChatMessage message = new ChatMessage();
+        message.setCreatedAt(System.currentTimeMillis());
+        message.setMessage(inputMessage.getText().toString());
+        message.setSeen(false);
+        message.setReceiver(lawanBicara.getId());
+        message.setSender(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+        FirebaseDatabase.getInstance().getReference("chatMessage").setValue(message).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+            public void onComplete(@NonNull Task<Void> task) {
+                Toast.makeText(MessageActivity.this, "Pesan Terkirim!", Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    private void currentUser(String userid){
-        SharedPreferences.Editor editor = getSharedPreferences("PREFS", MODE_PRIVATE).edit();
-        editor.putString("currentuser", userid);
-        editor.apply();
-    }
-
-    private void status(String status){
-        reference = FirebaseDatabase.getInstance().getReference("Users").child(fuser.getUid());
-
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("status", status);
-
-        reference.updateChildren(hashMap);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        status("online");
-        currentUser(userid);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        reference.removeEventListener(seenListener);
-        status("offline");
-        currentUser("none");
     }
 }

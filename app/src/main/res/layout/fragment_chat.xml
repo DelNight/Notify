@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChatActivity">
+    tools:context=".ListChatActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -33,7 +33,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_chat"
+        android:id="@+id/recycler_chat"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/row_chat"

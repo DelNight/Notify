@@ -265,7 +265,7 @@ public class BerandaActivity extends AppCompatActivity implements ListVotingAdap
                         startActivity(new Intent(context, BerandaActivity.class));
                         break;
                     case R.id.navigation_tiga:
-                        startActivity(new Intent(context, ChatActivity.class));
+                        startActivity(new Intent(context, ListChatActivity.class));
                         break;
                     case R.id.navigation_empat:
                         startActivity(new Intent(context, ProfilActivity.class));

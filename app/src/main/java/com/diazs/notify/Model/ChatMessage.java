@@ -7,18 +7,7 @@ public class ChatMessage {
     private String receiver;
     private String message;
     private boolean isSeen;
-    private String time;
-
-    public ChatMessage(String sender, String receiver, String message, boolean isSeen, String time) {
-        this.sender = sender;
-        this.receiver = receiver;
-        this.message = message;
-        this.isSeen = isSeen;
-        this.time = time;
-    }
-
-    public ChatMessage() {
-    }
+    private long createdAt;
 
     public String getSender() {
         return sender;
@@ -52,11 +41,11 @@ public class ChatMessage {
         isSeen = seen;
     }
 
-    public String getTime() {
-        return time;
+    public long getCreatedAt() {
+        return createdAt;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setCreatedAt(long createdAt) {
+        this.createdAt = createdAt;
     }
 }

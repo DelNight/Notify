@@ -6,82 +6,71 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.diazs.notify.Model.ChatMessage;
+import com.diazs.notify.Model.DateFormater;
+import com.diazs.notify.Model.User;
 import com.diazs.notify.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
 
-    public static  final int MSG_TYPE_LEFT = 0;
-    public static  final int MSG_TYPE_RIGHT = 1;
-    Typeface MR,MRR;
-
-
     private Context mContext;
-    private List<ChatMessage> mChat;
+    private ArrayList<ChatMessage> mChat;
     private String imageurl;
 
     FirebaseUser fuser;
 
-    public MessageAdapter(Context mContext, List<ChatMessage> mChat, String imageurl){
+    public MessageAdapter(Context mContext, ArrayList<ChatMessage> mChat){
         this.mChat = mChat;
         this.mContext = mContext;
-        this.imageurl = imageurl;
-
-        MRR = Typeface.createFromAsset(mContext.getAssets(), "fonts/myriadregular.ttf");
-        MR = Typeface.createFromAsset(mContext.getAssets(), "fonts/myriad.ttf");
-
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == MSG_TYPE_RIGHT) {
-            View view = LayoutInflater.from(mContext).inflate(R.layout.chat_item_right, parent, false);
-            return new ViewHolder(view);
-        } else {
-            View view = LayoutInflater.from(mContext).inflate(R.layout.chat_item_left, parent, false);
-            return new ViewHolder(view);
-        }
+        View view = LayoutInflater.from(mContext).inflate(R.layout.chat_item, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        ChatMessage chatMessage = mChat.get(position);
+        FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
 
-        ChatMessage chat = mChat.get(position);
-        holder.show_message.setTypeface(MRR);
-        holder.txt_seen.setTypeface(MRR);
+        setListData(chatMessage.getSender(), holder, chatMessage);
 
-        holder.show_message.setText(chat.getMessage());
-        if(chat.getTime()!=null && !chat.getTime().trim().equals("")) {
-            holder.time_tv.setText(holder.convertTime(chat.getTime()));
-        }
+        if (chatMessage.getSender().equals(fuser.getUid())){
+            RelativeLayout.LayoutParams relativeContainerParams = (RelativeLayout.LayoutParams) holder.relativeContainer.getLayoutParams();
+            RelativeLayout.LayoutParams cardProfileParams = (RelativeLayout.LayoutParams) holder.cardProfile.getLayoutParams();
 
-        if (imageurl.equals("default")){
-            holder.profile_image.setImageResource(R.drawable.ic_baseline_person_24);
-        } else {
-            Glide.with(mContext).load(imageurl).into(holder.profile_image);
-        }
+            relativeContainerParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            cardProfileParams.addRule(RelativeLayout.RIGHT_OF, R.id.card_content);
 
-        if (position == mChat.size()-1){
-            if (chat.isSeen()){
-                holder.txt_seen.setText("Seen");
-            } else {
-                holder.txt_seen.setText("Delivered");
-            }
-        } else {
-            holder.txt_seen.setVisibility(View.GONE);
+            holder.relativeContainer.setLayoutParams(relativeContainerParams);
+            holder.cardProfile.setLayoutParams(cardProfileParams);
+        }else{
+            RelativeLayout.LayoutParams cardContentParams = (RelativeLayout.LayoutParams) holder.cardContent.getLayoutParams();
+            cardContentParams.addRule(RelativeLayout.RIGHT_OF, R.id.card_profile);
+            holder.cardContent.setLayoutParams(cardContentParams);
         }
 
     }
@@ -91,35 +80,41 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         return mChat.size();
     }
 
-    public  class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder{
+        CardView cardProfile, cardContent;
+        RelativeLayout relativeContainer;
+        TextView message, time;
+        ImageView profileImage;
 
-        public TextView show_message;
-        public ImageView profile_image;
-        public TextView txt_seen;
-        public TextView time_tv;
         public ViewHolder(View itemView) {
             super(itemView);
-//
-//            show_message = itemView.findViewById(R.id.show_message);
-//            profile_image = itemView.findViewById(R.id.profile_image);
-//            txt_seen = itemView.findViewById(R.id.txt_seen);
-//            time_tv = itemView.findViewById(R.id.time_tv);
-        }
-
-        public String convertTime(String time){
-            SimpleDateFormat formatter = new SimpleDateFormat("h:mm a");
-            String dateString = formatter.format(new Date(Long.parseLong(time)));
-            return dateString;
+            cardProfile = (CardView) itemView.findViewById(R.id.card_profile);
+            cardContent = (CardView) itemView.findViewById(R.id.card_content);
+            relativeContainer = (RelativeLayout) itemView.findViewById(R.id.relative_container);
+            profileImage = (ImageView) itemView.findViewById(R.id.profile_image);
+            message = (TextView) itemView.findViewById(R.id.tv_pesan);
+            time = (TextView) itemView.findViewById(R.id.waktu);
         }
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        fuser = FirebaseAuth.getInstance().getCurrentUser();
-        if (mChat.get(position).getSender().equals(fuser.getUid())){
-            return MSG_TYPE_RIGHT;
-        } else {
-            return MSG_TYPE_LEFT;
-        }
+    public void setListData(String lawanBicara, ViewHolder holder, ChatMessage chatMessage){
+        holder.message.setText(chatMessage.getMessage());
+        holder.time.setText(DateFormater.getDateFormated(chatMessage.getCreatedAt(), DateFormater.FORMAT_SIX));
+        FirebaseDatabase.getInstance().getReference("users")
+                .child(lawanBicara)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        User user = snapshot.getValue(User.class);
+                        if (user.getImageURL() != null){
+                            Glide.with(mContext).load(user.getImageURL()).into(holder.profileImage);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 }

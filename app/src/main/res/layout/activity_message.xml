@@ -6,24 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".MessageActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/bar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:background="#7090B0"
-            android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/Theme.AppCompat.Light">
+            android:background="@color/color2"
+            android:layout_height="wrap_content">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/profile_image"/>
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                app:cardCornerRadius="25dp">
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:src="@drawable/ic_baseline_person_24"
+                    android:id="@+id/profile_image"/>
+            </androidx.cardview.widget.CardView>
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -31,66 +31,93 @@
                 android:id="@+id/username"
                 android:textSize="22sp"
                 android:layout_marginLeft="25dp"
+                android:text="Nama"
                 android:textColor="#fff"
                 android:textStyle="bold"
                 android:layout_marginStart="25dp" />
 
         </androidx.appcompat.widget.Toolbar>
 
-    </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
-        android:layout_below="@+id/bar_layout"
+        android:layout_below="@+id/toolbar"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="70dp"
         android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="70dp"
+            android:orientation="vertical">
+            <androidx.cardview.widget.CardView
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp"
+                android:layout_marginVertical="10dp"
+                android:elevation="10dp">
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="4dp"
+                    android:textSize="12dp"
+                    android:paddingHorizontal="10dp"
+                    android:text="Gunakanlah bahasa yang santun 😊">
+                </TextView>
+            </androidx.cardview.widget.CardView>
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/recycler_view_me"
-                android:layout_below="@id/bar_layout"
+                android:layout_marginHorizontal="10dp"
+                android:id="@+id/recycler_view"
+                tools:listitem="@layout/chat_item"
                 android:layout_above="@id/bottom"/>
+        </LinearLayout>
     </ScrollView>
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recycler_view"
-        android:layout_below="@id/bar_layout"
-        android:layout_above="@id/bottom"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:padding="10dp"
-        android:id="@+id/bottom"
-        android:background="@color/color4"
+    <androidx.cardview.widget.CardView
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="50dp"
         android:layout_alignParentBottom="true"
-        android:layout_height="wrap_content">
+        android:elevation="15dp">
 
-        <EditText
+        <RelativeLayout
+            android:background="#FFFEFE"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/text_send"
-            android:textSize="16sp"
             android:padding="10dp"
-            android:textColor="#000"
-            android:textColorHint="#000"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="20dp"
-            android:background="@null"
-            android:hint="Type a message..."
-            android:layout_toLeftOf="@id/btn_send"
-            android:layout_centerVertical="true"/>
+            android:id="@+id/bottom"
+            android:layout_height="wrap_content">
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:background="@drawable/ic_baseline_send_24"
-            android:layout_centerVertical="true"
-            android:id="@+id/btn_send"
-            android:backgroundTint="@color/colorPrimary"
-            android:layout_alignParentRight="true" />
+            <EditText
+                android:id="@+id/et_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:padding="10dp"
+                android:textColor="#000"
+                android:textColorHint="#000"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
+                android:background="@null"
+                android:hint="Ketikan pesan..."
+                android:layout_toLeftOf="@id/btn_send"
+                android:layout_centerVertical="true"/>
 
-    </RelativeLayout>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:background="@drawable/ic_baseline_send_24"
+                android:layout_centerVertical="true"
+                android:id="@+id/btn_send"
+                android:backgroundTint="@color/colorPrimary"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
