@@ -156,7 +156,7 @@ public class ProfilActivity extends AppCompatActivity {
         tvKelas.setText(user.getKelas());
         tvEmail.setText(user.getEmail());
         tvUser.setText(user.getUsername());
-        if (!user.getImageURL().equals("") && user.getImageURL() != null){
+        if (user.getImageURL() != null){
             Picasso.get().load(user.getImageURL()).into(imgProfil);
         }
     }

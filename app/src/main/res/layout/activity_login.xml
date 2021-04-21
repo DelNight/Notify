@@ -89,6 +89,7 @@
             android:layout_gravity="center_horizontal|center"
             android:background="@drawable/radius_button"
             android:text="Masuk"
+            android:layout_marginBottom="15dp"
             android:textColor="#ffffffff" />
 
         <Button
