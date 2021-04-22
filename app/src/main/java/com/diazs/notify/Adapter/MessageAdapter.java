@@ -35,9 +35,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     private Context mContext;
     private ArrayList<ChatMessage> mChat;
-    private String imageurl;
-
-    FirebaseUser fuser;
 
     public MessageAdapter(Context mContext, ArrayList<ChatMessage> mChat){
         this.mChat = mChat;
@@ -60,13 +57,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
         if (chatMessage.getSender().equals(fuser.getUid())){
             RelativeLayout.LayoutParams relativeContainerParams = (RelativeLayout.LayoutParams) holder.relativeContainer.getLayoutParams();
-            RelativeLayout.LayoutParams cardProfileParams = (RelativeLayout.LayoutParams) holder.cardProfile.getLayoutParams();
+            RelativeLayout.LayoutParams cardContentLayoutParams = (RelativeLayout.LayoutParams) holder.cardContent.getLayoutParams();
+            RelativeLayout.LayoutParams cardProfileLayoutParams = (RelativeLayout.LayoutParams) holder.cardProfile.getLayoutParams();
 
             relativeContainerParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-            cardProfileParams.addRule(RelativeLayout.RIGHT_OF, R.id.card_content);
+            cardContentLayoutParams.addRule(RelativeLayout.LEFT_OF, R.id.card_profile);
+            cardProfileLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 
             holder.relativeContainer.setLayoutParams(relativeContainerParams);
-            holder.cardProfile.setLayoutParams(cardProfileParams);
+            holder.cardContent.setLayoutParams(cardContentLayoutParams);
+            holder.cardProfile.setLayoutParams(cardProfileLayoutParams);
         }else{
             RelativeLayout.LayoutParams cardContentParams = (RelativeLayout.LayoutParams) holder.cardContent.getLayoutParams();
             cardContentParams.addRule(RelativeLayout.RIGHT_OF, R.id.card_profile);
@@ -88,12 +88,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
         public ViewHolder(View itemView) {
             super(itemView);
-            cardProfile = (CardView) itemView.findViewById(R.id.card_profile);
-            cardContent = (CardView) itemView.findViewById(R.id.card_content);
-            relativeContainer = (RelativeLayout) itemView.findViewById(R.id.relative_container);
-            profileImage = (ImageView) itemView.findViewById(R.id.profile_image);
-            message = (TextView) itemView.findViewById(R.id.tv_pesan);
-            time = (TextView) itemView.findViewById(R.id.waktu);
+            cardProfile = itemView.findViewById(R.id.card_profile);
+            cardContent = itemView.findViewById(R.id.card_content);
+            relativeContainer = itemView.findViewById(R.id.relative_container);
+            profileImage = itemView.findViewById(R.id.profile_image);
+            message = itemView.findViewById(R.id.tv_pesan);
+            time = itemView.findViewById(R.id.waktu);
         }
     }
 
@@ -107,7 +107,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         User user = snapshot.getValue(User.class);
                         if (user.getImageURL() != null){
-                            Glide.with(mContext).load(user.getImageURL()).into(holder.profileImage);
+                            Glide.with(mContext.getApplicationContext()).load(user.getImageURL()).into(holder.profileImage);
                         }
                     }
 

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
@@ -56,7 +57,7 @@ public class MessageActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private User lawanBicara;
     private ImageView fotoLawanBicara;
-    private TextView namaLawanBicara;
+    private TextView namaLawanBicara, statusLawanBicara;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,11 +68,27 @@ public class MessageActivity extends AppCompatActivity {
         fotoLawanBicara = findViewById(R.id.profile_image);
         namaLawanBicara = findViewById(R.id.username);
         messageArrayList = new ArrayList<>();
+        statusLawanBicara = findViewById(R.id.status_user);
+        User.setAuthStatus("Online");
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         lawanBicara = getIntent().getParcelableExtra("USER");
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
+        databaseReference.child(lawanBicara.getId()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                statusLawanBicara.setText(user.getStatus());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,5 +163,23 @@ public class MessageActivity extends AppCompatActivity {
                 inputMessage.setText("");
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        User.setAuthStatus("Offline");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        User.setAuthStatus("Offline");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        User.setAuthStatus("Online");
     }
 }
