@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.diazs.notify.Adapter.ListForumAdapter;
+import com.diazs.notify.Adapter.ProfileAdapter;
 import com.diazs.notify.Model.Forum;
 import com.diazs.notify.Model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -40,8 +41,9 @@ public class ProfilActivity extends AppCompatActivity {
     ImageButton btnLogout;
 
     private DatabaseReference mDatabase;
-    private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser currentUser;
+    FirebaseDatabase dbForum = FirebaseDatabase.getInstance();
     private RecyclerView recyclerView;
     private ArrayList<Forum> list = new ArrayList<>();
 
@@ -180,8 +182,24 @@ public class ProfilActivity extends AppCompatActivity {
     }
     private void showRecyclerList(){
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        ListForumAdapter ListForumAdapter = new ListForumAdapter(list);
-        recyclerView.setAdapter(ListForumAdapter);
+        dbForum.getReference("forum").orderByChild("author").equalTo(mAuth.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
+                    Forum forum = dataSnapshot.getValue(Forum.class);
+                    list.add(forum);
+                }
+                ProfileAdapter profileAdapter = new ProfileAdapter(list);
+                recyclerView.setAdapter(profileAdapter);
+                profileAdapter.setOnItemClickCallback(data -> showSelectedItem(data));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     @Override
@@ -226,6 +244,13 @@ public class ProfilActivity extends AppCompatActivity {
 
         AlertDialog alertDialog = alert.create();
         alertDialog.show();
+    }
+    private void showSelectedItem(Forum forum){
+        Intent intent = new Intent(ProfilActivity.this, DetailVoting.class);
+        intent.putExtra(DetailVoting.EXTRA_JUDUL,forum.getJudul());
+        intent.putExtra(DetailVoting.EXTRA_DESC,forum.getDeskripsi());
+        intent.putExtra(DetailVoting.EXTRA_EXP,forum.getAuthor());
+        startActivity(intent);
     }
 
     public void setListener(){
