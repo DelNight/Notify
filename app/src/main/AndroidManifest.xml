@@ -15,41 +15,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".AddClassActivity"></activity>
-        <activity android:name=".LoginActivity" >
-        </activity>
+        <activity android:name=".LoginActivity"></activity>
         <activity android:name=".ResetActivity" />
-        <activity android:name=".EditProfileActivity"/>
+        <activity android:name=".EditProfileActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".BookmarkActivity" />
         <activity android:name=".FormCandidate" />
-        <activity android:name=".FormLearn">
-        </activity>
-        <activity android:name=".BerandaActivity">
-        </activity>
-        <activity android:name=".VideoActivity" />
-        <activity android:name=".RoomChat" />
+        <activity android:name=".FormLearn"></activity>
+        <activity android:name=".BerandaActivity"></activity>
         <activity android:name=".InputEvent" />
-        <activity android:name=".FormVoting">
-        </activity>
+        <activity android:name=".FormVoting"></activity>
         <activity android:name=".ListChatActivity" />
-        <activity
-            android:name=".LearnActivity"
-            android:label="@string/title_activity_learn"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-        <activity android:name=".ListChatActivity">
-
-        </activity>
         <activity android:name=".DetailELearn">
 
         </activity>
         <activity android:name=".HomeActivity" />
         <activity android:name=".NotificationActivity" />
         <activity android:name=".ProfilActivity" />
-        <activity android:name=".DetailVoting"/>
-        <activity android:name=".FormForum"/>
-        <activity android:name=".ForumActivity"/>
+        <activity android:name=".DetailVoting" />
+        <activity android:name=".FormForum" />
+        <activity android:name=".ForumActivity" />
 
         <activity android:name=".ProfilCalon">
 

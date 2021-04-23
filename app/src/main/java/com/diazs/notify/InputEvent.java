@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import
         android.graphics.drawable.ColorDrawable;
@@ -41,11 +42,11 @@ public class InputEvent extends AppCompatActivity {
     DatabaseReference dbEvent;
     DatePickerDialog.OnDateSetListener setListener;
     private Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_event);
-
 
         spinner = findViewById(R.id.spinner);
         judul = findViewById(R.id.judulEvent);
@@ -64,7 +65,6 @@ public class InputEvent extends AppCompatActivity {
 
             }
         });
-
 
         btn_submit = findViewById(R.id.btn_submit);
 

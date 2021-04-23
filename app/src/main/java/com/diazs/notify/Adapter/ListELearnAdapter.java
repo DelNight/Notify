@@ -50,6 +50,7 @@ public class ListELearnAdapter extends RecyclerView.Adapter<ListELearnAdapter.EL
     @Override
     public void onBindViewHolder(@NonNull ELearnViewHolder holder, int position) {
         Materi materi = materiArrayList.get(position);
+
         holder.tvJudul.setText(materi.getJudulMateri());
         holder.tvDeskripsi.setText(materi.getDeskripsiMateri());
         holder.tvDetail.setOnClickListener(new View.OnClickListener() {

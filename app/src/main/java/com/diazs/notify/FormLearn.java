@@ -172,6 +172,7 @@ public class FormLearn extends AppCompatActivity {
                 materi.setPdfMateri(null);
 
                 materi.setIdMateri(dbKey);
+
                 firebaseDatabase.getReference("learn").child(dbKey).setValue(materi).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

@@ -15,10 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.diazs.notify.MessageActivity;
-import com.diazs.notify.Model.ChatList;
 import com.diazs.notify.Model.ChatMessage;
 import com.diazs.notify.Model.DateFormater;
-import com.diazs.notify.Model.Materi;
 import com.diazs.notify.Model.User;
 import com.diazs.notify.R;
 import com.google.firebase.auth.FirebaseAuth;

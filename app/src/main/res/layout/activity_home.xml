@@ -168,6 +168,7 @@
             android:backgroundTint="@color/color2"
             android:src="@drawable/ic_baseline_add_white"
             app:layout_anchor="@id/bottomAppBar"/>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <com.airbnb.lottie.LottieAnimationView
@@ -178,6 +179,6 @@
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_repeatMode="reverse"
-            android:background="@color/white"/>
+            android:background="@color/white" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

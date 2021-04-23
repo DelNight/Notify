@@ -267,6 +267,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public void showSelectedItem(Materi materi){
         Intent intent = new Intent(HomeActivity.this, DetailELearn.class);
         intent.putExtra("MATERI", materi);
+
         startActivity(intent);
     }
 }
